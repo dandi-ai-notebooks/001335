@@ -1,0 +1,180 @@
+{
+    "scores": [
+        {
+            "name": "describe-dandiset",
+            "version": 1,
+            "score": 8.666666666666666,
+            "reps": [
+                {
+                    "score": 9.0,
+                    "thinking": "The notebook provides the Dandiset ID, shows the file content, details the experimental setup, and gives a clear overview of the type of data (Neuropixels recordings in mouse hippocampus during odor presentation). It details the purpose, contents, and basic metadata like subject ID, age, sex. Also, it shows the data organization in terms of blocks and odor presentations. This justifies a score of 9. It could be a 10 if it included the title in its description of the Dandiset.",
+                    "repnum": 0
+                },
+                {
+                    "score": 8.0,
+                    "thinking": "The notebook provides the Dandiset ID, and describes the purpose of the dataset. It also describes the contents of the dataset, including the presence of LFP and spike data. The notebook also mentions metadata regarding the subjects and experiments in the dataset. Thus, the notebook describes the Dandiset to a good extent.",
+                    "repnum": 1
+                },
+                {
+                    "score": 9.0,
+                    "thinking": "The notebook provides the Dandiset ID, loads the dandiset, and explores its contents. It describes the type of data contained (Neuropixels recordings from mouse hippocampus during odor presentation), the basic structure of the data, and how to access different components such as LFP and spike times. It also describes the experimental design details such as odor presentation statistics and block timings. The notebook also goes over key metadata fields such as the subject ID, age, sex, species, experimenter, lab, and institution. This corresponds to a score of 9.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "load-dandiset",
+            "version": 1,
+            "score": 6.666666666666667,
+            "reps": [
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook successfully loads the dandiset using the DandiAPIClient and retrieves asset information (NWB file path and size). It then iterates through the assets and prints the file path and size, which constitutes exploring multiple metadata fields associated with the dandiset. Also, there is a description about the notebook and the data in the markdown.",
+                    "repnum": 0
+                },
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook successfully uses the DandiAPIClient to load the dandiset and access information, including the number of NWB files and the file sizes. It prints the dandiset ID and the size of the NWB file. It also accesses other metadata fields like session description, subject ID, age, sex, species, experimenter, lab, and institution. The notebook effectively loads and displays multiple metadata fields, but could be better with more descriptions of each field. Therefore, a score of 7 is appropriate.",
+                    "repnum": 1
+                },
+                {
+                    "score": 6.0,
+                    "thinking": "The notebook successfully loads the Dandiset by its ID using the DandiAPIClient, retrieves the assets, and prints their paths and sizes. It displays key metadata fields such as the session description, subject ID, age, sex, species, experimenter, lab, and institution. Therefore, the notebook loads and displays basic metadata fields.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "load-dandiset-assets",
+            "version": 1,
+            "score": 6.0,
+            "reps": [
+                {
+                    "score": 6.0,
+                    "thinking": "The notebook successfully lists the available assets, loads the NWB file (a specific asset), and shows how to access its metadata (session description, subject ID, etc.).",
+                    "repnum": 0
+                },
+                {
+                    "score": 6.0,
+                    "thinking": "The notebook demonstrates how to load the Dandiset asset, list available assets, access basic session information, and load specific assets (NWB file). It also shows how to access and explore the data within the NWB file. However, it does not comprehensively explore multiple asset types or delve deeply into metadata exploration beyond basic session information, it loads and provides examples of the data. Therefore, the notebook gets a score of 6.",
+                    "repnum": 1
+                },
+                {
+                    "score": 6.0,
+                    "thinking": "The notebook uses DandiAPIClient to get and list assets of a specific Dandiset. It also loads a specific asset in order to explore the data.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "load-nwb",
+            "version": 1,
+            "score": 8.333333333333334,
+            "reps": [
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook successfully loads an NWB file from a DANDI dataset using the `lindi` library (score = 4). It then proceeds to demonstrate accessing and exploring various NWB data structures such as session information, electrode information, block timings, odor presentation statistics, LFP data, and spike data (scores = 5,6,7). It retrieves information about electrodes, their depths, and plots their distribution. It also gets timing of experimental blocks and odor presentation statistics. LFP data is accessed and plotted for specific channels. Spike data (units) are also accessed and visualized. Thus, it goes beyond simply opening the file and explores and visualizes multiple key data components within the NWB file. Does not show aspects of navitgation or comprehensive exploration and therefore a score of 9 or 10 would be too high.",
+                    "repnum": 0
+                },
+                {
+                    "score": 9.0,
+                    "thinking": "The notebook successfully loads an NWB file from a DANDI dataset and accesses several key data components, including session information, electrode depths, LFP data, and spike data. It demonstrates how to navigate the NWB hierarchy to extract relevant information, plot electrode/unit depth distributions, and visualize LFP data including behavioral events. The notebook explains how to load the data using lindi and pynwb. The notebook describes experimental block structure and odor presentation statistics, demonstrating comprehensive exploration and access of the NWB file contents, and loading basic information from an NWB file. It also suggests next steps of processing of the data. Not everything is included e.g., electrode groups were not accessed.",
+                    "repnum": 1
+                },
+                {
+                    "score": 9.0,
+                    "thinking": "The notebook successfully loads an NWB file from a DANDI dataset and demonstrates accessing various NWB components, including session information, electrode information, LFP data, and spike data. The notebook clearly shows how to navigate the NWB hierarchy and extract key data components. I am giving it a '9' because it explores multiple NWB data structures and provides a fairly comprehensive overview of what the NWB file contains and how to access it. However, it doesn't fully exhaust the possibilities when it comes to detailing the NWB file structure, which would merit a '10'.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "load-nwb-data",
+            "version": 1,
+            "score": 8.333333333333334,
+            "reps": [
+                {
+                    "score": 8.0,
+                    "thinking": "The notebook successfully loads the NWB file from the DANDI API and extracts various data elements, including session information, electrode depths, LFP data, and unit data. It demonstrates how to access intervals such as odor presentations and plot LFP traces at different depths. The notebook appropriately handles different data types and presents complex data structures, which shows that the notebook can comprehensively manage multiple data types, and can handle different NWB data types. Thus, the notebook explores a complex data structure, accessing the timestamps for odors, plotting data, and extracting session information. There are many different data elements and types accessed and used appropriately.",
+                    "repnum": 0
+                },
+                {
+                    "score": 8.0,
+                    "thinking": "The notebook demonstrates loading data from an NWB file. It demonstrates connecting to the DANDI API, listing assets, loading an NWB file, accessing basic session information, electrode data, LFP data, unit data, and odor presentation timings. It loads and plots LFP data during odor presentation. It also demonstrates plotting unit depth distributions. It handles different data types (e.g. strings, numerical arrays, TimeSeries). Thus, it adequately shows how to load and handle different data types from the NWB file. The notebook explores complex data structures (e.g., electrodes, LFP, units) with relevant examples and visualization. The notebook does not explicitly demonstrate advanced data access techniques beyond indexing and accessing named attributes. Therefore, based on the rubric, a score of 8 seems appropriate.",
+                    "repnum": 1
+                },
+                {
+                    "score": 9.0,
+                    "thinking": "The notebook successfully loads an NWB file hosted on a remote server using lindi. It then accesses and visualizes several data elements, including electrode depths, block timings, odor presentation statistics, LFP data, and spike data. It demonstrates how to access basic session info, experimental details, LFP data, and spike data. There is a clear progression and the notebook is well documented. The code accesses multiple data elements and handles different data types such as floats and strings. Accessing specific data types like LFP is also shown. The approach is very comprehensive. It could have been a bit more advanced by including a demonstration on how to load data in chunks to improve memory usage. Considering this is an introductory notebook, I give it a 9. A comprehensive demonstration of loading and handling multiple data types like this would be a 10.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "visualize-nwb-data",
+            "version": 1,
+            "score": 7.0,
+            "reps": [
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook provides several visualizations of the data from the Neuropixels recording, including histograms of electrode depths, bar plots of block durations, LFP traces at different depths, and unit depth distributions. The visualizations are properly labeled and include titles and axis labels. However, the visualizations are relatively basic and do not incorporate advanced techniques, nor publication-quality aesthetics. Therefore, a score of 7 is appropriate.",
+                    "repnum": 0
+                },
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook demonstrates multiple aspects of data visualization, including electrode depth distribution, block durations, LFP traces, and unit depth distribution. The visualizations are generally clear and labeled, but are basic and could benefit from more formatting and advanced techniques. Therefore, a score of 7 is justified.",
+                    "repnum": 1
+                },
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook provides visualizations of electrode depths, block durations, LFP data at different depths, and unit depth distribution. The plots are labeled and have titles, making them relatively easy to understand. However, the visualizations are fairly basic (histograms, bar plots, line plots), and could be improved with more advanced techniques. It visualizes multiple data types, including electrode positions, experiment structure, LFP and spike data.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "plot-quality",
+            "version": 1,
+            "score": 7.0,
+            "reps": [
+                {
+                    "score": 7.0,
+                    "thinking": "The plots are generally well-formatted with labels included and appropriate titling. Some plots would benefit from more customization and improved aesthetics for publication. Specifically, the final plot has overlapping labels in the legend. The plots are clear and provide useful information about the dataset.",
+                    "repnum": 0
+                },
+                {
+                    "score": 7.0,
+                    "thinking": "The plots are clear and readable, with labels and legends where necessary. The formatting is good, and the plots convey the intended information effectively. The plots are well-formatted and have complete labels but are not quite publication-ready.",
+                    "repnum": 1
+                },
+                {
+                    "score": 7.0,
+                    "thinking": "The plots are generally well-formatted and readable with complete labels. They also include titles and gridlines, which adds to their clarity. The plots are of good quality, but not necessarily ready for official publication. Therefore I am rating the plot quality a 7.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "plot-quantity",
+            "version": 1,
+            "score": 6.0,
+            "reps": [
+                {
+                    "score": 6.0,
+                    "thinking": "The notebook contains four plots. The first one shows the distribution of electrode depths, the second one illustrates the duration of experimental blocks, the third one visualizes the LFP at different depths during odor presentation, and the fourth one depicts the distribution of unit recording depths. Each of these plots provides different information about the dataset.",
+                    "repnum": 0
+                },
+                {
+                    "score": 6.0,
+                    "thinking": "The notebook contains four plots:\n1. Distribution of electrode depths\n2. Duration of experimental blocks\n3. LFP at different depths during odor presentation.\n4. Distribution of unit recording depths.\nEach plot visualizes different aspects of the data. Therefore, the score is 6.",
+                    "repnum": 1
+                },
+                {
+                    "score": 6.0,
+                    "thinking": "The notebook contains four effective plots:\n1.  Distribution of Recording Depths (electrodes)\n2.  Duration of Experimental Blocks\n3.  LFP at Different Depths During First Odor A Presentation\n4.  Distribution of Unit Recording Depths\n\nEach plot is informative and visualizes a different aspect of the data (electrode depths, block timings, LFP signals, unit depths). The plots use different visualization types (histograms, bar plots, line plots). They effectively demonstrate the different components of the data.",
+                    "repnum": 2
+                }
+            ]
+        }
+    ]
+}

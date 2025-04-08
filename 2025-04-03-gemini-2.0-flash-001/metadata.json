@@ -1,0 +1,17 @@
+{
+  "dandi_notebook_gen_version": "0.1.0",
+  "system_info": {
+    "platform": "Linux-6.8.0-57-generic-x86_64-with-glibc2.35",
+    "hostname": "system76-pc",
+    "processor": "x86_64",
+    "python_version": "3.12.2"
+  },
+  "model": "google/gemini-2.0-flash-001",
+  "vision_model": "google/gemini-2.0-flash-001",
+  "total_prompt_tokens": 389165,
+  "total_completion_tokens": 7185,
+  "total_vision_prompt_tokens": 3788,
+  "total_vision_completion_tokens": 305,
+  "timestamp": "2025-04-03 17:29:06",
+  "elapsed_time_seconds": 134.57555961608887
+}

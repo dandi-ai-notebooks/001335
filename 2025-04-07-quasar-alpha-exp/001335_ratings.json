@@ -1,0 +1,180 @@
+{
+    "scores": [
+        {
+            "name": "describe-dandiset",
+            "version": 1,
+            "score": 9.0,
+            "reps": [
+                {
+                    "score": 9.0,
+                    "thinking": "The notebook provides a good description of the Dandiset. It includes the Dandiset ID and title, a brief overview of the contents (Neuropixels recordings during odor presentation), contributors, institution, creation date, license, and citation information. It also mentions that it showcases how to access DANDI assets and explore NWB datasets. It describes the purpose of the dataset, contents, and includes key metadata fields. Therefore, the score should be 9. It also mentions that this Dandiset contains recordings from hippocampus while mice were exposed to odor sequences.",
+                    "repnum": 0
+                },
+                {
+                    "score": 9.0,
+                    "thinking": "The notebook provides a good description including the Dandiset's ID, title, contributors, institution, date, license, citation, purpose, and a summary of the contents (neural recordings from hippocampus of mice during odor presentation). The initial markdown cell contains most of the key elements. Throughout the notebook, descriptions of the data are included alongside the code, providing context.",
+                    "repnum": 1
+                },
+                {
+                    "score": 9.0,
+                    "thinking": "The notebook provides a good description of the Dandiset including its name, ID, a summary of its contents, contributors, institution, creation date, license, and citation information. The notebook also explains the structure of the data within the Dandiset, such as the intervals and electrodes metadata. It shows specifically what kind of data can be found, the experimental design and the possible ways to vizualise the data. Overall, the notebook offers a comprehensive introduction, but could be more exhaustive in detailing the data organization (e.g., linking intervals to specific experimental conditions in detail). Given this the score will be 9.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "load-dandiset",
+            "version": 1,
+            "score": 6.333333333333333,
+            "reps": [
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook uses the DandiAPIClient to get the Dandiset and list the asset paths. It also uses pynwb to load the nwb file. The notebook prints the Dandiset's session description, identifier, start time, and experimenters, demonstrating loading and displaying multiple metadata fields. Therefore, the score is between 6 and 8. The notebook has some minor explanations but could expand on it.",
+                    "repnum": 0
+                },
+                {
+                    "score": 6.0,
+                    "thinking": "The notebook uses `dandiapi` to load the Dandiset and retrieve its assets. It then extracts the Dandiset ID (\"001335\") and accesses metadata fields such as session description, identifier, start time, and experimenters, printing them effectively. This constitutes a good demonstration of loading and displaying basic metadata fields. Therefore the score is 6.",
+                    "repnum": 1
+                },
+                {
+                    "score": 6.0,
+                    "thinking": "The notebook uses `dandi-api` to load the dandiset and then proceeds to print the dandiset ID and provides the description, start time, and experimenters. It thus loads and displays basic metadata fields. However, it does not delve deeper into comprehensive loading and working with key metadata fields.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "load-dandiset-assets",
+            "version": 1,
+            "score": 5.666666666666667,
+            "reps": [
+                {
+                    "score": 5.0,
+                    "thinking": "The notebook successfully lists the available assets in the Dandiset using the DANDI APIclient. It also loads the main NWB file using lindi + pynwb and prints basic information from it such as session description, identifier and start time.",
+                    "repnum": 0
+                },
+                {
+                    "score": 6.0,
+                    "thinking": "The notebook successfully uses the DANDI API to list the available assets in the Dandiset (score 4). It then loads the main NWB file successfully using lindi and pynwb (score 6). The notebook also accesses metadata of the NWB file such as session description, identifier, start time and experimenters, which demonstrates loading basic asset information as well (score 5).\n    Therefore, the notebook demonstrates loading specific assets but does not show how to access asset metadata, explore multiple asset types, or have a comprehensive asset handling with metadata exploration.",
+                    "repnum": 1
+                },
+                {
+                    "score": 6.0,
+                    "thinking": "The notebook first lists all assets in the Dandiset using the DANDI API, then loads the main NWB file from a specific asset URL using lindi and pynwb. This allows accessing and exploring the contents of the NWB dataset. The notebook demonstrates how to list the available assets and load a specific one.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "load-nwb",
+            "version": 1,
+            "score": 7.0,
+            "reps": [
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook successfully loads an NWB file using lindi and pynwb, then proceeds to demonstrate how to access several different high-level components of the NWB file (session description, intervals, electrodes, LFP data, and units). Therefore, it gets a score of 7.",
+                    "repnum": 0
+                },
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook successfully loads an NWB file using lindi and pynwb. It then demonstrates how to access basic NWB components such as session description, identifier, start time, experimenters, intervals, electrodes metadata, LFP data, and spike waveforms. The notebook also visualizes LFP snippets, spike waveform means, and event-aligned raster plots. Therefore, the notebook demonstrates how to access and explore various NWB data structures and components.",
+                    "repnum": 1
+                },
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook successfully loads an NWB file, accesses basic components like session description, identifiers, and intervals, and explores data structures like electrodes and LFP. It demonstrates accessing and visualizing LFP data, spike waveforms, and event-aligned raster plots. Thus, it demonstrates accessing basic NWB components, explores multiple data structures and navigates the hierarchy of the NWB file very well.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "load-nwb-data",
+            "version": 1,
+            "score": 8.333333333333334,
+            "reps": [
+                {
+                    "score": 8.0,
+                    "thinking": "The notebook demonstrates how to load an NWB file from a DANDI archive using lindi and pynwb. It accesses multiple data elements from the NWB file, including session description, identifier, start time, experimenters, intervals, electrode metadata, LFP data, and spike waveforms. It also shows how to access spike times aligned to odor presentation events. The notebook handles different data types appropriately, such as strings, numbers, and arrays. Therefore, it loads data effectively from the NWB file and explores complex data structures providing examples.",
+                    "repnum": 0
+                },
+                {
+                    "score": 8.0,
+                    "thinking": "The notebook successfully loads an NWB file using lindi+pynwb, accesses various metadata (session description, identifier, start time, experimenters), explores interval data (blocks, odor presentation times), examines electrode metadata (number, columns, locations), accesses and visualizes LFP data, examines spike waveforms, and generates a raster plot aligned to odor presentation events. It demonstrates loading and handling of multiple data types within the NWB file. The notebook handles different data types appropriately, showcasing a successful loading process and access to several relevant data elements within the NWB file. However, further exploration using advanced data access techniques and comprehensive handling of multiple data types is limited as the analysis performed after the data is loaded is introductory. Given the scope, the data is well accessed and visualized, and the basic features are appropriately explored. The notebook does not explicitly delve into more advanced techniques for data access within the NWB file beyond the level shown.",
+                    "repnum": 1
+                },
+                {
+                    "score": 9.0,
+                    "thinking": "The notebook successfully loads data from a NWB file using `lindi` and `pynwb`. It demonstrates loading basic data like session description, identifier, and start time. It also shows how to access and explore intervals, electrode metadata, LFP data, and spike waveforms. The examples provided work and cover multiple data types. The notebook also shows how to make a raster plot from the data in the file. The code reads data without significant errors. Therefore, the notebook demonstrates advanced data access techniques.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "visualize-nwb-data",
+            "version": 1,
+            "score": 7.0,
+            "reps": [
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook demonstrates visualizing LFP snippets, spike waveforms and rasters of event aligned unit spiking. The plots are clear and properly labeled. The notebook could benefit from demonstrating additional visualization types and some more advanced techniques. Overall, it shows visualizations with proper labeling and demonstrates multiple visualization types.",
+                    "repnum": 0
+                },
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook successfully visualizes LFP data, spike waveforms, and a raster plot aligned to odor presentation. The plots are labeled, and the code executes without errors. The notebook demonstrates multiple visualization types, but the plots are not publication-quality. Also, the notebook can be improved with more formatting, such as adding a title to the raster plot's y-axis clarifying the unit indices being visualized. The visualizations could be more comprehensive by showing distributions or correlations among the data. The use of a consistent colormap to highlight the same unit across visualizations would also strengthen the notebook. While comprehensive documentation is present, it can be improved. The visualizations are quite reproducible and easy to build on.",
+                    "repnum": 1
+                },
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook successfully demonstrates how to visualize data from an NWB file. It provides examples of visualizing LFP data (example of visualizing time series data), spike waveforms (example of plotting different units), and event-aligned raster plots (example of visualizing spike times). All plots are labeled. Therefore, this notebook creates clear visualizations with proper labeling. Score 7.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "plot-quality",
+            "version": 1,
+            "score": 7.0,
+            "reps": [
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook provides three plots: LFP snippets, mean spike waveforms, and a raster plot. All plots have basic labels for the axes and legends where appropriate. The formatting is generally good, making them readable. The labels are complete although not particularly detailed. Therefore, a score of 7 is reasonable.",
+                    "repnum": 0
+                },
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook generates three plots: LFP snippets, spike waveforms, and a raster plot. The LFP plot is readable and has basic labels, though there is some overlap in the legend. The spike waveform plot is also readable, though some labels are overlapping, it shows the different Units and has labels in the axis. The raster plot is also good but not that clear, harder to interpret compared to the other two. Overall the plots are properly formatted and labeled. Therefore, a score of 7 seems appropriate.",
+                    "repnum": 1
+                },
+                {
+                    "score": 7.0,
+                    "thinking": "The notebook contains three plots.\nThe LFP plot has clear labels and shows the data well.\nThe spike waveform plot also has clear labels.\nThe raster plot is a bit busy but it is still readable due to the nature of the data.\nAll plots contain labels for axes.\nAll three plots are therefore well formatted with complete labels.",
+                    "repnum": 2
+                }
+            ]
+        },
+        {
+            "name": "plot-quantity",
+            "version": 1,
+            "score": 5.0,
+            "reps": [
+                {
+                    "score": 5.0,
+                    "thinking": "The notebook presents three effective plots: LFP snippet, mean spike waveforms, and a raster plot aligned to odor presentation. Each demonstrates different aspects of the data, contributing to a comprehensive understanding of the neural recordings.",
+                    "repnum": 0
+                },
+                {
+                    "score": 5.0,
+                    "thinking": "The notebook contains three plots: an LFP snippet, mean spike waveforms, and a raster plot aligned to odor presentation. All plots are well-formed, clearly labeled, and effectively visualize different aspects of the data (LFP activity, spike shapes, and temporal spiking patterns relative to an event). Thus, the total number of effective plots is 3.",
+                    "repnum": 1
+                },
+                {
+                    "score": 5.0,
+                    "thinking": "The notebook presents three plots: an LFP snippet, mean spike waveforms, and a raster plot aligned to odor presentation. These plots showcase different aspects of the data: raw signal, unit characteristics, and event-related activity. Therefore, the score is 5.",
+                    "repnum": 2
+                }
+            ]
+        }
+    ]
+}
