@@ -1,0 +1,3185 @@
+Using model: anthropic/claude-3.7-sonnet
+Num. messages in conversation: 2
+Submitting completion request...
+Processing response...
+I need to gather information about Dandiset 001335 before creating the notebook. Let's first run the command to get the Dandiset metadata using the tools_cli.py script.
+
+Tool: execute_command
+Params: {'command': 'python tools_cli.py dandiset-info 001335', 'requires_approval': 'false'}
+================================
+Command to be executed
+python tools_cli.py dandiset-info 001335
+================================
+{
+  "results": {
+    "id": "DANDI:001335/draft",
+    "name": "Neuropixels Recordings from Hippocampus of head-fixed mice during odor presentation",
+    "about": [],
+    "access": [
+      {
+        "status": "dandi:OpenAccess",
+        "schemaKey": "AccessRequirements"
+      }
+    ],
+    "license": [
+      "spdx:CC-BY-4.0"
+    ],
+    "version": "draft",
+    "citation": "Mohapatra, Manish; Halchenko, Yaroslav (2025) Neuropixels Recordings from Hippocampus of head-fixed mice during odor presentation (Version draft) [Data set]. DANDI Archive. https://dandiarchive.org/dandiset/001335/draft",
+    "keywords": [],
+    "protocol": [],
+    "identifier": "DANDI:001335",
+    "contributor": [
+      "Mohapatra, Manish",
+      "Halchenko, Yaroslav"
+    ],
+    "dateCreated": "2025-02-14T16:12:31.101000+00:00",
+    "description": "Head-fixed wild type mice were presented with various odor sequences, as neural activity was recorded from hippocampus using Neuropixels probes."
+  }
+}
+Total prompt tokens: 8482 + 0
+Total completion tokens: 144 + 0
+
+=========================================
+
+execute_command 'python tools_cli.py dandiset-info 001335' (requires approval):
+Command executed successfully
+STDOUT:
+{
+  "results": {
+    "id": "DANDI:001335/draft",
+    "name": "Neuropixels Recordings from Hippocampus of head-fixed mice during odor presentation",
+    "about": [],
+    "access": [
+      {
+        "status": "dandi:OpenAccess",
+        "schemaKey": "AccessRequirements"
+      }
+    ],
+    "license": [
+      "spdx:CC-BY-4.0"
+    ],
+    "version": "draft",
+    "citation": "Mohapatra, Manish; Halchenko, Yaroslav (2025) Neuropixels Recordings from Hippocampus of head-fixed mice during odor presentation (Version draft) [Data set]. DANDI Archive. https://dandiarchive.org/dandiset/001335/draft",
+    "keywords": [],
+    "protocol": [],
+    "identifier": "DANDI:001335",
+    "contributor": [
+      "Mohapatra, Manish",
+      "Halchenko, Yaroslav"
+    ],
+    "dateCreated": "2025-02-14T16:12:31.101000+00:00",
+    "description": "Head-fixed wild type mice were presented with various odor sequences, as neural activity was recorded from hippocampus using Neuropixels probes."
+  }
+}
+
+=========================================
+
+Using model: anthropic/claude-3.7-sonnet
+Num. messages in conversation: 4
+Submitting completion request...
+Processing response...
+Next, I need to get the list of assets in the Dandiset to understand what data is available. This will help me choose an appropriate NWB file to analyze in the notebook.
+
+Tool: execute_command
+Params: {'command': 'python tools_cli.py dandiset-assets 001335', 'requires_approval': 'false'}
+================================
+Command to be executed
+python tools_cli.py dandiset-assets 001335
+================================
+{
+  "results": {
+    "count": 1,
+    "results": [
+      {
+        "asset_id": "aca66db7-4c02-4453-8dcb-a179d44b1c5d",
+        "path": "sub-M541/sub-M541_ecephys.nwb",
+        "size": 1374262853
+      }
+    ]
+  }
+}
+Total prompt tokens: 17522 + 0
+Total completion tokens: 257 + 0
+
+=========================================
+
+execute_command 'python tools_cli.py dandiset-assets 001335' (requires approval):
+Command executed successfully
+STDOUT:
+{
+  "results": {
+    "count": 1,
+    "results": [
+      {
+        "asset_id": "aca66db7-4c02-4453-8dcb-a179d44b1c5d",
+        "path": "sub-M541/sub-M541_ecephys.nwb",
+        "size": 1374262853
+      }
+    ]
+  }
+}
+
+=========================================
+
+Using model: anthropic/claude-3.7-sonnet
+Num. messages in conversation: 6
+Submitting completion request...
+Processing response...
+There's only one asset in this Dandiset: a NWB file located at 'sub-M541/sub-M541_ecephys.nwb' with asset ID 'aca66db7-4c02-4453-8dcb-a179d44b1c5d'. I need to get information on how to access and use this file by constructing the URL and using the nwb-file-info command.
+
+The URL format is: https://api.dandiarchive.org/api/assets/<ASSET_ID>/download/
+So the URL for this file is: https://api.dandiarchive.org/api/assets/aca66db7-4c02-4453-8dcb-a179d44b1c5d/download/
+
+Tool: execute_command
+Params: {'command': 'python tools_cli.py nwb-file-info 001335 https://api.dandiarchive.org/api/assets/aca66db7-4c02-4453-8dcb-a179d44b1c5d/download/', 'requires_approval': 'false'}
+================================
+Command to be executed
+python tools_cli.py nwb-file-info 001335 https://api.dandiarchive.org/api/assets/aca66db7-4c02-4453-8dcb-a179d44b1c5d/download/
+================================
+/home/magland/src/dandi-ai-notebooks-3/packages/get-nwbfile-info/src/get_nwbfile_info/core.py:319: UserWarning: Warning: Duplicate entries found in the results.
+  warnings.warn("Warning: Duplicate entries found in the results.")
+# This script shows how to load the NWB file at https://api.dandiarchive.org/api/assets/aca66db7-4c02-4453-8dcb-a179d44b1c5d/download/ in Python using PyNWB
+
+import pynwb
+import h5py
+import remfile
+
+# Load
+url = "https://api.dandiarchive.org/api/assets/aca66db7-4c02-4453-8dcb-a179d44b1c5d/download/"
+remote_file = remfile.File(url)
+h5_file = h5py.File(remote_file)
+io = pynwb.NWBHDF5IO(file=h5_file)
+nwb = io.read()
+
+nwb # (NWBFile)
+nwb.session_description # (str) Block 1:UE (ABC), Block 2:SE (DEF), Block3:Localizer
+nwb.identifier # (str) M541-2024-08-31
+nwb.session_start_time # (datetime) 2025-02-14T10:53:25.647928-05:00
+nwb.timestamps_reference_time # (datetime) 2025-02-14T10:53:25.647928-05:00
+nwb.file_create_date # (list) [datetime.datetime(2025, 2, 14, 10, 53, 25, 648683, tzinfo=tzoffset(None, -18000))]
+nwb.experimenter # (tuple) ['Mohapatra, Manish']
+nwb.keywords # (StrDataset) shape (4,); dtype object
+# nwb.keywords[:] # Access all data
+# nwb.keywords[0:10] # Access first 10 elements
+# First few values of nwb.keywords: ['ecephys' 'neuropixels' 'odor-sequences' 'hippocampus']
+nwb.processing # (LabelledDict)
+nwb.processing["ecephys"] # (ProcessingModule)
+nwb.processing["ecephys"].description # (str) LFP data obtained from rawdata
+nwb.processing["ecephys"].data_interfaces # (LabelledDict)
+nwb.processing["ecephys"].data_interfaces["LFP"] # (ElectricalSeries)
+nwb.processing["ecephys"].data_interfaces["LFP"].starting_time # (float64) 0.0
+nwb.processing["ecephys"].data_interfaces["LFP"].rate # (float64) 2500.0
+nwb.processing["ecephys"].data_interfaces["LFP"].resolution # (float64) -1.0
+nwb.processing["ecephys"].data_interfaces["LFP"].comments # (str) no comments
+nwb.processing["ecephys"].data_interfaces["LFP"].description # (str) Raw data subsampled  2500 Hz and bandpass filtered in the range 1-400 Hz
+nwb.processing["ecephys"].data_interfaces["LFP"].conversion # (float64) 1.0
+nwb.processing["ecephys"].data_interfaces["LFP"].offset # (float64) 0.0
+nwb.processing["ecephys"].data_interfaces["LFP"].unit # (str) volts
+nwb.processing["ecephys"].data_interfaces["LFP"].data # (Dataset) shape (15475276, 64); dtype float64
+# nwb.processing["ecephys"].data_interfaces["LFP"].data[:, :] # Access all data
+# nwb.processing["ecephys"].data_interfaces["LFP"].data[0:10, :] # Access first 10 rows
+# nwb.processing["ecephys"].data_interfaces["LFP"].data[:, 0:10] # Access first 10 columns
+nwb.processing["ecephys"].data_interfaces["LFP"].starting_time_unit # (str) seconds
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes # (DynamicTableRegion)
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.description # (str) LFP electrodes
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table # (DynamicTable)
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.description # (str) metadata about extracellular electrodes
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.colnames # (tuple) ['location', 'group', 'group_name', 'label', 'depth', 'hemisphere']
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.columns # (tuple)
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.id # (ElementIdentifiers)
+# nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 64 rows and 6 columns
+# nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 64
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.location # (VectorData) the location of channel within the subject e.g. brain region
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.group # (VectorData) a reference to the ElectrodeGroup this electrode is a part of
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.group_name # (VectorData) the name of the ElectrodeGroup this electrode is a part of
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.label # (VectorData) Identifier for the channel on the probe
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.depth # (VectorData) Location of the electrode on the probe
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.hemisphere # (VectorData) Location of the electrode on the probe
+nwb.electrode_groups # (LabelledDict)
+nwb.electrode_groups["imec0.shank0"] # (ElectrodeGroup)
+nwb.electrode_groups["imec0.shank0"].description # (str) electrode group for shank 0 on imec0
+nwb.electrode_groups["imec0.shank0"].location # (str) brain area
+nwb.electrode_groups["imec0.shank0"].device # (Device)
+nwb.electrode_groups["imec0.shank0"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec0.shank0"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec0.shank1"] # (ElectrodeGroup)
+nwb.electrode_groups["imec0.shank1"].description # (str) electrode group for shank 1 on imec0
+nwb.electrode_groups["imec0.shank1"].location # (str) brain area
+nwb.electrode_groups["imec0.shank1"].device # (Device)
+nwb.electrode_groups["imec0.shank1"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec0.shank1"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec0.shank2"] # (ElectrodeGroup)
+nwb.electrode_groups["imec0.shank2"].description # (str) electrode group for shank 2 on imec0
+nwb.electrode_groups["imec0.shank2"].location # (str) brain area
+nwb.electrode_groups["imec0.shank2"].device # (Device)
+nwb.electrode_groups["imec0.shank2"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec0.shank2"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec0.shank3"] # (ElectrodeGroup)
+nwb.electrode_groups["imec0.shank3"].description # (str) electrode group for shank 3 on imec0
+nwb.electrode_groups["imec0.shank3"].location # (str) brain area
+nwb.electrode_groups["imec0.shank3"].device # (Device)
+nwb.electrode_groups["imec0.shank3"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec0.shank3"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec1.shank0"] # (ElectrodeGroup)
+nwb.electrode_groups["imec1.shank0"].description # (str) electrode group for shank 0 on imec1
+nwb.electrode_groups["imec1.shank0"].location # (str) brain area
+nwb.electrode_groups["imec1.shank0"].device # (Device)
+nwb.electrode_groups["imec1.shank0"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec1.shank0"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec1.shank1"] # (ElectrodeGroup)
+nwb.electrode_groups["imec1.shank1"].description # (str) electrode group for shank 1 on imec1
+nwb.electrode_groups["imec1.shank1"].location # (str) brain area
+nwb.electrode_groups["imec1.shank1"].device # (Device)
+nwb.electrode_groups["imec1.shank1"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec1.shank1"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec1.shank2"] # (ElectrodeGroup)
+nwb.electrode_groups["imec1.shank2"].description # (str) electrode group for shank 2 on imec1
+nwb.electrode_groups["imec1.shank2"].location # (str) brain area
+nwb.electrode_groups["imec1.shank2"].device # (Device)
+nwb.electrode_groups["imec1.shank2"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec1.shank2"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec1.shank3"] # (ElectrodeGroup)
+nwb.electrode_groups["imec1.shank3"].description # (str) electrode group for shank 3 on imec1
+nwb.electrode_groups["imec1.shank3"].location # (str) brain area
+nwb.electrode_groups["imec1.shank3"].device # (Device)
+nwb.electrode_groups["imec1.shank3"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec1.shank3"].device.manufacturer # (str) IMEC
+nwb.devices # (LabelledDict)
+nwb.devices["imec0"] # (Device)
+nwb.devices["imec0"].description # (str) 4-shank NPX2.0 
+nwb.devices["imec0"].manufacturer # (str) IMEC
+nwb.devices["imec1"] # (Device)
+nwb.devices["imec1"].description # (str) 4-shank NPX2.0 
+nwb.devices["imec1"].manufacturer # (str) IMEC
+nwb.intervals # (LabelledDict)
+nwb.intervals["Block 1"] # (TimeIntervals)
+nwb.intervals["Block 1"].description # (str) Interval when Block 1 odors were being presented
+nwb.intervals["Block 1"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Block 1"].columns # (tuple)
+nwb.intervals["Block 1"].id # (ElementIdentifiers)
+# nwb.intervals["Block 1"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 1 rows and 2 columns
+# nwb.intervals["Block 1"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 1
+nwb.intervals["Block 1"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Block 1"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Block 2"] # (TimeIntervals)
+nwb.intervals["Block 2"].description # (str) Interval when Block 2 odors were being presented
+nwb.intervals["Block 2"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Block 2"].columns # (tuple)
+nwb.intervals["Block 2"].id # (ElementIdentifiers)
+# nwb.intervals["Block 2"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 1 rows and 2 columns
+# nwb.intervals["Block 2"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 1
+nwb.intervals["Block 2"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Block 2"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Block 3"] # (TimeIntervals)
+nwb.intervals["Block 3"].description # (str) Interval when Block 3 odors were being presented
+nwb.intervals["Block 3"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Block 3"].columns # (tuple)
+nwb.intervals["Block 3"].id # (ElementIdentifiers)
+# nwb.intervals["Block 3"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 1 rows and 2 columns
+# nwb.intervals["Block 3"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 1
+nwb.intervals["Block 3"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Block 3"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor A ON"] # (TimeIntervals)
+nwb.intervals["Odor A ON"].description # (str) Intervals when Odor A was being presented
+nwb.intervals["Odor A ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor A ON"].columns # (tuple)
+nwb.intervals["Odor A ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor A ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor A ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor A ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor A ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor B ON"] # (TimeIntervals)
+nwb.intervals["Odor B ON"].description # (str) Intervals when Odor B was being presented
+nwb.intervals["Odor B ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor B ON"].columns # (tuple)
+nwb.intervals["Odor B ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor B ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor B ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor B ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor B ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor C ON"] # (TimeIntervals)
+nwb.intervals["Odor C ON"].description # (str) Intervals when Odor C was being presented
+nwb.intervals["Odor C ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor C ON"].columns # (tuple)
+nwb.intervals["Odor C ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor C ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor C ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor C ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor C ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor D ON"] # (TimeIntervals)
+nwb.intervals["Odor D ON"].description # (str) Intervals when Odor D was being presented
+nwb.intervals["Odor D ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor D ON"].columns # (tuple)
+nwb.intervals["Odor D ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor D ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor D ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor D ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor D ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor E ON"] # (TimeIntervals)
+nwb.intervals["Odor E ON"].description # (str) Intervals when Odor E was being presented
+nwb.intervals["Odor E ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor E ON"].columns # (tuple)
+nwb.intervals["Odor E ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor E ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor E ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor E ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor E ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor F ON"] # (TimeIntervals)
+nwb.intervals["Odor F ON"].description # (str) Intervals when Odor F was being presented
+nwb.intervals["Odor F ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor F ON"].columns # (tuple)
+nwb.intervals["Odor F ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor F ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor F ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor F ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor F ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.experiment_description # (str) Head-fixed mouse presented with odor sequences
+nwb.lab # (str) vandermeerlab
+nwb.institution # (str) Dartmouth College
+nwb.electrodes # (DynamicTable)
+nwb.electrodes.description # (str) metadata about extracellular electrodes
+nwb.electrodes.colnames # (tuple) ['location', 'group', 'group_name', 'label', 'depth', 'hemisphere']
+nwb.electrodes.columns # (tuple)
+nwb.electrodes.id # (ElementIdentifiers)
+# nwb.electrodes.to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 64 rows and 6 columns
+# nwb.electrodes.to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 64
+nwb.electrodes.location # (VectorData) the location of channel within the subject e.g. brain region
+nwb.electrodes.group # (VectorData) a reference to the ElectrodeGroup this electrode is a part of
+nwb.electrodes.group_name # (VectorData) the name of the ElectrodeGroup this electrode is a part of
+nwb.electrodes.label # (VectorData) Identifier for the channel on the probe
+nwb.electrodes.depth # (VectorData) Location of the electrode on the probe
+nwb.electrodes.hemisphere # (VectorData) Location of the electrode on the probe
+nwb.subject # (Subject)
+nwb.subject.age # (str) P8W/
+nwb.subject.age__reference # (str) birth
+nwb.subject.description # (str) Headbarr-ed mouse with craniotomies over dCA1
+nwb.subject.sex # (str) M
+nwb.subject.species # (str) Mus musculus
+nwb.subject.subject_id # (str) M541
+nwb.units # (Units)
+nwb.units.description # (str) Autogenerated by NWBFile
+nwb.units.colnames # (tuple) ['depth', 'hemisphere', 'global_id', 'spike_times', 'electrode_group', 'waveform_mean']
+nwb.units.columns # (tuple)
+nwb.units.waveform_unit # (str) volts
+nwb.units.id # (ElementIdentifiers)
+# nwb.units.to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 283 rows and 7 columns
+# nwb.units.to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 283
+nwb.units.depth # (VectorData) Depth of the unit from the surface of the brain
+nwb.units.hemisphere # (VectorData) Hemisphere of the brain where the unit was recorded
+nwb.units.global_id # (VectorData) ID to uniquely identify the unit
+nwb.units.spike_times # (VectorIndex) Index for VectorData 'spike_times'
+# nwb.units.spike_times_index[0] # (ndarray)
+# nwb.units.spike_times_index[1] # (ndarray)
+# nwb.units.spike_times_index[2] # (ndarray)
+# nwb.units.spike_times_index[3] # (ndarray)
+# ...
+nwb.units.electrode_group # (VectorData) the electrode group that each spike unit came from
+nwb.units.waveform_mean # (VectorData) the spike waveform mean for each spike unit
+Total prompt tokens: 26857 + 0
+Total completion tokens: 570 + 0
+
+=========================================
+
+execute_command 'python tools_cli.py nwb-file-info 001335 https://api.dandiarchive.org/api/assets/aca66db7-4c02-4453-8dcb-a179d44b1c5d/download/' (requires approval):
+Command executed successfully
+STDOUT:
+# This script shows how to load the NWB file at https://api.dandiarchive.org/api/assets/aca66db7-4c02-4453-8dcb-a179d44b1c5d/download/ in Python using PyNWB
+
+import pynwb
+import h5py
+import remfile
+
+# Load
+url = "https://api.dandiarchive.org/api/assets/aca66db7-4c02-4453-8dcb-a179d44b1c5d/download/"
+remote_file = remfile.File(url)
+h5_file = h5py.File(remote_file)
+io = pynwb.NWBHDF5IO(file=h5_file)
+nwb = io.read()
+
+nwb # (NWBFile)
+nwb.session_description # (str) Block 1:UE (ABC), Block 2:SE (DEF), Block3:Localizer
+nwb.identifier # (str) M541-2024-08-31
+nwb.session_start_time # (datetime) 2025-02-14T10:53:25.647928-05:00
+nwb.timestamps_reference_time # (datetime) 2025-02-14T10:53:25.647928-05:00
+nwb.file_create_date # (list) [datetime.datetime(2025, 2, 14, 10, 53, 25, 648683, tzinfo=tzoffset(None, -18000))]
+nwb.experimenter # (tuple) ['Mohapatra, Manish']
+nwb.keywords # (StrDataset) shape (4,); dtype object
+# nwb.keywords[:] # Access all data
+# nwb.keywords[0:10] # Access first 10 elements
+# First few values of nwb.keywords: ['ecephys' 'neuropixels' 'odor-sequences' 'hippocampus']
+nwb.processing # (LabelledDict)
+nwb.processing["ecephys"] # (ProcessingModule)
+nwb.processing["ecephys"].description # (str) LFP data obtained from rawdata
+nwb.processing["ecephys"].data_interfaces # (LabelledDict)
+nwb.processing["ecephys"].data_interfaces["LFP"] # (ElectricalSeries)
+nwb.processing["ecephys"].data_interfaces["LFP"].starting_time # (float64) 0.0
+nwb.processing["ecephys"].data_interfaces["LFP"].rate # (float64) 2500.0
+nwb.processing["ecephys"].data_interfaces["LFP"].resolution # (float64) -1.0
+nwb.processing["ecephys"].data_interfaces["LFP"].comments # (str) no comments
+nwb.processing["ecephys"].data_interfaces["LFP"].description # (str) Raw data subsampled  2500 Hz and bandpass filtered in the range 1-400 Hz
+nwb.processing["ecephys"].data_interfaces["LFP"].conversion # (float64) 1.0
+nwb.processing["ecephys"].data_interfaces["LFP"].offset # (float64) 0.0
+nwb.processing["ecephys"].data_interfaces["LFP"].unit # (str) volts
+nwb.processing["ecephys"].data_interfaces["LFP"].data # (Dataset) shape (15475276, 64); dtype float64
+# nwb.processing["ecephys"].data_interfaces["LFP"].data[:, :] # Access all data
+# nwb.processing["ecephys"].data_interfaces["LFP"].data[0:10, :] # Access first 10 rows
+# nwb.processing["ecephys"].data_interfaces["LFP"].data[:, 0:10] # Access first 10 columns
+nwb.processing["ecephys"].data_interfaces["LFP"].starting_time_unit # (str) seconds
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes # (DynamicTableRegion)
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.description # (str) LFP electrodes
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table # (DynamicTable)
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.description # (str) metadata about extracellular electrodes
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.colnames # (tuple) ['location', 'group', 'group_name', 'label', 'depth', 'hemisphere']
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.columns # (tuple)
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.id # (ElementIdentifiers)
+# nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 64 rows and 6 columns
+# nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 64
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.location # (VectorData) the location of channel within the subject e.g. brain region
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.group # (VectorData) a reference to the ElectrodeGroup this electrode is a part of
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.group_name # (VectorData) the name of the ElectrodeGroup this electrode is a part of
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.label # (VectorData) Identifier for the channel on the probe
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.depth # (VectorData) Location of the electrode on the probe
+nwb.processing["ecephys"].data_interfaces["LFP"].electrodes.table.hemisphere # (VectorData) Location of the electrode on the probe
+nwb.electrode_groups # (LabelledDict)
+nwb.electrode_groups["imec0.shank0"] # (ElectrodeGroup)
+nwb.electrode_groups["imec0.shank0"].description # (str) electrode group for shank 0 on imec0
+nwb.electrode_groups["imec0.shank0"].location # (str) brain area
+nwb.electrode_groups["imec0.shank0"].device # (Device)
+nwb.electrode_groups["imec0.shank0"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec0.shank0"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec0.shank1"] # (ElectrodeGroup)
+nwb.electrode_groups["imec0.shank1"].description # (str) electrode group for shank 1 on imec0
+nwb.electrode_groups["imec0.shank1"].location # (str) brain area
+nwb.electrode_groups["imec0.shank1"].device # (Device)
+nwb.electrode_groups["imec0.shank1"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec0.shank1"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec0.shank2"] # (ElectrodeGroup)
+nwb.electrode_groups["imec0.shank2"].description # (str) electrode group for shank 2 on imec0
+nwb.electrode_groups["imec0.shank2"].location # (str) brain area
+nwb.electrode_groups["imec0.shank2"].device # (Device)
+nwb.electrode_groups["imec0.shank2"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec0.shank2"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec0.shank3"] # (ElectrodeGroup)
+nwb.electrode_groups["imec0.shank3"].description # (str) electrode group for shank 3 on imec0
+nwb.electrode_groups["imec0.shank3"].location # (str) brain area
+nwb.electrode_groups["imec0.shank3"].device # (Device)
+nwb.electrode_groups["imec0.shank3"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec0.shank3"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec1.shank0"] # (ElectrodeGroup)
+nwb.electrode_groups["imec1.shank0"].description # (str) electrode group for shank 0 on imec1
+nwb.electrode_groups["imec1.shank0"].location # (str) brain area
+nwb.electrode_groups["imec1.shank0"].device # (Device)
+nwb.electrode_groups["imec1.shank0"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec1.shank0"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec1.shank1"] # (ElectrodeGroup)
+nwb.electrode_groups["imec1.shank1"].description # (str) electrode group for shank 1 on imec1
+nwb.electrode_groups["imec1.shank1"].location # (str) brain area
+nwb.electrode_groups["imec1.shank1"].device # (Device)
+nwb.electrode_groups["imec1.shank1"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec1.shank1"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec1.shank2"] # (ElectrodeGroup)
+nwb.electrode_groups["imec1.shank2"].description # (str) electrode group for shank 2 on imec1
+nwb.electrode_groups["imec1.shank2"].location # (str) brain area
+nwb.electrode_groups["imec1.shank2"].device # (Device)
+nwb.electrode_groups["imec1.shank2"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec1.shank2"].device.manufacturer # (str) IMEC
+nwb.electrode_groups["imec1.shank3"] # (ElectrodeGroup)
+nwb.electrode_groups["imec1.shank3"].description # (str) electrode group for shank 3 on imec1
+nwb.electrode_groups["imec1.shank3"].location # (str) brain area
+nwb.electrode_groups["imec1.shank3"].device # (Device)
+nwb.electrode_groups["imec1.shank3"].device.description # (str) 4-shank NPX2.0 
+nwb.electrode_groups["imec1.shank3"].device.manufacturer # (str) IMEC
+nwb.devices # (LabelledDict)
+nwb.devices["imec0"] # (Device)
+nwb.devices["imec0"].description # (str) 4-shank NPX2.0 
+nwb.devices["imec0"].manufacturer # (str) IMEC
+nwb.devices["imec1"] # (Device)
+nwb.devices["imec1"].description # (str) 4-shank NPX2.0 
+nwb.devices["imec1"].manufacturer # (str) IMEC
+nwb.intervals # (LabelledDict)
+nwb.intervals["Block 1"] # (TimeIntervals)
+nwb.intervals["Block 1"].description # (str) Interval when Block 1 odors were being presented
+nwb.intervals["Block 1"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Block 1"].columns # (tuple)
+nwb.intervals["Block 1"].id # (ElementIdentifiers)
+# nwb.intervals["Block 1"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 1 rows and 2 columns
+# nwb.intervals["Block 1"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 1
+nwb.intervals["Block 1"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Block 1"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Block 2"] # (TimeIntervals)
+nwb.intervals["Block 2"].description # (str) Interval when Block 2 odors were being presented
+nwb.intervals["Block 2"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Block 2"].columns # (tuple)
+nwb.intervals["Block 2"].id # (ElementIdentifiers)
+# nwb.intervals["Block 2"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 1 rows and 2 columns
+# nwb.intervals["Block 2"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 1
+nwb.intervals["Block 2"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Block 2"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Block 3"] # (TimeIntervals)
+nwb.intervals["Block 3"].description # (str) Interval when Block 3 odors were being presented
+nwb.intervals["Block 3"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Block 3"].columns # (tuple)
+nwb.intervals["Block 3"].id # (ElementIdentifiers)
+# nwb.intervals["Block 3"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 1 rows and 2 columns
+# nwb.intervals["Block 3"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 1
+nwb.intervals["Block 3"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Block 3"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor A ON"] # (TimeIntervals)
+nwb.intervals["Odor A ON"].description # (str) Intervals when Odor A was being presented
+nwb.intervals["Odor A ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor A ON"].columns # (tuple)
+nwb.intervals["Odor A ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor A ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor A ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor A ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor A ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor B ON"] # (TimeIntervals)
+nwb.intervals["Odor B ON"].description # (str) Intervals when Odor B was being presented
+nwb.intervals["Odor B ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor B ON"].columns # (tuple)
+nwb.intervals["Odor B ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor B ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor B ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor B ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor B ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor C ON"] # (TimeIntervals)
+nwb.intervals["Odor C ON"].description # (str) Intervals when Odor C was being presented
+nwb.intervals["Odor C ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor C ON"].columns # (tuple)
+nwb.intervals["Odor C ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor C ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor C ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor C ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor C ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor D ON"] # (TimeIntervals)
+nwb.intervals["Odor D ON"].description # (str) Intervals when Odor D was being presented
+nwb.intervals["Odor D ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor D ON"].columns # (tuple)
+nwb.intervals["Odor D ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor D ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor D ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor D ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor D ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor E ON"] # (TimeIntervals)
+nwb.intervals["Odor E ON"].description # (str) Intervals when Odor E was being presented
+nwb.intervals["Odor E ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor E ON"].columns # (tuple)
+nwb.intervals["Odor E ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor E ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor E ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor E ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor E ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.intervals["Odor F ON"] # (TimeIntervals)
+nwb.intervals["Odor F ON"].description # (str) Intervals when Odor F was being presented
+nwb.intervals["Odor F ON"].colnames # (tuple) ['start_time', 'stop_time']
+nwb.intervals["Odor F ON"].columns # (tuple)
+nwb.intervals["Odor F ON"].id # (ElementIdentifiers)
+# nwb.intervals["Odor F ON"].to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 101 rows and 2 columns
+# nwb.intervals["Odor F ON"].to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 101
+nwb.intervals["Odor F ON"].start_time # (VectorData) Start time of epoch, in seconds
+nwb.intervals["Odor F ON"].stop_time # (VectorData) Stop time of epoch, in seconds
+nwb.experiment_description # (str) Head-fixed mouse presented with odor sequences
+nwb.lab # (str) vandermeerlab
+nwb.institution # (str) Dartmouth College
+nwb.electrodes # (DynamicTable)
+nwb.electrodes.description # (str) metadata about extracellular electrodes
+nwb.electrodes.colnames # (tuple) ['location', 'group', 'group_name', 'label', 'depth', 'hemisphere']
+nwb.electrodes.columns # (tuple)
+nwb.electrodes.id # (ElementIdentifiers)
+# nwb.electrodes.to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 64 rows and 6 columns
+# nwb.electrodes.to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 64
+nwb.electrodes.location # (VectorData) the location of channel within the subject e.g. brain region
+nwb.electrodes.group # (VectorData) a reference to the ElectrodeGroup this electrode is a part of
+nwb.electrodes.group_name # (VectorData) the name of the ElectrodeGroup this electrode is a part of
+nwb.electrodes.label # (VectorData) Identifier for the channel on the probe
+nwb.electrodes.depth # (VectorData) Location of the electrode on the probe
+nwb.electrodes.hemisphere # (VectorData) Location of the electrode on the probe
+nwb.subject # (Subject)
+nwb.subject.age # (str) P8W/
+nwb.subject.age__reference # (str) birth
+nwb.subject.description # (str) Headbarr-ed mouse with craniotomies over dCA1
+nwb.subject.sex # (str) M
+nwb.subject.species # (str) Mus musculus
+nwb.subject.subject_id # (str) M541
+nwb.units # (Units)
+nwb.units.description # (str) Autogenerated by NWBFile
+nwb.units.colnames # (tuple) ['depth', 'hemisphere', 'global_id', 'spike_times', 'electrode_group', 'waveform_mean']
+nwb.units.columns # (tuple)
+nwb.units.waveform_unit # (str) volts
+nwb.units.id # (ElementIdentifiers)
+# nwb.units.to_dataframe() # (DataFrame) Convert to a pandas DataFrame with 283 rows and 7 columns
+# nwb.units.to_dataframe().head() # (DataFrame) Show the first few rows of the pandas DataFrame
+# Number of rows: 283
+nwb.units.depth # (VectorData) Depth of the unit from the surface of the brain
+nwb.units.hemisphere # (VectorData) Hemisphere of the brain where the unit was recorded
+nwb.units.global_id # (VectorData) ID to uniquely identify the unit
+nwb.units.spike_times # (VectorIndex) Index for VectorData 'spike_times'
+# nwb.units.spike_times_index[0] # (ndarray)
+# nwb.units.spike_times_index[1] # (ndarray)
+# nwb.units.spike_times_index[2] # (ndarray)
+# nwb.units.spike_times_index[3] # (ndarray)
+# ...
+nwb.units.electrode_group # (VectorData) the electrode group that each spike unit came from
+nwb.units.waveform_mean # (VectorData) the spike waveform mean for each spike unit
+
+STDERR:
+/home/magland/src/dandi-ai-notebooks-3/packages/get-nwbfile-info/src/get_nwbfile_info/core.py:319: UserWarning: Warning: Duplicate entries found in the results.
+  warnings.warn("Warning: Duplicate entries found in the results.")
+
+=========================================
+
+Using model: anthropic/claude-3.7-sonnet
+Num. messages in conversation: 8
+Submitting completion request...
+Processing response...
+I now have a good understanding of the Dandiset and the NWB file it contains. This Dandiset has:
+1. A single NWB file with Neuropixels recordings from hippocampus during odor presentation
+2. LFP data, electrode information, and unit spike times
+3. Three blocks of experiments with different odor sequences
+4. Six different odors (A-F) with their presentation time intervals
+
+I'll create a Jupytext notebook that:
+1. Provides an overview of the Dandiset
+2. Shows how to load the NWB file
+3. Explores the metadata and structure
+4. Visualizes LFP data
+5. Explores the odor presentation intervals
+6. Visualizes spike data from the units
+7. Shows the relationship between neural activity and odor presentations
+
+Let me write the notebook.py file now.
+
+Tool: write_to_file
+Params: {'path': 'notebook.py', 'content': '# %% [markdown]\n# # Exploring Dandiset 001335: Neuropixels Recordings from Hippocampus of Head-Fixed Mice During Odor Presentation\n\n# %% [markdown]\n# > **⚠️ IMPORTANT NOTE**: This notebook was AI-generated using dandi-notebook-gen and has not been fully verified. Please be cautious when interpreting the code or results.\n\n# %% [markdown]\n# ## Overview\n# \n# This notebook explores Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation. The dataset includes electrophysiology data recorded using Neuropixels probes as mice were presented with various odor sequences.\n# \n# You can view this dataset on Neurosift at: [https://neurosift.app/dandiset/001335](https://neurosift.app/dandiset/001335)\n# \n\n# %% [markdown]\n# ## What This Notebook Covers\n# \n# In this notebook, we will:\n# 1. Load and examine the dataset using the DANDI API\n# 2. Explore the structure and metadata of the NWB file\n# 3. Analyze the LFP (Local Field Potential) data\n# 4. Examine the timing of different odor presentations\n# 5. Visualize neural activity in relation to odor stimuli\n# 6. Explore spike times for single units\n\n# %% [markdown]\n# ## Required Packages\n# \n# The following packages are required to run this notebook. We assume they are already installed on your system.\n\n# %%\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\nfrom dandi.dandiapi import DandiAPIClient\nimport pynwb\nimport h5py\nimport remfile\nfrom matplotlib.ticker import MaxNLocator\nimport random\nfrom matplotlib.colors import LinearSegmentedColormap\n\n# Set up plotting style\nsns.set_theme()\n\n# %% [markdown]\n# ## Loading the Dandiset Using the DANDI API\n\n# %%\n# Connect to DANDI archive\nclient = DandiAPIClient()\ndandiset = client.get_dandiset("001335")\nassets = list(dandiset.get_assets())\n\nprint(f"Found {len(assets)} assets in the dataset")\nprint("\\nFirst 5 assets:")\nfor asset in assets[:5]:\n    print(f"- {asset.path}")\n\n# %% [markdown]\n# ## Loading the NWB File\n# \n# There is one NWB file in this Dandiset. We\'ll load it and explore its contents.\n\n# %%\n# Get the URL for the first asset\nasset_id = "aca66db7-4c02-4453-8dcb-a179d44b1c5d"\nurl = f"https://api.dandiarchive.org/api/assets/{asset_id}/download/"\nprint(f"Loading NWB file: {assets[0].path} from URL: {url}")\n\n# Load the NWB file\nremote_file = remfile.File(url)\nh5_file = h5py.File(remote_file)\nio = pynwb.NWBHDF5IO(file=h5_file)\nnwb = io.read()\n\n# %% [markdown]\n# ## Exploring the NWB File Metadata\n# \n# Let\'s explore the basic metadata of this NWB file to understand what it contains.\n\n# %%\n# Print basic metadata\nprint(f"Session ID: {nwb.identifier}")\nprint(f"Session Description: {nwb.session_description}")\nprint(f"Session Start Time: {nwb.session_start_time}")\nprint(f"Experimenter: {\', \'.join(nwb.experimenter)}")\nprint(f"Lab: {nwb.lab}")\nprint(f"Institution: {nwb.institution}")\nprint(f"Experiment Description: {nwb.experiment_description}")\n\n# Get keywords\nprint("\\nKeywords:")\nkeywords = nwb.keywords[:]\nfor kw in keywords:\n    print(f"- {kw}")\n\n# Get subject information\nprint("\\nSubject Information:")\nprint(f"Subject ID: {nwb.subject.subject_id}")\nprint(f"Species: {nwb.subject.species}")\nprint(f"Sex: {nwb.subject.sex}")\nprint(f"Age: {nwb.subject.age}")\nprint(f"Description: {nwb.subject.description}")\n\n# %% [markdown]\n# ## Exploring the Experimental Blocks\n# \n# This dataset contains three experimental blocks with different odor sequences. Let\'s examine the timing of these blocks.\n\n# %%\n# Get the time ranges for each block\nblocks = ["Block 1", "Block 2", "Block 3"]\nblock_times = pd.DataFrame()\n\nfor block in blocks:\n    if block in nwb.intervals:\n        block_df = nwb.intervals[block].to_dataframe()\n        block_times = pd.concat([block_times, pd.DataFrame({\n            \'Block\': [block],\n            \'Start (s)\': [block_df[\'start_time\'].values[0]],\n            \'End (s)\': [block_df[\'stop_time\'].values[0]],\n            \'Duration (s)\': [block_df[\'stop_time\'].values[0] - block_df[\'start_time\'].values[0]]\n        })])\n\nprint("Experimental Blocks:")\nprint(block_times)\n\n# %% [markdown]\n# ## Examining Odor Presentation Intervals\n# \n# The experiment involves presenting different odors to the mouse. Let\'s examine when these odors were presented.\n\n# %%\n# Get the odor presentation intervals\nodors = ["Odor A ON", "Odor B ON", "Odor C ON", "Odor D ON", "Odor E ON", "Odor F ON"]\nodor_dfs = {}\n\nfor odor in odors:\n    if odor in nwb.intervals:\n        odor_dfs[odor] = nwb.intervals[odor].to_dataframe()\n        print(f"{odor}: {len(odor_dfs[odor])} presentations")\n        \n# Display the first few presentations of each odor\nfor odor, df in odor_dfs.items():\n    print(f"\\nFirst 5 presentations of {odor}:")\n    print(df.head())\n\n# %% [markdown]\n# Let\'s visualize the timing of odor presentations and experimental blocks.\n\n# %%\n# Prepare figure\nplt.figure(figsize=(14, 8))\ncolors = sns.color_palette("husl", len(odors))\n\n# Plot odor presentations\nfor i, (odor, df) in enumerate(odor_dfs.items()):\n    # Plot horizontal lines for each presentation\n    for _, row in df.iterrows():\n        plt.plot([row[\'start_time\'], row[\'stop_time\']], [i, i], \n                 color=colors[i], linewidth=2)\n    \n    # Place small markers at the start of each presentation for better visibility\n    plt.scatter(df[\'start_time\'], [i] * len(df), \n                color=colors[i], s=20, marker=\'|\')\n\n# Add block boundaries as vertical lines\nfor _, row in block_times.iterrows():\n    plt.axvline(row[\'Start (s)\'], color=\'black\', linestyle=\'--\', alpha=0.5)\n    plt.axvline(row[\'End (s)\'], color=\'black\', linestyle=\'--\', alpha=0.5)\n    plt.text(row[\'Start (s)\'] + (row[\'End (s)\'] - row[\'Start (s)\'])/2, -0.5, \n             row[\'Block\'], horizontalalignment=\'center\')\n\n# Customize plot\nplt.yticks(range(len(odors)), [odor.replace(" ON", "") for odor in odors])\nplt.xlabel(\'Time (s)\')\nplt.ylabel(\'Odor\')\nplt.title(\'Odor Presentation Timing\')\nplt.grid(True, alpha=0.3)\n\n# Adjust x-axis to focus on experimental time\nplt.xlim(0, block_times[\'End (s)\'].max() + 100)\nplt.tight_layout()\n\n# %% [markdown]\n# ## Examining Electrodes and LFP Data\n# \n# Now, let\'s look at the electrodes and the LFP (Local Field Potential) data.\n\n# %%\n# Get electrode information\nelectrodes_df = nwb.electrodes.to_dataframe()\n\n# Display electrode information\nprint(f"Number of electrodes: {len(electrodes_df)}")\nprint("\\nSample of electrode data:")\nprint(electrodes_df.head())\n\n# Print electrode groups\nprint("\\nElectrode Groups:")\nfor group_name, group in nwb.electrode_groups.items():\n    print(f"- {group_name}: {group.description}, Location: {group.location}")\n\n# %% [markdown]\n# Let\'s examine the LFP data that\'s available in the processing module.\n\n# %%\n# Get LFP data information\nlfp = nwb.processing["ecephys"].data_interfaces["LFP"]\n\nprint(f"LFP Description: {lfp.description}")\nprint(f"LFP Rate: {lfp.rate} Hz")\nprint(f"LFP Unit: {lfp.unit}")\nprint(f"LFP Data Shape: {lfp.data.shape}")  # (time_points, channels)\nprint(f"LFP Starting Time: {lfp.starting_time} {lfp.starting_time_unit}")\n\n# %% [markdown]\n# Let\'s visualize a small segment of LFP data from a few channels.\n\n# %%\n# Select a time window (5-second segment from the first block)\nblock1_start = block_times[block_times[\'Block\'] == \'Block 1\'][\'Start (s)\'].values[0]\nstart_time = block1_start + 10  # 10 seconds into Block 1\nduration = 5  # 5 seconds of data\n\n# Calculate sample indices\nstart_idx = int(start_time * lfp.rate)\nend_idx = int((start_time + duration) * lfp.rate)\n\n# Select a few channels for visualization\nselected_channels = [0, 16, 32, 48]  # Selecting a few channels across different shanks\n\n# Create time array for x-axis\ntime_array = np.linspace(start_time, start_time + duration, end_idx - start_idx)\n\n# Create the plot\nplt.figure(figsize=(14, 10))\n\n# Plot LFP data for selected channels\nfor i, channel in enumerate(selected_channels):\n    # Get data for this channel in the time window\n    lfp_data = lfp.data[start_idx:end_idx, channel]\n    \n    # Get channel information\n    channel_info = electrodes_df.iloc[channel]\n    \n    # Plot with offset for visibility\n    offset = i * 0.5  # Offset each channel for better visibility\n    plt.plot(time_array, lfp_data + offset, \n             label=f"Channel {channel_info[\'label\']} ({channel_info[\'group_name\']}, {channel_info[\'location\']})")\n\n# Add markers for odor presentations in this time window\nfor odor, df in odor_dfs.items():\n    odor_in_window = df[(df[\'start_time\'] >= start_time) & \n                       (df[\'start_time\'] <= start_time + duration)]\n    \n    if not odor_in_window.empty:\n        for _, row in odor_in_window.iterrows():\n            plt.axvspan(row[\'start_time\'], min(row[\'stop_time\'], start_time + duration),\n                      alpha=0.2, color=\'green\', label=f"{odor} (first occurrence)" if _ == 0 else "")\n            plt.text(row[\'start_time\'], -0.5, odor.replace(" ON", ""), \n                   fontsize=8, verticalalignment=\'top\')\n\n# Customize plot\nplt.xlabel(\'Time (s)\')\nplt.ylabel(\'LFP Voltage (with offset)\')\nplt.title(f\'LFP Data for Selected Channels (Time: {start_time:.1f}s - {start_time+duration:.1f}s)\')\nplt.legend(loc=\'upper right\')\nplt.grid(True, alpha=0.3)\n\n# Clean up legend (to avoid duplicates)\nhandles, labels = plt.gca().get_legend_handles_labels()\nby_label = dict(zip(labels, handles))\nplt.legend(by_label.values(), by_label.keys(), loc=\'upper right\')\n\nplt.tight_layout()\n\n# %% [markdown]\n# ## Computing and Visualizing LFP Power Spectrum\n\n# %%\n# Function to compute power spectrum\ndef compute_psd(data, fs, nperseg=1024, noverlap=512):\n    from scipy import signal\n    freqs, psd = signal.welch(data, fs=fs, nperseg=nperseg, noverlap=noverlap)\n    return freqs, psd\n\n# Select a longer segment of data (30 seconds) for PSD calculation\nstart_time_psd = block1_start + 100  # 100 seconds into Block 1\nduration_psd = 30  # 30 seconds of data\nstart_idx_psd = int(start_time_psd * lfp.rate)\nend_idx_psd = int((start_time_psd + duration_psd) * lfp.rate)\n\n# Compute PSDs for multiple channels\nplt.figure(figsize=(12, 8))\n\n# Select channels from different electrode groups\nchannel_groups = electrodes_df.groupby(\'group_name\').groups\nselected_channels_psd = []\n\n# Get one representative channel from each electrode group (up to 8 groups)\nfor group_name, indices in list(channel_groups.items())[:8]:\n    selected_channels_psd.append(indices[0])\n\nfor channel in selected_channels_psd:\n    # Get data\n    lfp_segment = lfp.data[start_idx_psd:end_idx_psd, channel]\n    \n    # Compute PSD\n    freqs, psd = compute_psd(lfp_segment, fs=lfp.rate)\n    \n    # Plot\n    channel_info = electrodes_df.iloc[channel]\n    plt.semilogy(freqs, psd, label=f"Channel {channel_info[\'label\']} ({channel_info[\'group_name\']})")\n\n# Customize plot\nplt.xlabel(\'Frequency (Hz)\')\nplt.ylabel(\'Power/Frequency (V^2/Hz)\')\nplt.title(\'Power Spectral Density of LFP Data\')\nplt.xlim(0, 150)  # Focus on 0-150 Hz range\nplt.legend(fontsize=8)\nplt.grid(True, which="both", ls="-", alpha=0.7)\nplt.tight_layout()\n\n# %% [markdown]\n# ## Analyzing Neural Units and Spike Times\n# \n# This dataset includes spike times for 283 neural units. Let\'s explore this data.\n\n# %%\n# Get unit information\nunits_df = nwb.units.to_dataframe()\nprint(f"Number of units: {len(units_df)}")\nprint("\\nSample of unit data (first few columns):")\nprint(units_df[[\'electrode_group\', \'depth\', \'hemisphere\']].head())\n\n# Count units by electrode group\nunit_counts = units_df[\'electrode_group\'].value_counts()\nprint("\\nUnits per electrode group:")\nfor group, count in unit_counts.items():\n    print(f"- {group}: {count} units")\n\n# %% [markdown]\n# Let\'s visualize spike times for a selection of units during an odor presentation.\n\n# %%\n# Define a function to get spike times within a specific time window\ndef get_spikes_in_window(units_df, unit_ids, start_time, end_time):\n    spike_data = []\n    \n    for unit_id in unit_ids:\n        # Get the spike times for this unit\n        spike_times = units_df.loc[unit_id, \'spike_times\'][:]\n        \n        # Filter for spikes within the time window\n        mask = (spike_times >= start_time) & (spike_times <= end_time)\n        unit_spikes = spike_times[mask]\n        \n        spike_data.append({\n            \'unit_id\': unit_id,\n            \'spikes\': unit_spikes,\n            \'count\': len(unit_spikes),\n            \'electrode_group\': units_df.loc[unit_id, \'electrode_group\']\n        })\n    \n    # Sort by electrode group and spike count\n    spike_data = sorted(spike_data, key=lambda x: (x[\'electrode_group\'], -x[\'count\']))\n    \n    return spike_data\n\n# Select an odor presentation interval (e.g., the first presentation of Odor A)\nodor_a_first = odor_dfs[\'Odor A ON\'].iloc[0]\nstart_time_odor = odor_a_first[\'start_time\'] - 1  # 1 second before odor onset\nend_time_odor = odor_a_first[\'stop_time\'] + 1     # 1 second after odor offset\n\n# Select 15 random units to visualize (to avoid overcrowding)\nnp.random.seed(42)  # For reproducibility\nrandom_units = np.random.choice(units_df.index, size=15, replace=False)\nselected_units = sorted(random_units)\n\n# Get spike data for selected units during the time window\nspike_data = get_spikes_in_window(units_df, selected_units, start_time_odor, end_time_odor)\n\n# Create a raster plot\nplt.figure(figsize=(14, 8))\n\nfor i, unit_data in enumerate(spike_data):\n    # Plot spike times\n    unit_id = unit_data[\'unit_id\']\n    spikes = unit_data[\'spikes\']\n    \n    if len(spikes) > 0:\n        plt.scatter(spikes, [i] * len(spikes), marker=\'|\', s=40, \n                   color=plt.cm.tab10(hash(str(unit_data[\'electrode_group\'])) % 10))\n\n# Add a colored bar for odor presentation\nplt.axvspan(odor_a_first[\'start_time\'], odor_a_first[\'stop_time\'], \n           alpha=0.2, color=\'green\', label=\'Odor A Presentation\')\n\n# Customize plot\nplt.xlabel(\'Time (s)\')\nplt.ylabel(\'Unit #\')\nplt.title(f\'Spike Raster Plot During Odor A Presentation (Units: {len(selected_units)})\')\nplt.yticks(range(len(spike_data)), \n          [f"Unit {d[\'unit_id\']} ({d[\'electrode_group\']})" for d in spike_data])\nplt.xlim(start_time_odor, end_time_odor)\nplt.grid(True, axis=\'x\', alpha=0.3)\nplt.tight_layout()\n\n# %% [markdown]\n# ## Analyzing Firing Rate Changes During Odor Presentation\n# \n# Let\'s examine how the firing rates of units change before, during, and after odor presentation.\n\n# %%\n# Function to calculate firing rates in bins\ndef calculate_firing_rates(units_df, unit_ids, start_time, end_time, bin_width=0.1):\n    time_bins = np.arange(start_time, end_time + bin_width, bin_width)\n    bin_centers = time_bins[:-1] + bin_width/2\n    \n    unit_firing_rates = {}\n    \n    for unit_id in unit_ids:\n        # Get spike times for this unit\n        spike_times = units_df.loc[unit_id, \'spike_times\'][:]\n        \n        # Count spikes in each bin\n        hist, _ = np.histogram(spike_times, bins=time_bins)\n        \n        # Convert to firing rate (spikes/second)\n        firing_rates = hist / bin_width\n        \n        unit_firing_rates[unit_id] = firing_rates\n    \n    return bin_centers, unit_firing_rates\n\n# Select an odor (we\'ll use Odor A again) and examine multiple presentations\nodor = "Odor A ON"\nnum_presentations_to_analyze = 5\npresentations = odor_dfs[odor].iloc[:num_presentations_to_analyze]\n\n# Select units that have a good number of spikes\nactive_unit_threshold = 100  # Minimum number of spikes to be considered active\nactive_units = []\n\nfor unit_id in units_df.index:\n    if len(units_df.loc[unit_id, \'spike_times\'][:]) > active_unit_threshold:\n        active_units.append(unit_id)\n\nprint(f"Found {len(active_units)} active units with more than {active_unit_threshold} spikes")\n\n# We\'ll select a subset of these active units\nselected_active_units = active_units[:10]  # Use first 10 active units\n\n# Analyze each presentation\nplt.figure(figsize=(15, 10))\n\nfor i, (_, presentation) in enumerate(presentations.iterrows()):\n    # Define time window (3s before to 3s after the presentation)\n    pre_time = 2.0  # seconds before odor onset\n    post_time = 2.0  # seconds after odor offset\n    \n    start_time = presentation[\'start_time\'] - pre_time\n    end_time = presentation[\'stop_time\'] + post_time\n    \n    # Calculate firing rates\n    bin_width = 0.1  # 100ms bins\n    bin_centers, unit_firing_rates = calculate_firing_rates(\n        units_df, selected_active_units, start_time, end_time, bin_width)\n    \n    # Create subplot\n    plt.subplot(num_presentations_to_analyze, 1, i+1)\n    \n    # Plot firing rates for each unit\n    for j, unit_id in enumerate(selected_active_units):\n        color = plt.cm.tab10(j % 10)\n        plt.plot(bin_centers, unit_firing_rates[unit_id], color=color, alpha=0.7,\n                label=f"Unit {unit_id}" if i == 0 else "")  # Only include labels in the first subplot\n    \n    # Mark odor presentation period\n    plt.axvspan(presentation[\'start_time\'], presentation[\'stop_time\'], \n               alpha=0.2, color=\'green\', label=\'Odor Presentation\' if i == 0 else "")\n    \n    # Add titles and labels\n    presentation_num = i + 1\n    plt.title(f"Presentation {presentation_num}: Time {presentation[\'start_time\']:.1f}s - {presentation[\'stop_time\']:.1f}s")\n    \n    if i == num_presentations_to_analyze - 1:  # Only add x-label to the bottom subplot\n        plt.xlabel(\'Time (s)\')\n    \n    plt.ylabel(\'Firing Rate (Hz)\')\n    plt.grid(True, alpha=0.3)\n    \n    # Custom y-axis limits to focus on the data\n    plt.ylim(0, 50)  # Assuming most rates are under 50 Hz\n\n# Add a single legend for all subplots\nplt.subplot(num_presentations_to_analyze, 1, 1)\nhandles, labels = plt.gca().get_legend_handles_labels()\nplt.figlegend(handles, labels, loc=\'upper right\', fontsize=8, bbox_to_anchor=(1, 1))\n\nplt.tight_layout()\nplt.subplots_adjust(top=0.9)  # Make space for the legend\n\n# %% [markdown]\n# ## Comparing Neural Responses to Different Odors\n# \n# Now, let\'s compare how neurons respond to different odors.\n\n# %%\n# Function to calculate average firing rate changes\ndef calculate_avg_firing_rate_change(units_df, unit_ids, odor_df, n_presentations=5, \n                                    pre_window=2.0, post_window=2.0, bin_width=0.5):\n    # We\'ll calculate the average change in firing rate for each unit\n    unit_responses = {}\n    \n    for unit_id in unit_ids:\n        # Initialize arrays for before, during, and after odor\n        before_rates = []\n        during_rates = []\n        after_rates = []\n        \n        # Process each presentation (up to n_presentations)\n        for idx, row in odor_df.iloc[:n_presentations].iterrows():\n            odor_start = row[\'start_time\']\n            odor_end = row[\'stop_time\']\n            \n            # Get spike times for this unit\n            spike_times = units_df.loc[unit_id, \'spike_times\'][:]\n            \n            # Count spikes in the three windows\n            before_spikes = sum((spike_times >= odor_start - pre_window) & \n                               (spike_times < odor_start))\n            during_spikes = sum((spike_times >= odor_start) & \n                               (spike_times < odor_end))\n            after_spikes = sum((spike_times >= odor_end) & \n                              (spike_times < odor_end + post_window))\n            \n            # Convert to rates (spikes/second)\n            before_rate = before_spikes / pre_window\n            during_rate = during_spikes / (odor_end - odor_start)\n            after_rate = after_spikes / post_window\n            \n            # Append to lists\n            before_rates.append(before_rate)\n            during_rates.append(during_rate)\n            after_rates.append(after_rate)\n        \n        # Calculate averages across presentations\n        unit_responses[unit_id] = {\n            \'before\': np.mean(before_rates),\n            \'during\': np.mean(during_rates),\n            \'after\': np.mean(after_rates),\n            \'change_during\': np.mean(during_rates) - np.mean(before_rates),\n            \'electrode_group\': units_df.loc[unit_id, \'electrode_group\']\n        }\n    \n    return unit_responses\n\n# Select odors to compare\nodors_to_compare = ["Odor A ON", "Odor B ON", "Odor C ON"]\n\n# Calculate responses for a larger set of active units\nn_active_units = min(30, len(active_units))  # Use up to 30 active units\nunits_for_comparison = active_units[:n_active_units]\n\n# Calculate responses for each odor\nodor_responses = {}\nfor odor in odors_to_compare:\n    odor_responses[odor] = calculate_avg_firing_rate_change(\n        units_df, units_for_comparison, odor_dfs[odor], n_presentations=5)\n\n# Create a heatmap of responses to different odors\nresponse_matrix = np.zeros((len(units_for_comparison), len(odors_to_compare)))\n\nfor i, unit_id in enumerate(units_for_comparison):\n    for j, odor in enumerate(odors_to_compare):\n        response_matrix[i, j] = odor_responses[odor][unit_id][\'change_during\']\n\n# Create a custom colormap centered at zero\ncolors = [(0, 0, 0.8), (1, 1, 1), (0.8, 0, 0)]  # Blue -> White -> Red\ncmap = LinearSegmentedColormap.from_list(\'custom_diverging\', colors, N=256)\n\n# Plot the heatmap\nplt.figure(figsize=(10, 12))\nvmax = max(5, np.abs(response_matrix).max())  # Cap at 5Hz or actual max\nsns.heatmap(response_matrix, cmap=cmap, center=0, vmin=-vmax, vmax=vmax,\n           yticklabels=[f"Unit {u}" for u in units_for_comparison],\n           xticklabels=[odor.replace(" ON", "") for odor in odors_to_compare],\n           cbar_kws={\'label\': \'Change in Firing Rate (Hz)\'})\n\nplt.title(\'Changes in Firing Rates During Odor Presentation\')\nplt.tight_layout()\n\n# %% [markdown]\n# ## Examining the Relationship Between Electrode Location and Unit Responses\n# \n# Let\'s visualize how the unit responses vary based on their electrode location.\n\n# %%\n# Combine unit info with response data\nunit_data = []\n\nfor unit_id in units_for_comparison:\n    unit_info = {\n        \'unit_id\': unit_id,\n        \'electrode_group\': units_df.loc[unit_id, \'electrode_group\'],\n        \'depth\': units_df.loc[unit_id, \'depth\'],\n        \'hemisphere\': units_df.loc[unit_id, \'hemisphere\']\n    }\n    \n    # Add response data for each odor\n    for odor in odors_to_compare:\n        odor_name = odor.replace(" ON", "")\n        unit_info[f\'{odor_name}_change\'] = odor_responses[odor][unit_id][\'change_during\']\n    \n    unit_data.append(unit_info)\n\n# Convert to DataFrame\nresponse_df = pd.DataFrame(unit_data)\n\n# Create a scatter plot of responses by depth for each electrode group\nplt.figure(figsize=(10, 8))\n\n# Get unique electrode groups\nelectrode_groups = response_df[\'electrode_group\'].unique()\nn_groups = len(electrode_groups)\ncolors = plt.cm.tab10(np.linspace(0, 1, n_groups))\n\n# Create one subplot per odor\nfor i, odor in enumerate(odors_to_compare):\n    odor_name = odor.replace(" ON", "")\n    response_column = f\'{odor_name}_change\'\n    \n    plt.subplot(1, 3, i+1)\n    \n    for j, group in enumerate(electrode_groups):\n        # Filter for this group\n        group_data = response_df[response_df[\'electrode_group\'] == group]\n        \n        # Plot\n        plt.scatter(group_data[response_column], group_data[\'depth\'], \n                   color=colors[j], label=group, alpha=0.7)\n    \n    # Customize plot\n    plt.axvline(0, color=\'gray\', linestyle=\'--\', alpha=0.5)  # Zero line\n    plt.title(f\'Response to {odor_name} by Depth\')\n    plt.xlabel(\'Change in Firing Rate (Hz)\')\n    plt.ylabel(\'Depth (μm)\')\n    plt.grid(True, alpha=0.3)\n    \n    if i == 0:  # Only include legend in first subplot\n        plt.legend(title=\'Electrode Group\', loc=\'upper left\', bbox_to_anchor=(-0.3, 1))\n\nplt.tight_layout()\n\n# %% [markdown]\n# ## Summary\n# \n# In this notebook, we\'ve explored Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation. We\'ve analyzed:\n# \n# 1. The structure and metadata of the NWB file\n# 2. The timing of experimental blocks and odor presentations\n# 3. The Local Field Potential (LFP) data and its spectral properties\n# 4. Spike times and firing rates for individual neural units\n# 5. Neural responses to different odors\n# 6. The relationship between electrode location and neural responses\n# \n# The dataset provides rich information about how hippocampal neurons respond to different odor stimuli. The analysis revealed that some neurons show clear changes in firing rate during odor presentation, while others do not. There also appears to be some specificity in how neurons respond to different odors.\n# \n# ## Future Directions\n# \n# Future analyses could explore:\n# \n# 1. Population-level analysis of neural responses using dimensionality reduction techniques\n# 2. More sophisticated spectral analysis of LFP data, including coherence between channels\n# 3. Analysis of spike-field coupling between unit activity and LFP oscillations\n# 4. Comparison of responses across different experimental blocks to study learning or habituation effects\n# 5. More detailed analysis of the temporal dynamics of neural responses during odor presentation'}
+================================
+Content to be written to notebook.py:
+# %% [markdown]
+# # Exploring Dandiset 001335: Neuropixels Recordings from Hippocampus of Head-Fixed Mice During Odor Presentation
+
+# %% [markdown]
+# > **⚠️ IMPORTANT NOTE**: This notebook was AI-generated using dandi-notebook-gen and has not been fully verified. Please be cautious when interpreting the code or results.
+
+# %% [markdown]
+# ## Overview
+# 
+# This notebook explores Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation. The dataset includes electrophysiology data recorded using Neuropixels probes as mice were presented with various odor sequences.
+# 
+# You can view this dataset on Neurosift at: [https://neurosift.app/dandiset/001335](https://neurosift.app/dandiset/001335)
+# 
+
+# %% [markdown]
+# ## What This Notebook Covers
+# 
+# In this notebook, we will:
+# 1. Load and examine the dataset using the DANDI API
+# 2. Explore the structure and metadata of the NWB file
+# 3. Analyze the LFP (Local Field Potential) data
+# 4. Examine the timing of different odor presentations
+# 5. Visualize neural activity in relation to odor stimuli
+# 6. Explore spike times for single units
+
+# %% [markdown]
+# ## Required Packages
+# 
+# The following packages are required to run this notebook. We assume they are already installed on your system.
+
+# %%
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+from dandi.dandiapi import DandiAPIClient
+import pynwb
+import h5py
+import remfile
+from matplotlib.ticker import MaxNLocator
+import random
+from matplotlib.colors import LinearSegmentedColormap
+
+# Set up plotting style
+sns.set_theme()
+
+# %% [markdown]
+# ## Loading the Dandiset Using the DANDI API
+
+# %%
+# Connect to DANDI archive
+client = DandiAPIClient()
+dandiset = client.get_dandiset("001335")
+assets = list(dandiset.get_assets())
+
+print(f"Found {len(assets)} assets in the dataset")
+print("\nFirst 5 assets:")
+for asset in assets[:5]:
+    print(f"- {asset.path}")
+
+# %% [markdown]
+# ## Loading the NWB File
+# 
+# There is one NWB file in this Dandiset. We'll load it and explore its contents.
+
+# %%
+# Get the URL for the first asset
+asset_id = "aca66db7-4c02-4453-8dcb-a179d44b1c5d"
+url = f"https://api.dandiarchive.org/api/assets/{asset_id}/download/"
+print(f"Loading NWB file: {assets[0].path} from URL: {url}")
+
+# Load the NWB file
+remote_file = remfile.File(url)
+h5_file = h5py.File(remote_file)
+io = pynwb.NWBHDF5IO(file=h5_file)
+nwb = io.read()
+
+# %% [markdown]
+# ## Exploring the NWB File Metadata
+# 
+# Let's explore the basic metadata of this NWB file to understand what it contains.
+
+# %%
+# Print basic metadata
+print(f"Session ID: {nwb.identifier}")
+print(f"Session Description: {nwb.session_description}")
+print(f"Session Start Time: {nwb.session_start_time}")
+print(f"Experimenter: {', '.join(nwb.experimenter)}")
+print(f"Lab: {nwb.lab}")
+print(f"Institution: {nwb.institution}")
+print(f"Experiment Description: {nwb.experiment_description}")
+
+# Get keywords
+print("\nKeywords:")
+keywords = nwb.keywords[:]
+for kw in keywords:
+    print(f"- {kw}")
+
+# Get subject information
+print("\nSubject Information:")
+print(f"Subject ID: {nwb.subject.subject_id}")
+print(f"Species: {nwb.subject.species}")
+print(f"Sex: {nwb.subject.sex}")
+print(f"Age: {nwb.subject.age}")
+print(f"Description: {nwb.subject.description}")
+
+# %% [markdown]
+# ## Exploring the Experimental Blocks
+# 
+# This dataset contains three experimental blocks with different odor sequences. Let's examine the timing of these blocks.
+
+# %%
+# Get the time ranges for each block
+blocks = ["Block 1", "Block 2", "Block 3"]
+block_times = pd.DataFrame()
+
+for block in blocks:
+    if block in nwb.intervals:
+        block_df = nwb.intervals[block].to_dataframe()
+        block_times = pd.concat([block_times, pd.DataFrame({
+            'Block': [block],
+            'Start (s)': [block_df['start_time'].values[0]],
+            'End (s)': [block_df['stop_time'].values[0]],
+            'Duration (s)': [block_df['stop_time'].values[0] - block_df['start_time'].values[0]]
+        })])
+
+print("Experimental Blocks:")
+print(block_times)
+
+# %% [markdown]
+# ## Examining Odor Presentation Intervals
+# 
+# The experiment involves presenting different odors to the mouse. Let's examine when these odors were presented.
+
+# %%
+# Get the odor presentation intervals
+odors = ["Odor A ON", "Odor B ON", "Odor C ON", "Odor D ON", "Odor E ON", "Odor F ON"]
+odor_dfs = {}
+
+for odor in odors:
+    if odor in nwb.intervals:
+        odor_dfs[odor] = nwb.intervals[odor].to_dataframe()
+        print(f"{odor}: {len(odor_dfs[odor])} presentations")
+        
+# Display the first few presentations of each odor
+for odor, df in odor_dfs.items():
+    print(f"\nFirst 5 presentations of {odor}:")
+    print(df.head())
+
+# %% [markdown]
+# Let's visualize the timing of odor presentations and experimental blocks.
+
+# %%
+# Prepare figure
+plt.figure(figsize=(14, 8))
+colors = sns.color_palette("husl", len(odors))
+
+# Plot odor presentations
+for i, (odor, df) in enumerate(odor_dfs.items()):
+    # Plot horizontal lines for each presentation
+    for _, row in df.iterrows():
+        plt.plot([row['start_time'], row['stop_time']], [i, i], 
+                 color=colors[i], linewidth=2)
+    
+    # Place small markers at the start of each presentation for better visibility
+    plt.scatter(df['start_time'], [i] * len(df), 
+                color=colors[i], s=20, marker='|')
+
+# Add block boundaries as vertical lines
+for _, row in block_times.iterrows():
+    plt.axvline(row['Start (s)'], color='black', linestyle='--', alpha=0.5)
+    plt.axvline(row['End (s)'], color='black', linestyle='--', alpha=0.5)
+    plt.text(row['Start (s)'] + (row['End (s)'] - row['Start (s)'])/2, -0.5, 
+             row['Block'], horizontalalignment='center')
+
+# Customize plot
+plt.yticks(range(len(odors)), [odor.replace(" ON", "") for odor in odors])
+plt.xlabel('Time (s)')
+plt.ylabel('Odor')
+plt.title('Odor Presentation Timing')
+plt.grid(True, alpha=0.3)
+
+# Adjust x-axis to focus on experimental time
+plt.xlim(0, block_times['End (s)'].max() + 100)
+plt.tight_layout()
+
+# %% [markdown]
+# ## Examining Electrodes and LFP Data
+# 
+# Now, let's look at the electrodes and the LFP (Local Field Potential) data.
+
+# %%
+# Get electrode information
+electrodes_df = nwb.electrodes.to_dataframe()
+
+# Display electrode information
+print(f"Number of electrodes: {len(electrodes_df)}")
+print("\nSample of electrode data:")
+print(electrodes_df.head())
+
+# Print electrode groups
+print("\nElectrode Groups:")
+for group_name, group in nwb.electrode_groups.items():
+    print(f"- {group_name}: {group.description}, Location: {group.location}")
+
+# %% [markdown]
+# Let's examine the LFP data that's available in the processing module.
+
+# %%
+# Get LFP data information
+lfp = nwb.processing["ecephys"].data_interfaces["LFP"]
+
+print(f"LFP Description: {lfp.description}")
+print(f"LFP Rate: {lfp.rate} Hz")
+print(f"LFP Unit: {lfp.unit}")
+print(f"LFP Data Shape: {lfp.data.shape}")  # (time_points, channels)
+print(f"LFP Starting Time: {lfp.starting_time} {lfp.starting_time_unit}")
+
+# %% [markdown]
+# Let's visualize a small segment of LFP data from a few channels.
+
+# %%
+# Select a time window (5-second segment from the first block)
+block1_start = block_times[block_times['Block'] == 'Block 1']['Start (s)'].values[0]
+start_time = block1_start + 10  # 10 seconds into Block 1
+duration = 5  # 5 seconds of data
+
+# Calculate sample indices
+start_idx = int(start_time * lfp.rate)
+end_idx = int((start_time + duration) * lfp.rate)
+
+# Select a few channels for visualization
+selected_channels = [0, 16, 32, 48]  # Selecting a few channels across different shanks
+
+# Create time array for x-axis
+time_array = np.linspace(start_time, start_time + duration, end_idx - start_idx)
+
+# Create the plot
+plt.figure(figsize=(14, 10))
+
+# Plot LFP data for selected channels
+for i, channel in enumerate(selected_channels):
+    # Get data for this channel in the time window
+    lfp_data = lfp.data[start_idx:end_idx, channel]
+    
+    # Get channel information
+    channel_info = electrodes_df.iloc[channel]
+    
+    # Plot with offset for visibility
+    offset = i * 0.5  # Offset each channel for better visibility
+    plt.plot(time_array, lfp_data + offset, 
+             label=f"Channel {channel_info['label']} ({channel_info['group_name']}, {channel_info['location']})")
+
+# Add markers for odor presentations in this time window
+for odor, df in odor_dfs.items():
+    odor_in_window = df[(df['start_time'] >= start_time) & 
+                       (df['start_time'] <= start_time + duration)]
+    
+    if not odor_in_window.empty:
+        for _, row in odor_in_window.iterrows():
+            plt.axvspan(row['start_time'], min(row['stop_time'], start_time + duration),
+                      alpha=0.2, color='green', label=f"{odor} (first occurrence)" if _ == 0 else "")
+            plt.text(row['start_time'], -0.5, odor.replace(" ON", ""), 
+                   fontsize=8, verticalalignment='top')
+
+# Customize plot
+plt.xlabel('Time (s)')
+plt.ylabel('LFP Voltage (with offset)')
+plt.title(f'LFP Data for Selected Channels (Time: {start_time:.1f}s - {start_time+duration:.1f}s)')
+plt.legend(loc='upper right')
+plt.grid(True, alpha=0.3)
+
+# Clean up legend (to avoid duplicates)
+handles, labels = plt.gca().get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+plt.legend(by_label.values(), by_label.keys(), loc='upper right')
+
+plt.tight_layout()
+
+# %% [markdown]
+# ## Computing and Visualizing LFP Power Spectrum
+
+# %%
+# Function to compute power spectrum
+def compute_psd(data, fs, nperseg=1024, noverlap=512):
+    from scipy import signal
+    freqs, psd = signal.welch(data, fs=fs, nperseg=nperseg, noverlap=noverlap)
+    return freqs, psd
+
+# Select a longer segment of data (30 seconds) for PSD calculation
+start_time_psd = block1_start + 100  # 100 seconds into Block 1
+duration_psd = 30  # 30 seconds of data
+start_idx_psd = int(start_time_psd * lfp.rate)
+end_idx_psd = int((start_time_psd + duration_psd) * lfp.rate)
+
+# Compute PSDs for multiple channels
+plt.figure(figsize=(12, 8))
+
+# Select channels from different electrode groups
+channel_groups = electrodes_df.groupby('group_name').groups
+selected_channels_psd = []
+
+# Get one representative channel from each electrode group (up to 8 groups)
+for group_name, indices in list(channel_groups.items())[:8]:
+    selected_channels_psd.append(indices[0])
+
+for channel in selected_channels_psd:
+    # Get data
+    lfp_segment = lfp.data[start_idx_psd:end_idx_psd, channel]
+    
+    # Compute PSD
+    freqs, psd = compute_psd(lfp_segment, fs=lfp.rate)
+    
+    # Plot
+    channel_info = electrodes_df.iloc[channel]
+    plt.semilogy(freqs, psd, label=f"Channel {channel_info['label']} ({channel_info['group_name']})")
+
+# Customize plot
+plt.xlabel('Frequency (Hz)')
+plt.ylabel('Power/Frequency (V^2/Hz)')
+plt.title('Power Spectral Density of LFP Data')
+plt.xlim(0, 150)  # Focus on 0-150 Hz range
+plt.legend(fontsize=8)
+plt.grid(True, which="both", ls="-", alpha=0.7)
+plt.tight_layout()
+
+# %% [markdown]
+# ## Analyzing Neural Units and Spike Times
+# 
+# This dataset includes spike times for 283 neural units. Let's explore this data.
+
+# %%
+# Get unit information
+units_df = nwb.units.to_dataframe()
+print(f"Number of units: {len(units_df)}")
+print("\nSample of unit data (first few columns):")
+print(units_df[['electrode_group', 'depth', 'hemisphere']].head())
+
+# Count units by electrode group
+unit_counts = units_df['electrode_group'].value_counts()
+print("\nUnits per electrode group:")
+for group, count in unit_counts.items():
+    print(f"- {group}: {count} units")
+
+# %% [markdown]
+# Let's visualize spike times for a selection of units during an odor presentation.
+
+# %%
+# Define a function to get spike times within a specific time window
+def get_spikes_in_window(units_df, unit_ids, start_time, end_time):
+    spike_data = []
+    
+    for unit_id in unit_ids:
+        # Get the spike times for this unit
+        spike_times = units_df.loc[unit_id, 'spike_times'][:]
+        
+        # Filter for spikes within the time window
+        mask = (spike_times >= start_time) & (spike_times <= end_time)
+        unit_spikes = spike_times[mask]
+        
+        spike_data.append({
+            'unit_id': unit_id,
+            'spikes': unit_spikes,
+            'count': len(unit_spikes),
+            'electrode_group': units_df.loc[unit_id, 'electrode_group']
+        })
+    
+    # Sort by electrode group and spike count
+    spike_data = sorted(spike_data, key=lambda x: (x['electrode_group'], -x['count']))
+    
+    return spike_data
+
+# Select an odor presentation interval (e.g., the first presentation of Odor A)
+odor_a_first = odor_dfs['Odor A ON'].iloc[0]
+start_time_odor = odor_a_first['start_time'] - 1  # 1 second before odor onset
+end_time_odor = odor_a_first['stop_time'] + 1     # 1 second after odor offset
+
+# Select 15 random units to visualize (to avoid overcrowding)
+np.random.seed(42)  # For reproducibility
+random_units = np.random.choice(units_df.index, size=15, replace=False)
+selected_units = sorted(random_units)
+
+# Get spike data for selected units during the time window
+spike_data = get_spikes_in_window(units_df, selected_units, start_time_odor, end_time_odor)
+
+# Create a raster plot
+plt.figure(figsize=(14, 8))
+
+for i, unit_data in enumerate(spike_data):
+    # Plot spike times
+    unit_id = unit_data['unit_id']
+    spikes = unit_data['spikes']
+    
+    if len(spikes) > 0:
+        plt.scatter(spikes, [i] * len(spikes), marker='|', s=40, 
+                   color=plt.cm.tab10(hash(str(unit_data['electrode_group'])) % 10))
+
+# Add a colored bar for odor presentation
+plt.axvspan(odor_a_first['start_time'], odor_a_first['stop_time'], 
+           alpha=0.2, color='green', label='Odor A Presentation')
+
+# Customize plot
+plt.xlabel('Time (s)')
+plt.ylabel('Unit #')
+plt.title(f'Spike Raster Plot During Odor A Presentation (Units: {len(selected_units)})')
+plt.yticks(range(len(spike_data)), 
+          [f"Unit {d['unit_id']} ({d['electrode_group']})" for d in spike_data])
+plt.xlim(start_time_odor, end_time_odor)
+plt.grid(True, axis='x', alpha=0.3)
+plt.tight_layout()
+
+# %% [markdown]
+# ## Analyzing Firing Rate Changes During Odor Presentation
+# 
+# Let's examine how the firing rates of units change before, during, and after odor presentation.
+
+# %%
+# Function to calculate firing rates in bins
+def calculate_firing_rates(units_df, unit_ids, start_time, end_time, bin_width=0.1):
+    time_bins = np.arange(start_time, end_time + bin_width, bin_width)
+    bin_centers = time_bins[:-1] + bin_width/2
+    
+    unit_firing_rates = {}
+    
+    for unit_id in unit_ids:
+        # Get spike times for this unit
+        spike_times = units_df.loc[unit_id, 'spike_times'][:]
+        
+        # Count spikes in each bin
+        hist, _ = np.histogram(spike_times, bins=time_bins)
+        
+        # Convert to firing rate (spikes/second)
+        firing_rates = hist / bin_width
+        
+        unit_firing_rates[unit_id] = firing_rates
+    
+    return bin_centers, unit_firing_rates
+
+# Select an odor (we'll use Odor A again) and examine multiple presentations
+odor = "Odor A ON"
+num_presentations_to_analyze = 5
+presentations = odor_dfs[odor].iloc[:num_presentations_to_analyze]
+
+# Select units that have a good number of spikes
+active_unit_threshold = 100  # Minimum number of spikes to be considered active
+active_units = []
+
+for unit_id in units_df.index:
+    if len(units_df.loc[unit_id, 'spike_times'][:]) > active_unit_threshold:
+        active_units.append(unit_id)
+
+print(f"Found {len(active_units)} active units with more than {active_unit_threshold} spikes")
+
+# We'll select a subset of these active units
+selected_active_units = active_units[:10]  # Use first 10 active units
+
+# Analyze each presentation
+plt.figure(figsize=(15, 10))
+
+for i, (_, presentation) in enumerate(presentations.iterrows()):
+    # Define time window (3s before to 3s after the presentation)
+    pre_time = 2.0  # seconds before odor onset
+    post_time = 2.0  # seconds after odor offset
+    
+    start_time = presentation['start_time'] - pre_time
+    end_time = presentation['stop_time'] + post_time
+    
+    # Calculate firing rates
+    bin_width = 0.1  # 100ms bins
+    bin_centers, unit_firing_rates = calculate_firing_rates(
+        units_df, selected_active_units, start_time, end_time, bin_width)
+    
+    # Create subplot
+    plt.subplot(num_presentations_to_analyze, 1, i+1)
+    
+    # Plot firing rates for each unit
+    for j, unit_id in enumerate(selected_active_units):
+        color = plt.cm.tab10(j % 10)
+        plt.plot(bin_centers, unit_firing_rates[unit_id], color=color, alpha=0.7,
+                label=f"Unit {unit_id}" if i == 0 else "")  # Only include labels in the first subplot
+    
+    # Mark odor presentation period
+    plt.axvspan(presentation['start_time'], presentation['stop_time'], 
+               alpha=0.2, color='green', label='Odor Presentation' if i == 0 else "")
+    
+    # Add titles and labels
+    presentation_num = i + 1
+    plt.title(f"Presentation {presentation_num}: Time {presentation['start_time']:.1f}s - {presentation['stop_time']:.1f}s")
+    
+    if i == num_presentations_to_analyze - 1:  # Only add x-label to the bottom subplot
+        plt.xlabel('Time (s)')
+    
+    plt.ylabel('Firing Rate (Hz)')
+    plt.grid(True, alpha=0.3)
+    
+    # Custom y-axis limits to focus on the data
+    plt.ylim(0, 50)  # Assuming most rates are under 50 Hz
+
+# Add a single legend for all subplots
+plt.subplot(num_presentations_to_analyze, 1, 1)
+handles, labels = plt.gca().get_legend_handles_labels()
+plt.figlegend(handles, labels, loc='upper right', fontsize=8, bbox_to_anchor=(1, 1))
+
+plt.tight_layout()
+plt.subplots_adjust(top=0.9)  # Make space for the legend
+
+# %% [markdown]
+# ## Comparing Neural Responses to Different Odors
+# 
+# Now, let's compare how neurons respond to different odors.
+
+# %%
+# Function to calculate average firing rate changes
+def calculate_avg_firing_rate_change(units_df, unit_ids, odor_df, n_presentations=5, 
+                                    pre_window=2.0, post_window=2.0, bin_width=0.5):
+    # We'll calculate the average change in firing rate for each unit
+    unit_responses = {}
+    
+    for unit_id in unit_ids:
+        # Initialize arrays for before, during, and after odor
+        before_rates = []
+        during_rates = []
+        after_rates = []
+        
+        # Process each presentation (up to n_presentations)
+        for idx, row in odor_df.iloc[:n_presentations].iterrows():
+            odor_start = row['start_time']
+            odor_end = row['stop_time']
+            
+            # Get spike times for this unit
+            spike_times = units_df.loc[unit_id, 'spike_times'][:]
+            
+            # Count spikes in the three windows
+            before_spikes = sum((spike_times >= odor_start - pre_window) & 
+                               (spike_times < odor_start))
+            during_spikes = sum((spike_times >= odor_start) & 
+                               (spike_times < odor_end))
+            after_spikes = sum((spike_times >= odor_end) & 
+                              (spike_times < odor_end + post_window))
+            
+            # Convert to rates (spikes/second)
+            before_rate = before_spikes / pre_window
+            during_rate = during_spikes / (odor_end - odor_start)
+            after_rate = after_spikes / post_window
+            
+            # Append to lists
+            before_rates.append(before_rate)
+            during_rates.append(during_rate)
+            after_rates.append(after_rate)
+        
+        # Calculate averages across presentations
+        unit_responses[unit_id] = {
+            'before': np.mean(before_rates),
+            'during': np.mean(during_rates),
+            'after': np.mean(after_rates),
+            'change_during': np.mean(during_rates) - np.mean(before_rates),
+            'electrode_group': units_df.loc[unit_id, 'electrode_group']
+        }
+    
+    return unit_responses
+
+# Select odors to compare
+odors_to_compare = ["Odor A ON", "Odor B ON", "Odor C ON"]
+
+# Calculate responses for a larger set of active units
+n_active_units = min(30, len(active_units))  # Use up to 30 active units
+units_for_comparison = active_units[:n_active_units]
+
+# Calculate responses for each odor
+odor_responses = {}
+for odor in odors_to_compare:
+    odor_responses[odor] = calculate_avg_firing_rate_change(
+        units_df, units_for_comparison, odor_dfs[odor], n_presentations=5)
+
+# Create a heatmap of responses to different odors
+response_matrix = np.zeros((len(units_for_comparison), len(odors_to_compare)))
+
+for i, unit_id in enumerate(units_for_comparison):
+    for j, odor in enumerate(odors_to_compare):
+        response_matrix[i, j] = odor_responses[odor][unit_id]['change_during']
+
+# Create a custom colormap centered at zero
+colors = [(0, 0, 0.8), (1, 1, 1), (0.8, 0, 0)]  # Blue -> White -> Red
+cmap = LinearSegmentedColormap.from_list('custom_diverging', colors, N=256)
+
+# Plot the heatmap
+plt.figure(figsize=(10, 12))
+vmax = max(5, np.abs(response_matrix).max())  # Cap at 5Hz or actual max
+sns.heatmap(response_matrix, cmap=cmap, center=0, vmin=-vmax, vmax=vmax,
+           yticklabels=[f"Unit {u}" for u in units_for_comparison],
+           xticklabels=[odor.replace(" ON", "") for odor in odors_to_compare],
+           cbar_kws={'label': 'Change in Firing Rate (Hz)'})
+
+plt.title('Changes in Firing Rates During Odor Presentation')
+plt.tight_layout()
+
+# %% [markdown]
+# ## Examining the Relationship Between Electrode Location and Unit Responses
+# 
+# Let's visualize how the unit responses vary based on their electrode location.
+
+# %%
+# Combine unit info with response data
+unit_data = []
+
+for unit_id in units_for_comparison:
+    unit_info = {
+        'unit_id': unit_id,
+        'electrode_group': units_df.loc[unit_id, 'electrode_group'],
+        'depth': units_df.loc[unit_id, 'depth'],
+        'hemisphere': units_df.loc[unit_id, 'hemisphere']
+    }
+    
+    # Add response data for each odor
+    for odor in odors_to_compare:
+        odor_name = odor.replace(" ON", "")
+        unit_info[f'{odor_name}_change'] = odor_responses[odor][unit_id]['change_during']
+    
+    unit_data.append(unit_info)
+
+# Convert to DataFrame
+response_df = pd.DataFrame(unit_data)
+
+# Create a scatter plot of responses by depth for each electrode group
+plt.figure(figsize=(10, 8))
+
+# Get unique electrode groups
+electrode_groups = response_df['electrode_group'].unique()
+n_groups = len(electrode_groups)
+colors = plt.cm.tab10(np.linspace(0, 1, n_groups))
+
+# Create one subplot per odor
+for i, odor in enumerate(odors_to_compare):
+    odor_name = odor.replace(" ON", "")
+    response_column = f'{odor_name}_change'
+    
+    plt.subplot(1, 3, i+1)
+    
+    for j, group in enumerate(electrode_groups):
+        # Filter for this group
+        group_data = response_df[response_df['electrode_group'] == group]
+        
+        # Plot
+        plt.scatter(group_data[response_column], group_data['depth'], 
+                   color=colors[j], label=group, alpha=0.7)
+    
+    # Customize plot
+    plt.axvline(0, color='gray', linestyle='--', alpha=0.5)  # Zero line
+    plt.title(f'Response to {odor_name} by Depth')
+    plt.xlabel('Change in Firing Rate (Hz)')
+    plt.ylabel('Depth (μm)')
+    plt.grid(True, alpha=0.3)
+    
+    if i == 0:  # Only include legend in first subplot
+        plt.legend(title='Electrode Group', loc='upper left', bbox_to_anchor=(-0.3, 1))
+
+plt.tight_layout()
+
+# %% [markdown]
+# ## Summary
+# 
+# In this notebook, we've explored Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation. We've analyzed:
+# 
+# 1. The structure and metadata of the NWB file
+# 2. The timing of experimental blocks and odor presentations
+# 3. The Local Field Potential (LFP) data and its spectral properties
+# 4. Spike times and firing rates for individual neural units
+# 5. Neural responses to different odors
+# 6. The relationship between electrode location and neural responses
+# 
+# The dataset provides rich information about how hippocampal neurons respond to different odor stimuli. The analysis revealed that some neurons show clear changes in firing rate during odor presentation, while others do not. There also appears to be some specificity in how neurons respond to different odors.
+# 
+# ## Future Directions
+# 
+# Future analyses could explore:
+# 
+# 1. Population-level analysis of neural responses using dimensionality reduction techniques
+# 2. More sophisticated spectral analysis of LFP data, including coherence between channels
+# 3. Analysis of spike-field coupling between unit activity and LFP oscillations
+# 4. Comparison of responses across different experimental blocks to study learning or habituation effects
+# 5. More detailed analysis of the temporal dynamics of neural responses during odor presentation
+================================
+Total prompt tokens: 42963 + 0
+Total completion tokens: 8937 + 0
+
+=========================================
+
+write_to_file for 'notebook.py':
+Successfully wrote 24913 characters to notebook.py
+=========================================
+
+Using model: anthropic/claude-3.7-sonnet
+Num. messages in conversation: 10
+Submitting completion request...
+Processing response...
+I need to convert the notebook.py file to a Jupyter notebook format and execute it. I'll use the jupytext command for the conversion and then jupyter execute to run the notebook.
+
+From the task instructions:
+"Run `jupytext --to notebook notebook.py && jupyter execute --inplace notebook.ipynb` to convert the notebook to a Jupyter notebook and execute the resulting `notebook.ipynb` to make sure it runs without errors and produces output cells."
+
+This will convert notebook.py to notebook.ipynb, execute the notebook, and save the outputs in-place.
+
+Tool: execute_command
+Params: {'command': 'jupytext --to notebook notebook.py && jupyter execute --inplace notebook.ipynb', 'requires_approval': 'false', 'timeout': '600'}
+================================
+Command to be executed
+jupytext --to notebook notebook.py && jupyter execute --inplace notebook.ipynb
+================================
+[jupytext] Reading notebook.py in format py
+[jupytext] Writing notebook.ipynb
+[NbClientApp] Executing notebook.ipynb
+[NbClientApp] Executing notebook with kernel: 
+Traceback (most recent call last):
+  File "/home/magland/miniconda3/envs/dev/bin/jupyter-execute", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/traitlets/config/application.py", line 1074, in launch_instance
+    app.initialize(argv)
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/traitlets/config/application.py", line 118, in inner
+    return method(app, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/nbclient/cli.py", line 161, in initialize
+    self.run_notebook(path)
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/nbclient/cli.py", line 215, in run_notebook
+    client.execute()
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/asyncio/base_events.py", line 685, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Define a function to get spike times within a specific time window
+def get_spikes_in_window(units_df, unit_ids, start_time, end_time):
+    spike_data = []
+    
+    for unit_id in unit_ids:
+        # Get the spike times for this unit
+        spike_times = units_df.loc[unit_id, 'spike_times'][:]
+        
+        # Filter for spikes within the time window
+        mask = (spike_times >= start_time) & (spike_times <= end_time)
+        unit_spikes = spike_times[mask]
+        
+        spike_data.append({
+            'unit_id': unit_id,
+            'spikes': unit_spikes,
+            'count': len(unit_spikes),
+            'electrode_group': units_df.loc[unit_id, 'electrode_group']
+        })
+    
+    # Sort by electrode group and spike count
+    spike_data = sorted(spike_data, key=lambda x: (x['electrode_group'], -x['count']))
+    
+    return spike_data
+
+# Select an odor presentation interval (e.g., the first presentation of Odor A)
+odor_a_first = odor_dfs['Odor A ON'].iloc[0]
+start_time_odor = odor_a_first['start_time'] - 1  # 1 second before odor onset
+end_time_odor = odor_a_first['stop_time'] + 1     # 1 second after odor offset
+
+# Select 15 random units to visualize (to avoid overcrowding)
+np.random.seed(42)  # For reproducibility
+random_units = np.random.choice(units_df.index, size=15, replace=False)
+selected_units = sorted(random_units)
+
+# Get spike data for selected units during the time window
+spike_data = get_spikes_in_window(units_df, selected_units, start_time_odor, end_time_odor)
+
+# Create a raster plot
+plt.figure(figsize=(14, 8))
+
+for i, unit_data in enumerate(spike_data):
+    # Plot spike times
+    unit_id = unit_data['unit_id']
+    spikes = unit_data['spikes']
+    
+    if len(spikes) > 0:
+        plt.scatter(spikes, [i] * len(spikes), marker='|', s=40, 
+                   color=plt.cm.tab10(hash(str(unit_data['electrode_group'])) % 10))
+
+# Add a colored bar for odor presentation
+plt.axvspan(odor_a_first['start_time'], odor_a_first['stop_time'], 
+           alpha=0.2, color='green', label='Odor A Presentation')
+
+# Customize plot
+plt.xlabel('Time (s)')
+plt.ylabel('Unit #')
+plt.title(f'Spike Raster Plot During Odor A Presentation (Units: {len(selected_units)})')
+plt.yticks(range(len(spike_data)), 
+          [f"Unit {d['unit_id']} ({d['electrode_group']})" for d in spike_data])
+plt.xlim(start_time_odor, end_time_odor)
+plt.grid(True, axis='x', alpha=0.3)
+plt.tight_layout()
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[13], line 36[0m
+[1;32m     33[0m selected_units [38;5;241m=[39m [38;5;28msorted[39m(random_units)
+[1;32m     35[0m [38;5;66;03m# Get spike data for selected units during the time window[39;00m
+[0;32m---> 36[0m spike_data [38;5;241m=[39m [43mget_spikes_in_window[49m[43m([49m[43munits_df[49m[43m,[49m[43m [49m[43mselected_units[49m[43m,[49m[43m [49m[43mstart_time_odor[49m[43m,[49m[43m [49m[43mend_time_odor[49m[43m)[49m
+[1;32m     38[0m [38;5;66;03m# Create a raster plot[39;00m
+[1;32m     39[0m plt[38;5;241m.[39mfigure(figsize[38;5;241m=[39m([38;5;241m14[39m, [38;5;241m8[39m))
+
+Cell [0;32mIn[13], line 21[0m, in [0;36mget_spikes_in_window[0;34m(units_df, unit_ids, start_time, end_time)[0m
+[1;32m     13[0m     spike_data[38;5;241m.[39mappend({
+[1;32m     14[0m         [38;5;124m'[39m[38;5;124munit_id[39m[38;5;124m'[39m: unit_id,
+[1;32m     15[0m         [38;5;124m'[39m[38;5;124mspikes[39m[38;5;124m'[39m: unit_spikes,
+[1;32m     16[0m         [38;5;124m'[39m[38;5;124mcount[39m[38;5;124m'[39m: [38;5;28mlen[39m(unit_spikes),
+[1;32m     17[0m         [38;5;124m'[39m[38;5;124melectrode_group[39m[38;5;124m'[39m: units_df[38;5;241m.[39mloc[unit_id, [38;5;124m'[39m[38;5;124melectrode_group[39m[38;5;124m'[39m]
+[1;32m     18[0m     })
+[1;32m     20[0m [38;5;66;03m# Sort by electrode group and spike count[39;00m
+[0;32m---> 21[0m spike_data [38;5;241m=[39m [38;5;28;43msorted[39;49m[43m([49m[43mspike_data[49m[43m,[49m[43m [49m[43mkey[49m[38;5;241;43m=[39;49m[38;5;28;43;01mlambda[39;49;00m[43m [49m[43mx[49m[43m:[49m[43m [49m[43m([49m[43mx[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43melectrode_group[39;49m[38;5;124;43m'[39;49m[43m][49m[43m,[49m[43m [49m[38;5;241;43m-[39;49m[43mx[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mcount[39;49m[38;5;124;43m'[39;49m[43m][49m[43m)[49m[43m)[49m
+[1;32m     23[0m [38;5;28;01mreturn[39;00m spike_data
+
+[0;31mTypeError[0m: '<' not supported between instances of 'ElectrodeGroup' and 'ElectrodeGroup'
+
+Total prompt tokens: 67510 + 0
+Total completion tokens: 9161 + 0
+
+=========================================
+
+execute_command 'jupytext --to notebook notebook.py && jupyter execute --inplace notebook.ipynb' (requires approval):
+Command failed with exit code 1
+STDOUT:
+[jupytext] Reading notebook.py in format py
+[jupytext] Writing notebook.ipynb
+
+STDERR:
+[NbClientApp] Executing notebook.ipynb
+[NbClientApp] Executing notebook with kernel: 
+Traceback (most recent call last):
+  File "/home/magland/miniconda3/envs/dev/bin/jupyter-execute", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/traitlets/config/application.py", line 1074, in launch_instance
+    app.initialize(argv)
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/traitlets/config/application.py", line 118, in inner
+    return method(app, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/nbclient/cli.py", line 161, in initialize
+    self.run_notebook(path)
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/nbclient/cli.py", line 215, in run_notebook
+    client.execute()
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/asyncio/base_events.py", line 685, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/magland/miniconda3/envs/dev/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Define a function to get spike times within a specific time window
+def get_spikes_in_window(units_df, unit_ids, start_time, end_time):
+    spike_data = []
+    
+    for unit_id in unit_ids:
+        # Get the spike times for this unit
+        spike_times = units_df.loc[unit_id, 'spike_times'][:]
+        
+        # Filter for spikes within the time window
+        mask = (spike_times >= start_time) & (spike_times <= end_time)
+        unit_spikes = spike_times[mask]
+        
+        spike_data.append({
+            'unit_id': unit_id,
+            'spikes': unit_spikes,
+            'count': len(unit_spikes),
+            'electrode_group': units_df.loc[unit_id, 'electrode_group']
+        })
+    
+    # Sort by electrode group and spike count
+    spike_data = sorted(spike_data, key=lambda x: (x['electrode_group'], -x['count']))
+    
+    return spike_data
+
+# Select an odor presentation interval (e.g., the first presentation of Odor A)
+odor_a_first = odor_dfs['Odor A ON'].iloc[0]
+start_time_odor = odor_a_first['start_time'] - 1  # 1 second before odor onset
+end_time_odor = odor_a_first['stop_time'] + 1     # 1 second after odor offset
+
+# Select 15 random units to visualize (to avoid overcrowding)
+np.random.seed(42)  # For reproducibility
+random_units = np.random.choice(units_df.index, size=15, replace=False)
+selected_units = sorted(random_units)
+
+# Get spike data for selected units during the time window
+spike_data = get_spikes_in_window(units_df, selected_units, start_time_odor, end_time_odor)
+
+# Create a raster plot
+plt.figure(figsize=(14, 8))
+
+for i, unit_data in enumerate(spike_data):
+    # Plot spike times
+    unit_id = unit_data['unit_id']
+    spikes = unit_data['spikes']
+    
+    if len(spikes) > 0:
+        plt.scatter(spikes, [i] * len(spikes), marker='|', s=40, 
+                   color=plt.cm.tab10(hash(str(unit_data['electrode_group'])) % 10))
+
+# Add a colored bar for odor presentation
+plt.axvspan(odor_a_first['start_time'], odor_a_first['stop_time'], 
+           alpha=0.2, color='green', label='Odor A Presentation')
+
+# Customize plot
+plt.xlabel('Time (s)')
+plt.ylabel('Unit #')
+plt.title(f'Spike Raster Plot During Odor A Presentation (Units: {len(selected_units)})')
+plt.yticks(range(len(spike_data)), 
+          [f"Unit {d['unit_id']} ({d['electrode_group']})" for d in spike_data])
+plt.xlim(start_time_odor, end_time_odor)
+plt.grid(True, axis='x', alpha=0.3)
+plt.tight_layout()
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[13], line 36[0m
+[1;32m     33[0m selected_units [38;5;241m=[39m [38;5;28msorted[39m(random_units)
+[1;32m     35[0m [38;5;66;03m# Get spike data for selected units during the time window[39;00m
+[0;32m---> 36[0m spike_data [38;5;241m=[39m [43mget_spikes_in_window[49m[43m([49m[43munits_df[49m[43m,[49m[43m [49m[43mselected_units[49m[43m,[49m[43m [49m[43mstart_time_odor[49m[43m,[49m[43m [49m[43mend_time_odor[49m[43m)[49m
+[1;32m     38[0m [38;5;66;03m# Create a raster plot[39;00m
+[1;32m     39[0m plt[38;5;241m.[39mfigure(figsize[38;5;241m=[39m([38;5;241m14[39m, [38;5;241m8[39m))
+
+Cell [0;32mIn[13], line 21[0m, in [0;36mget_spikes_in_window[0;34m(units_df, unit_ids, start_time, end_time)[0m
+[1;32m     13[0m     spike_data[38;5;241m.[39mappend({
+[1;32m     14[0m         [38;5;124m'[39m[38;5;124munit_id[39m[38;5;124m'[39m: unit_id,
+[1;32m     15[0m         [38;5;124m'[39m[38;5;124mspikes[39m[38;5;124m'[39m: unit_spikes,
+[1;32m     16[0m         [38;5;124m'[39m[38;5;124mcount[39m[38;5;124m'[39m: [38;5;28mlen[39m(unit_spikes),
+[1;32m     17[0m         [38;5;124m'[39m[38;5;124melectrode_group[39m[38;5;124m'[39m: units_df[38;5;241m.[39mloc[unit_id, [38;5;124m'[39m[38;5;124melectrode_group[39m[38;5;124m'[39m]
+[1;32m     18[0m     })
+[1;32m     20[0m [38;5;66;03m# Sort by electrode group and spike count[39;00m
+[0;32m---> 21[0m spike_data [38;5;241m=[39m [38;5;28;43msorted[39;49m[43m([49m[43mspike_data[49m[43m,[49m[43m [49m[43mkey[49m[38;5;241;43m=[39;49m[38;5;28;43;01mlambda[39;49;00m[43m [49m[43mx[49m[43m:[49m[43m [49m[43m([49m[43mx[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43melectrode_group[39;49m[38;5;124;43m'[39;49m[43m][49m[43m,[49m[43m [49m[38;5;241;43m-[39;49m[43mx[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mcount[39;49m[38;5;124;43m'[39;49m[43m][49m[43m)[49m[43m)[49m
+[1;32m     23[0m [38;5;28;01mreturn[39;00m spike_data
+
+[0;31mTypeError[0m: '<' not supported between instances of 'ElectrodeGroup' and 'ElectrodeGroup'
+
+
+=========================================
+
+Using model: anthropic/claude-3.7-sonnet
+Num. messages in conversation: 12
+Submitting completion request...
+Processing response...
+The error occurs when trying to sort the spike_data list by electrode_group. The error message is: "<TypeError: '<' not supported between instances of 'ElectrodeGroup' and 'ElectrodeGroup'>"
+
+This means we can't directly compare ElectrodeGroup objects. In the code, I'm trying to sort by electrode_group but it's an object that doesn't support comparison. Instead, I should use the string name of the electrode group for sorting.
+
+I'll modify the get_spikes_in_window function to use the string representation (or name) of the electrode_group for sorting.
+
+Tool: replace_in_file
+Params: {'path': 'notebook.py', 'diff': "<<<<<<< SEARCH\n    spike_data.append({\n        'unit_id': unit_id,\n        'spikes': unit_spikes,\n        'count': len(unit_spikes),\n        'electrode_group': units_df.loc[unit_id, 'electrode_group']\n    })\n    \n    # Sort by electrode group and spike count\n    spike_data = sorted(spike_data, key=lambda x: (x['electrode_group'], -x['count']))\n=======\n    # Get electrode group information for this unit\n    electrode_group = units_df.loc[unit_id, 'electrode_group']\n    electrode_group_name = str(electrode_group)  # Convert to string for sorting\n    \n    spike_data.append({\n        'unit_id': unit_id,\n        'spikes': unit_spikes,\n        'count': len(unit_spikes),\n        'electrode_group': electrode_group,\n        'electrode_group_name': electrode_group_name\n    })\n    \n    # Sort by electrode group name and spike count\n    spike_data = sorted(spike_data, key=lambda x: (x['electrode_group_name'], -x['count']))\n>>>>>>> REPLACE"}
+================================
+Proposed replacement in notebook.py:
+<<<<<<< SEARCH
+    spike_data.append({
+        'unit_id': unit_id,
+        'spikes': unit_spikes,
+        'count': len(unit_spikes),
+        'electrode_group': units_df.loc[unit_id, 'electrode_group']
+    })
+    
+    # Sort by electrode group and spike count
+    spike_data = sorted(spike_data, key=lambda x: (x['electrode_group'], -x['count']))
+=======
+    # Get electrode group information for this unit
+    electrode_group = units_df.loc[unit_id, 'electrode_group']
+    electrode_group_name = str(electrode_group)  # Convert to string for sorting
+    
+    spike_data.append({
+        'unit_id': unit_id,
+        'spikes': unit_spikes,
+        'count': len(unit_spikes),
+        'electrode_group': electrode_group,
+        'electrode_group_name': electrode_group_name
+    })
+    
+    # Sort by electrode group name and spike count
+    spike_data = sorted(spike_data, key=lambda x: (x['electrode_group_name'], -x['count']))
+>>>>>>> REPLACE
+================================
+Total prompt tokens: 95090 + 0
+Total completion tokens: 9663 + 0
+
+=========================================
+
+replace_in_file for 'notebook.py':
+ERROR: Search content not found:
+    spike_data.append({
+        'unit_id': unit_id,
+        'spikes': unit_spikes,
+        'count': len(unit_spikes),
+        'electrode_group': units_df.loc[unit_id, 'electrode_group']
+    })
+    
+    # Sort by electrode group and spike count
+    spike_data = sorted(spike_data, key=lambda x: (x['electrode_group'], -x['count']))
+=========================================
+
+Using model: anthropic/claude-3.7-sonnet
+Num. messages in conversation: 14
+Submitting completion request...
+Processing response...
+I need to read the notebook.py file first to get the exact content, including whitespace and indentation, to make my replacement successful.
+
+Tool: read_file
+Params: {'path': 'notebook.py'}
+Total prompt tokens: 123355 + 0
+Total completion tokens: 9752 + 0
+
+=========================================
+
+read_file for 'notebook.py':
+# %% [markdown]
+# # Exploring Dandiset 001335: Neuropixels Recordings from Hippocampus of Head-Fixed Mice During Odor Presentation
+
+# %% [markdown]
+# > **⚠️ IMPORTANT NOTE**: This notebook was AI-generated using dandi-notebook-gen and has not been fully verified. Please be cautious when interpreting the code or results.
+
+# %% [markdown]
+# ## Overview
+# 
+# This notebook explores Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation. The dataset includes electrophysiology data recorded using Neuropixels probes as mice were presented with various odor sequences.
+# 
+# You can view this dataset on Neurosift at: [https://neurosift.app/dandiset/001335](https://neurosift.app/dandiset/001335)
+# 
+
+# %% [markdown]
+# ## What This Notebook Covers
+# 
+# In this notebook, we will:
+# 1. Load and examine the dataset using the DANDI API
+# 2. Explore the structure and metadata of the NWB file
+# 3. Analyze the LFP (Local Field Potential) data
+# 4. Examine the timing of different odor presentations
+# 5. Visualize neural activity in relation to odor stimuli
+# 6. Explore spike times for single units
+
+# %% [markdown]
+# ## Required Packages
+# 
+# The following packages are required to run this notebook. We assume they are already installed on your system.
+
+# %%
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+from dandi.dandiapi import DandiAPIClient
+import pynwb
+import h5py
+import remfile
+from matplotlib.ticker import MaxNLocator
+import random
+from matplotlib.colors import LinearSegmentedColormap
+
+# Set up plotting style
+sns.set_theme()
+
+# %% [markdown]
+# ## Loading the Dandiset Using the DANDI API
+
+# %%
+# Connect to DANDI archive
+client = DandiAPIClient()
+dandiset = client.get_dandiset("001335")
+assets = list(dandiset.get_assets())
+
+print(f"Found {len(assets)} assets in the dataset")
+print("\nFirst 5 assets:")
+for asset in assets[:5]:
+    print(f"- {asset.path}")
+
+# %% [markdown]
+# ## Loading the NWB File
+# 
+# There is one NWB file in this Dandiset. We'll load it and explore its contents.
+
+# %%
+# Get the URL for the first asset
+asset_id = "aca66db7-4c02-4453-8dcb-a179d44b1c5d"
+url = f"https://api.dandiarchive.org/api/assets/{asset_id}/download/"
+print(f"Loading NWB file: {assets[0].path} from URL: {url}")
+
+# Load the NWB file
+remote_file = remfile.File(url)
+h5_file = h5py.File(remote_file)
+io = pynwb.NWBHDF5IO(file=h5_file)
+nwb = io.read()
+
+# %% [markdown]
+# ## Exploring the NWB File Metadata
+# 
+# Let's explore the basic metadata of this NWB file to understand what it contains.
+
+# %%
+# Print basic metadata
+print(f"Session ID: {nwb.identifier}")
+print(f"Session Description: {nwb.session_description}")
+print(f"Session Start Time: {nwb.session_start_time}")
+print(f"Experimenter: {', '.join(nwb.experimenter)}")
+print(f"Lab: {nwb.lab}")
+print(f"Institution: {nwb.institution}")
+print(f"Experiment Description: {nwb.experiment_description}")
+
+# Get keywords
+print("\nKeywords:")
+keywords = nwb.keywords[:]
+for kw in keywords:
+    print(f"- {kw}")
+
+# Get subject information
+print("\nSubject Information:")
+print(f"Subject ID: {nwb.subject.subject_id}")
+print(f"Species: {nwb.subject.species}")
+print(f"Sex: {nwb.subject.sex}")
+print(f"Age: {nwb.subject.age}")
+print(f"Description: {nwb.subject.description}")
+
+# %% [markdown]
+# ## Exploring the Experimental Blocks
+# 
+# This dataset contains three experimental blocks with different odor sequences. Let's examine the timing of these blocks.
+
+# %%
+# Get the time ranges for each block
+blocks = ["Block 1", "Block 2", "Block 3"]
+block_times = pd.DataFrame()
+
+for block in blocks:
+    if block in nwb.intervals:
+        block_df = nwb.intervals[block].to_dataframe()
+        block_times = pd.concat([block_times, pd.DataFrame({
+            'Block': [block],
+            'Start (s)': [block_df['start_time'].values[0]],
+            'End (s)': [block_df['stop_time'].values[0]],
+            'Duration (s)': [block_df['stop_time'].values[0] - block_df['start_time'].values[0]]
+        })])
+
+print("Experimental Blocks:")
+print(block_times)
+
+# %% [markdown]
+# ## Examining Odor Presentation Intervals
+# 
+# The experiment involves presenting different odors to the mouse. Let's examine when these odors were presented.
+
+# %%
+# Get the odor presentation intervals
+odors = ["Odor A ON", "Odor B ON", "Odor C ON", "Odor D ON", "Odor E ON", "Odor F ON"]
+odor_dfs = {}
+
+for odor in odors:
+    if odor in nwb.intervals:
+        odor_dfs[odor] = nwb.intervals[odor].to_dataframe()
+        print(f"{odor}: {len(odor_dfs[odor])} presentations")
+        
+# Display the first few presentations of each odor
+for odor, df in odor_dfs.items():
+    print(f"\nFirst 5 presentations of {odor}:")
+    print(df.head())
+
+# %% [markdown]
+# Let's visualize the timing of odor presentations and experimental blocks.
+
+# %%
+# Prepare figure
+plt.figure(figsize=(14, 8))
+colors = sns.color_palette("husl", len(odors))
+
+# Plot odor presentations
+for i, (odor, df) in enumerate(odor_dfs.items()):
+    # Plot horizontal lines for each presentation
+    for _, row in df.iterrows():
+        plt.plot([row['start_time'], row['stop_time']], [i, i], 
+                 color=colors[i], linewidth=2)
+    
+    # Place small markers at the start of each presentation for better visibility
+    plt.scatter(df['start_time'], [i] * len(df), 
+                color=colors[i], s=20, marker='|')
+
+# Add block boundaries as vertical lines
+for _, row in block_times.iterrows():
+    plt.axvline(row['Start (s)'], color='black', linestyle='--', alpha=0.5)
+    plt.axvline(row['End (s)'], color='black', linestyle='--', alpha=0.5)
+    plt.text(row['Start (s)'] + (row['End (s)'] - row['Start (s)'])/2, -0.5, 
+             row['Block'], horizontalalignment='center')
+
+# Customize plot
+plt.yticks(range(len(odors)), [odor.replace(" ON", "") for odor in odors])
+plt.xlabel('Time (s)')
+plt.ylabel('Odor')
+plt.title('Odor Presentation Timing')
+plt.grid(True, alpha=0.3)
+
+# Adjust x-axis to focus on experimental time
+plt.xlim(0, block_times['End (s)'].max() + 100)
+plt.tight_layout()
+
+# %% [markdown]
+# ## Examining Electrodes and LFP Data
+# 
+# Now, let's look at the electrodes and the LFP (Local Field Potential) data.
+
+# %%
+# Get electrode information
+electrodes_df = nwb.electrodes.to_dataframe()
+
+# Display electrode information
+print(f"Number of electrodes: {len(electrodes_df)}")
+print("\nSample of electrode data:")
+print(electrodes_df.head())
+
+# Print electrode groups
+print("\nElectrode Groups:")
+for group_name, group in nwb.electrode_groups.items():
+    print(f"- {group_name}: {group.description}, Location: {group.location}")
+
+# %% [markdown]
+# Let's examine the LFP data that's available in the processing module.
+
+# %%
+# Get LFP data information
+lfp = nwb.processing["ecephys"].data_interfaces["LFP"]
+
+print(f"LFP Description: {lfp.description}")
+print(f"LFP Rate: {lfp.rate} Hz")
+print(f"LFP Unit: {lfp.unit}")
+print(f"LFP Data Shape: {lfp.data.shape}")  # (time_points, channels)
+print(f"LFP Starting Time: {lfp.starting_time} {lfp.starting_time_unit}")
+
+# %% [markdown]
+# Let's visualize a small segment of LFP data from a few channels.
+
+# %%
+# Select a time window (5-second segment from the first block)
+block1_start = block_times[block_times['Block'] == 'Block 1']['Start (s)'].values[0]
+start_time = block1_start + 10  # 10 seconds into Block 1
+duration = 5  # 5 seconds of data
+
+# Calculate sample indices
+start_idx = int(start_time * lfp.rate)
+end_idx = int((start_time + duration) * lfp.rate)
+
+# Select a few channels for visualization
+selected_channels = [0, 16, 32, 48]  # Selecting a few channels across different shanks
+
+# Create time array for x-axis
+time_array = np.linspace(start_time, start_time + duration, end_idx - start_idx)
+
+# Create the plot
+plt.figure(figsize=(14, 10))
+
+# Plot LFP data for selected channels
+for i, channel in enumerate(selected_channels):
+    # Get data for this channel in the time window
+    lfp_data = lfp.data[start_idx:end_idx, channel]
+    
+    # Get channel information
+    channel_info = electrodes_df.iloc[channel]
+    
+    # Plot with offset for visibility
+    offset = i * 0.5  # Offset each channel for better visibility
+    plt.plot(time_array, lfp_data + offset, 
+             label=f"Channel {channel_info['label']} ({channel_info['group_name']}, {channel_info['location']})")
+
+# Add markers for odor presentations in this time window
+for odor, df in odor_dfs.items():
+    odor_in_window = df[(df['start_time'] >= start_time) & 
+                       (df['start_time'] <= start_time + duration)]
+    
+    if not odor_in_window.empty:
+        for _, row in odor_in_window.iterrows():
+            plt.axvspan(row['start_time'], min(row['stop_time'], start_time + duration),
+                      alpha=0.2, color='green', label=f"{odor} (first occurrence)" if _ == 0 else "")
+            plt.text(row['start_time'], -0.5, odor.replace(" ON", ""), 
+                   fontsize=8, verticalalignment='top')
+
+# Customize plot
+plt.xlabel('Time (s)')
+plt.ylabel('LFP Voltage (with offset)')
+plt.title(f'LFP Data for Selected Channels (Time: {start_time:.1f}s - {start_time+duration:.1f}s)')
+plt.legend(loc='upper right')
+plt.grid(True, alpha=0.3)
+
+# Clean up legend (to avoid duplicates)
+handles, labels = plt.gca().get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+plt.legend(by_label.values(), by_label.keys(), loc='upper right')
+
+plt.tight_layout()
+
+# %% [markdown]
+# ## Computing and Visualizing LFP Power Spectrum
+
+# %%
+# Function to compute power spectrum
+def compute_psd(data, fs, nperseg=1024, noverlap=512):
+    from scipy import signal
+    freqs, psd = signal.welch(data, fs=fs, nperseg=nperseg, noverlap=noverlap)
+    return freqs, psd
+
+# Select a longer segment of data (30 seconds) for PSD calculation
+start_time_psd = block1_start + 100  # 100 seconds into Block 1
+duration_psd = 30  # 30 seconds of data
+start_idx_psd = int(start_time_psd * lfp.rate)
+end_idx_psd = int((start_time_psd + duration_psd) * lfp.rate)
+
+# Compute PSDs for multiple channels
+plt.figure(figsize=(12, 8))
+
+# Select channels from different electrode groups
+channel_groups = electrodes_df.groupby('group_name').groups
+selected_channels_psd = []
+
+# Get one representative channel from each electrode group (up to 8 groups)
+for group_name, indices in list(channel_groups.items())[:8]:
+    selected_channels_psd.append(indices[0])
+
+for channel in selected_channels_psd:
+    # Get data
+    lfp_segment = lfp.data[start_idx_psd:end_idx_psd, channel]
+    
+    # Compute PSD
+    freqs, psd = compute_psd(lfp_segment, fs=lfp.rate)
+    
+    # Plot
+    channel_info = electrodes_df.iloc[channel]
+    plt.semilogy(freqs, psd, label=f"Channel {channel_info['label']} ({channel_info['group_name']})")
+
+# Customize plot
+plt.xlabel('Frequency (Hz)')
+plt.ylabel('Power/Frequency (V^2/Hz)')
+plt.title('Power Spectral Density of LFP Data')
+plt.xlim(0, 150)  # Focus on 0-150 Hz range
+plt.legend(fontsize=8)
+plt.grid(True, which="both", ls="-", alpha=0.7)
+plt.tight_layout()
+
+# %% [markdown]
+# ## Analyzing Neural Units and Spike Times
+# 
+# This dataset includes spike times for 283 neural units. Let's explore this data.
+
+# %%
+# Get unit information
+units_df = nwb.units.to_dataframe()
+print(f"Number of units: {len(units_df)}")
+print("\nSample of unit data (first few columns):")
+print(units_df[['electrode_group', 'depth', 'hemisphere']].head())
+
+# Count units by electrode group
+unit_counts = units_df['electrode_group'].value_counts()
+print("\nUnits per electrode group:")
+for group, count in unit_counts.items():
+    print(f"- {group}: {count} units")
+
+# %% [markdown]
+# Let's visualize spike times for a selection of units during an odor presentation.
+
+# %%
+# Define a function to get spike times within a specific time window
+def get_spikes_in_window(units_df, unit_ids, start_time, end_time):
+    spike_data = []
+    
+    for unit_id in unit_ids:
+        # Get the spike times for this unit
+        spike_times = units_df.loc[unit_id, 'spike_times'][:]
+        
+        # Filter for spikes within the time window
+        mask = (spike_times >= start_time) & (spike_times <= end_time)
+        unit_spikes = spike_times[mask]
+        
+        spike_data.append({
+            'unit_id': unit_id,
+            'spikes': unit_spikes,
+            'count': len(unit_spikes),
+            'electrode_group': units_df.loc[unit_id, 'electrode_group']
+        })
+    
+    # Sort by electrode group and spike count
+    spike_data = sorted(spike_data, key=lambda x: (x['electrode_group'], -x['count']))
+    
+    return spike_data
+
+# Select an odor presentation interval (e.g., the first presentation of Odor A)
+odor_a_first = odor_dfs['Odor A ON'].iloc[0]
+start_time_odor = odor_a_first['start_time'] - 1  # 1 second before odor onset
+end_time_odor = odor_a_first['stop_time'] + 1     # 1 second after odor offset
+
+# Select 15 random units to visualize (to avoid overcrowding)
+np.random.seed(42)  # For reproducibility
+random_units = np.random.choice(units_df.index, size=15, replace=False)
+selected_units = sorted(random_units)
+
+# Get spike data for selected units during the time window
+spike_data = get_spikes_in_window(units_df, selected_units, start_time_odor, end_time_odor)
+
+# Create a raster plot
+plt.figure(figsize=(14, 8))
+
+for i, unit_data in enumerate(spike_data):
+    # Plot spike times
+    unit_id = unit_data['unit_id']
+    spikes = unit_data['spikes']
+    
+    if len(spikes) > 0:
+        plt.scatter(spikes, [i] * len(spikes), marker='|', s=40, 
+                   color=plt.cm.tab10(hash(str(unit_data['electrode_group'])) % 10))
+
+# Add a colored bar for odor presentation
+plt.axvspan(odor_a_first['start_time'], odor_a_first['stop_time'], 
+           alpha=0.2, color='green', label='Odor A Presentation')
+
+# Customize plot
+plt.xlabel('Time (s)')
+plt.ylabel('Unit #')
+plt.title(f'Spike Raster Plot During Odor A Presentation (Units: {len(selected_units)})')
+plt.yticks(range(len(spike_data)), 
+          [f"Unit {d['unit_id']} ({d['electrode_group']})" for d in spike_data])
+plt.xlim(start_time_odor, end_time_odor)
+plt.grid(True, axis='x', alpha=0.3)
+plt.tight_layout()
+
+# %% [markdown]
+# ## Analyzing Firing Rate Changes During Odor Presentation
+# 
+# Let's examine how the firing rates of units change before, during, and after odor presentation.
+
+# %%
+# Function to calculate firing rates in bins
+def calculate_firing_rates(units_df, unit_ids, start_time, end_time, bin_width=0.1):
+    time_bins = np.arange(start_time, end_time + bin_width, bin_width)
+    bin_centers = time_bins[:-1] + bin_width/2
+    
+    unit_firing_rates = {}
+    
+    for unit_id in unit_ids:
+        # Get spike times for this unit
+        spike_times = units_df.loc[unit_id, 'spike_times'][:]
+        
+        # Count spikes in each bin
+        hist, _ = np.histogram(spike_times, bins=time_bins)
+        
+        # Convert to firing rate (spikes/second)
+        firing_rates = hist / bin_width
+        
+        unit_firing_rates[unit_id] = firing_rates
+    
+    return bin_centers, unit_firing_rates
+
+# Select an odor (we'll use Odor A again) and examine multiple presentations
+odor = "Odor A ON"
+num_presentations_to_analyze = 5
+presentations = odor_dfs[odor].iloc[:num_presentations_to_analyze]
+
+# Select units that have a good number of spikes
+active_unit_threshold = 100  # Minimum number of spikes to be considered active
+active_units = []
+
+for unit_id in units_df.index:
+    if len(units_df.loc[unit_id, 'spike_times'][:]) > active_unit_threshold:
+        active_units.append(unit_id)
+
+print(f"Found {len(active_units)} active units with more than {active_unit_threshold} spikes")
+
+# We'll select a subset of these active units
+selected_active_units = active_units[:10]  # Use first 10 active units
+
+# Analyze each presentation
+plt.figure(figsize=(15, 10))
+
+for i, (_, presentation) in enumerate(presentations.iterrows()):
+    # Define time window (3s before to 3s after the presentation)
+    pre_time = 2.0  # seconds before odor onset
+    post_time = 2.0  # seconds after odor offset
+    
+    start_time = presentation['start_time'] - pre_time
+    end_time = presentation['stop_time'] + post_time
+    
+    # Calculate firing rates
+    bin_width = 0.1  # 100ms bins
+    bin_centers, unit_firing_rates = calculate_firing_rates(
+        units_df, selected_active_units, start_time, end_time, bin_width)
+    
+    # Create subplot
+    plt.subplot(num_presentations_to_analyze, 1, i+1)
+    
+    # Plot firing rates for each unit
+    for j, unit_id in enumerate(selected_active_units):
+        color = plt.cm.tab10(j % 10)
+        plt.plot(bin_centers, unit_firing_rates[unit_id], color=color, alpha=0.7,
+                label=f"Unit {unit_id}" if i == 0 else "")  # Only include labels in the first subplot
+    
+    # Mark odor presentation period
+    plt.axvspan(presentation['start_time'], presentation['stop_time'], 
+               alpha=0.2, color='green', label='Odor Presentation' if i == 0 else "")
+    
+    # Add titles and labels
+    presentation_num = i + 1
+    plt.title(f"Presentation {presentation_num}: Time {presentation['start_time']:.1f}s - {presentation['stop_time']:.1f}s")
+    
+    if i == num_presentations_to_analyze - 1:  # Only add x-label to the bottom subplot
+        plt.xlabel('Time (s)')
+    
+    plt.ylabel('Firing Rate (Hz)')
+    plt.grid(True, alpha=0.3)
+    
+    # Custom y-axis limits to focus on the data
+    plt.ylim(0, 50)  # Assuming most rates are under 50 Hz
+
+# Add a single legend for all subplots
+plt.subplot(num_presentations_to_analyze, 1, 1)
+handles, labels = plt.gca().get_legend_handles_labels()
+plt.figlegend(handles, labels, loc='upper right', fontsize=8, bbox_to_anchor=(1, 1))
+
+plt.tight_layout()
+plt.subplots_adjust(top=0.9)  # Make space for the legend
+
+# %% [markdown]
+# ## Comparing Neural Responses to Different Odors
+# 
+# Now, let's compare how neurons respond to different odors.
+
+# %%
+# Function to calculate average firing rate changes
+def calculate_avg_firing_rate_change(units_df, unit_ids, odor_df, n_presentations=5, 
+                                    pre_window=2.0, post_window=2.0, bin_width=0.5):
+    # We'll calculate the average change in firing rate for each unit
+    unit_responses = {}
+    
+    for unit_id in unit_ids:
+        # Initialize arrays for before, during, and after odor
+        before_rates = []
+        during_rates = []
+        after_rates = []
+        
+        # Process each presentation (up to n_presentations)
+        for idx, row in odor_df.iloc[:n_presentations].iterrows():
+            odor_start = row['start_time']
+            odor_end = row['stop_time']
+            
+            # Get spike times for this unit
+            spike_times = units_df.loc[unit_id, 'spike_times'][:]
+            
+            # Count spikes in the three windows
+            before_spikes = sum((spike_times >= odor_start - pre_window) & 
+                               (spike_times < odor_start))
+            during_spikes = sum((spike_times >= odor_start) & 
+                               (spike_times < odor_end))
+            after_spikes = sum((spike_times >= odor_end) & 
+                              (spike_times < odor_end + post_window))
+            
+            # Convert to rates (spikes/second)
+            before_rate = before_spikes / pre_window
+            during_rate = during_spikes / (odor_end - odor_start)
+            after_rate = after_spikes / post_window
+            
+            # Append to lists
+            before_rates.append(before_rate)
+            during_rates.append(during_rate)
+            after_rates.append(after_rate)
+        
+        # Calculate averages across presentations
+        unit_responses[unit_id] = {
+            'before': np.mean(before_rates),
+            'during': np.mean(during_rates),
+            'after': np.mean(after_rates),
+            'change_during': np.mean(during_rates) - np.mean(before_rates),
+            'electrode_group': units_df.loc[unit_id, 'electrode_group']
+        }
+    
+    return unit_responses
+
+# Select odors to compare
+odors_to_compare = ["Odor A ON", "Odor B ON", "Odor C ON"]
+
+# Calculate responses for a larger set of active units
+n_active_units = min(30, len(active_units))  # Use up to 30 active units
+units_for_comparison = active_units[:n_active_units]
+
+# Calculate responses for each odor
+odor_responses = {}
+for odor in odors_to_compare:
+    odor_responses[odor] = calculate_avg_firing_rate_change(
+        units_df, units_for_comparison, odor_dfs[odor], n_presentations=5)
+
+# Create a heatmap of responses to different odors
+response_matrix = np.zeros((len(units_for_comparison), len(odors_to_compare)))
+
+for i, unit_id in enumerate(units_for_comparison):
+    for j, odor in enumerate(odors_to_compare):
+        response_matrix[i, j] = odor_responses[odor][unit_id]['change_during']
+
+# Create a custom colormap centered at zero
+colors = [(0, 0, 0.8), (1, 1, 1), (0.8, 0, 0)]  # Blue -> White -> Red
+cmap = LinearSegmentedColormap.from_list('custom_diverging', colors, N=256)
+
+# Plot the heatmap
+plt.figure(figsize=(10, 12))
+vmax = max(5, np.abs(response_matrix).max())  # Cap at 5Hz or actual max
+sns.heatmap(response_matrix, cmap=cmap, center=0, vmin=-vmax, vmax=vmax,
+           yticklabels=[f"Unit {u}" for u in units_for_comparison],
+           xticklabels=[odor.replace(" ON", "") for odor in odors_to_compare],
+           cbar_kws={'label': 'Change in Firing Rate (Hz)'})
+
+plt.title('Changes in Firing Rates During Odor Presentation')
+plt.tight_layout()
+
+# %% [markdown]
+# ## Examining the Relationship Between Electrode Location and Unit Responses
+# 
+# Let's visualize how the unit responses vary based on their electrode location.
+
+# %%
+# Combine unit info with response data
+unit_data = []
+
+for unit_id in units_for_comparison:
+    unit_info = {
+        'unit_id': unit_id,
+        'electrode_group': units_df.loc[unit_id, 'electrode_group'],
+        'depth': units_df.loc[unit_id, 'depth'],
+        'hemisphere': units_df.loc[unit_id, 'hemisphere']
+    }
+    
+    # Add response data for each odor
+    for odor in odors_to_compare:
+        odor_name = odor.replace(" ON", "")
+        unit_info[f'{odor_name}_change'] = odor_responses[odor][unit_id]['change_during']
+    
+    unit_data.append(unit_info)
+
+# Convert to DataFrame
+response_df = pd.DataFrame(unit_data)
+
+# Create a scatter plot of responses by depth for each electrode group
+plt.figure(figsize=(10, 8))
+
+# Get unique electrode groups
+electrode_groups = response_df['electrode_group'].unique()
+n_groups = len(electrode_groups)
+colors = plt.cm.tab10(np.linspace(0, 1, n_groups))
+
+# Create one subplot per odor
+for i, odor in enumerate(odors_to_compare):
+    odor_name = odor.replace(" ON", "")
+    response_column = f'{odor_name}_change'
+    
+    plt.subplot(1, 3, i+1)
+    
+    for j, group in enumerate(electrode_groups):
+        # Filter for this group
+        group_data = response_df[response_df['electrode_group'] == group]
+        
+        # Plot
+        plt.scatter(group_data[response_column], group_data['depth'], 
+                   color=colors[j], label=group, alpha=0.7)
+    
+    # Customize plot
+    plt.axvline(0, color='gray', linestyle='--', alpha=0.5)  # Zero line
+    plt.title(f'Response to {odor_name} by Depth')
+    plt.xlabel('Change in Firing Rate (Hz)')
+    plt.ylabel('Depth (μm)')
+    plt.grid(True, alpha=0.3)
+    
+    if i == 0:  # Only include legend in first subplot
+        plt.legend(title='Electrode Group', loc='upper left', bbox_to_anchor=(-0.3, 1))
+
+plt.tight_layout()
+
+# %% [markdown]
+# ## Summary
+# 
+# In this notebook, we've explored Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation. We've analyzed:
+# 
+# 1. The structure and metadata of the NWB file
+# 2. The timing of experimental blocks and odor presentations
+# 3. The Local Field Potential (LFP) data and its spectral properties
+# 4. Spike times and firing rates for individual neural units
+# 5. Neural responses to different odors
+# 6. The relationship between electrode location and neural responses
+# 
+# The dataset provides rich information about how hippocampal neurons respond to different odor stimuli. The analysis revealed that some neurons show clear changes in firing rate during odor presentation, while others do not. There also appears to be some specificity in how neurons respond to different odors.
+# 
+# ## Future Directions
+# 
+# Future analyses could explore:
+# 
+# 1. Population-level analysis of neural responses using dimensionality reduction techniques
+# 2. More sophisticated spectral analysis of LFP data, including coherence between channels
+# 3. Analysis of spike-field coupling between unit activity and LFP oscillations
+# 4. Comparison of responses across different experimental blocks to study learning or habituation effects
+# 5. More detailed analysis of the temporal dynamics of neural responses during odor presentation
+=========================================
+
+Using model: anthropic/claude-3.7-sonnet
+Num. messages in conversation: 16
+Submitting completion request...
+Processing response...
+After looking at the file content, I need to modify the `get_spikes_in_window` function to handle the electrode group sorting correctly. The issue is that we're trying to sort ElectrodeGroup objects which don't support direct comparison. I'll modify the function to use string representations of the electrode groups for sorting.
+
+Tool: write_to_file
+Params: {'path': 'notebook.py', 'content': '# %% [markdown]\n# # Exploring Dandiset 001335: Neuropixels Recordings from Hippocampus of Head-Fixed Mice During Odor Presentation\n\n# %% [markdown]\n# > **⚠️ IMPORTANT NOTE**: This notebook was AI-generated using dandi-notebook-gen and has not been fully verified. Please be cautious when interpreting the code or results.\n\n# %% [markdown]\n# ## Overview\n# \n# This notebook explores Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation. The dataset includes electrophysiology data recorded using Neuropixels probes as mice were presented with various odor sequences.\n# \n# You can view this dataset on Neurosift at: [https://neurosift.app/dandiset/001335](https://neurosift.app/dandiset/001335)\n# \n\n# %% [markdown]\n# ## What This Notebook Covers\n# \n# In this notebook, we will:\n# 1. Load and examine the dataset using the DANDI API\n# 2. Explore the structure and metadata of the NWB file\n# 3. Analyze the LFP (Local Field Potential) data\n# 4. Examine the timing of different odor presentations\n# 5. Visualize neural activity in relation to odor stimuli\n# 6. Explore spike times for single units\n\n# %% [markdown]\n# ## Required Packages\n# \n# The following packages are required to run this notebook. We assume they are already installed on your system.\n\n# %%\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\nfrom dandi.dandiapi import DandiAPIClient\nimport pynwb\nimport h5py\nimport remfile\nfrom matplotlib.ticker import MaxNLocator\nimport random\nfrom matplotlib.colors import LinearSegmentedColormap\n\n# Set up plotting style\nsns.set_theme()\n\n# %% [markdown]\n# ## Loading the Dandiset Using the DANDI API\n\n# %%\n# Connect to DANDI archive\nclient = DandiAPIClient()\ndandiset = client.get_dandiset("001335")\nassets = list(dandiset.get_assets())\n\nprint(f"Found {len(assets)} assets in the dataset")\nprint("\\nFirst 5 assets:")\nfor asset in assets[:5]:\n    print(f"- {asset.path}")\n\n# %% [markdown]\n# ## Loading the NWB File\n# \n# There is one NWB file in this Dandiset. We\'ll load it and explore its contents.\n\n# %%\n# Get the URL for the first asset\nasset_id = "aca66db7-4c02-4453-8dcb-a179d44b1c5d"\nurl = f"https://api.dandiarchive.org/api/assets/{asset_id}/download/"\nprint(f"Loading NWB file: {assets[0].path} from URL: {url}")\n\n# Load the NWB file\nremote_file = remfile.File(url)\nh5_file = h5py.File(remote_file)\nio = pynwb.NWBHDF5IO(file=h5_file)\nnwb = io.read()\n\n# %% [markdown]\n# ## Exploring the NWB File Metadata\n# \n# Let\'s explore the basic metadata of this NWB file to understand what it contains.\n\n# %%\n# Print basic metadata\nprint(f"Session ID: {nwb.identifier}")\nprint(f"Session Description: {nwb.session_description}")\nprint(f"Session Start Time: {nwb.session_start_time}")\nprint(f"Experimenter: {\', \'.join(nwb.experimenter)}")\nprint(f"Lab: {nwb.lab}")\nprint(f"Institution: {nwb.institution}")\nprint(f"Experiment Description: {nwb.experiment_description}")\n\n# Get keywords\nprint("\\nKeywords:")\nkeywords = nwb.keywords[:]\nfor kw in keywords:\n    print(f"- {kw}")\n\n# Get subject information\nprint("\\nSubject Information:")\nprint(f"Subject ID: {nwb.subject.subject_id}")\nprint(f"Species: {nwb.subject.species}")\nprint(f"Sex: {nwb.subject.sex}")\nprint(f"Age: {nwb.subject.age}")\nprint(f"Description: {nwb.subject.description}")\n\n# %% [markdown]\n# ## Exploring the Experimental Blocks\n# \n# This dataset contains three experimental blocks with different odor sequences. Let\'s examine the timing of these blocks.\n\n# %%\n# Get the time ranges for each block\nblocks = ["Block 1", "Block 2", "Block 3"]\nblock_times = pd.DataFrame()\n\nfor block in blocks:\n    if block in nwb.intervals:\n        block_df = nwb.intervals[block].to_dataframe()\n        block_times = pd.concat([block_times, pd.DataFrame({\n            \'Block\': [block],\n            \'Start (s)\': [block_df[\'start_time\'].values[0]],\n            \'End (s)\': [block_df[\'stop_time\'].values[0]],\n            \'Duration (s)\': [block_df[\'stop_time\'].values[0] - block_df[\'start_time\'].values[0]]\n        })])\n\nprint("Experimental Blocks:")\nprint(block_times)\n\n# %% [markdown]\n# ## Examining Odor Presentation Intervals\n# \n# The experiment involves presenting different odors to the mouse. Let\'s examine when these odors were presented.\n\n# %%\n# Get the odor presentation intervals\nodors = ["Odor A ON", "Odor B ON", "Odor C ON", "Odor D ON", "Odor E ON", "Odor F ON"]\nodor_dfs = {}\n\nfor odor in odors:\n    if odor in nwb.intervals:\n        odor_dfs[odor] = nwb.intervals[odor].to_dataframe()\n        print(f"{odor}: {len(odor_dfs[odor])} presentations")\n        \n# Display the first few presentations of each odor\nfor odor, df in odor_dfs.items():\n    print(f"\\nFirst 5 presentations of {odor}:")\n    print(df.head())\n\n# %% [markdown]\n# Let\'s visualize the timing of odor presentations and experimental blocks.\n\n# %%\n# Prepare figure\nplt.figure(figsize=(14, 8))\ncolors = sns.color_palette("husl", len(odors))\n\n# Plot odor presentations\nfor i, (odor, df) in enumerate(odor_dfs.items()):\n    # Plot horizontal lines for each presentation\n    for _, row in df.iterrows():\n        plt.plot([row[\'start_time\'], row[\'stop_time\']], [i, i], \n                 color=colors[i], linewidth=2)\n    \n    # Place small markers at the start of each presentation for better visibility\n    plt.scatter(df[\'start_time\'], [i] * len(df), \n                color=colors[i], s=20, marker=\'|\')\n\n# Add block boundaries as vertical lines\nfor _, row in block_times.iterrows():\n    plt.axvline(row[\'Start (s)\'], color=\'black\', linestyle=\'--\', alpha=0.5)\n    plt.axvline(row[\'End (s)\'], color=\'black\', linestyle=\'--\', alpha=0.5)\n    plt.text(row[\'Start (s)\'] + (row[\'End (s)\'] - row[\'Start (s)\'])/2, -0.5, \n             row[\'Block\'], horizontalalignment=\'center\')\n\n# Customize plot\nplt.yticks(range(len(odors)), [odor.replace(" ON", "") for odor in odors])\nplt.xlabel(\'Time (s)\')\nplt.ylabel(\'Odor\')\nplt.title(\'Odor Presentation Timing\')\nplt.grid(True, alpha=0.3)\n\n# Adjust x-axis to focus on experimental time\nplt.xlim(0, block_times[\'End (s)\'].max() + 100)\nplt.tight_layout()\n\n# %% [markdown]\n# ## Examining Electrodes and LFP Data\n# \n# Now, let\'s look at the electrodes and the LFP (Local Field Potential) data.\n\n# %%\n# Get electrode information\nelectrodes_df = nwb.electrodes.to_dataframe()\n\n# Display electrode information\nprint(f"Number of electrodes: {len(electrodes_df)}")\nprint("\\nSample of electrode data:")\nprint(electrodes_df.head())\n\n# Print electrode groups\nprint("\\nElectrode Groups:")\nfor group_name, group in nwb.electrode_groups.items():\n    print(f"- {group_name}: {group.description}, Location: {group.location}")\n\n# %% [markdown]\n# Let\'s examine the LFP data that\'s available in the processing module.\n\n# %%\n# Get LFP data information\nlfp = nwb.processing["ecephys"].data_interfaces["LFP"]\n\nprint(f"LFP Description: {lfp.description}")\nprint(f"LFP Rate: {lfp.rate} Hz")\nprint(f"LFP Unit: {lfp.unit}")\nprint(f"LFP Data Shape: {lfp.data.shape}")  # (time_points, channels)\nprint(f"LFP Starting Time: {lfp.starting_time} {lfp.starting_time_unit}")\n\n# %% [markdown]\n# Let\'s visualize a small segment of LFP data from a few channels.\n\n# %%\n# Select a time window (5-second segment from the first block)\nblock1_start = block_times[block_times[\'Block\'] == \'Block 1\'][\'Start (s)\'].values[0]\nstart_time = block1_start + 10  # 10 seconds into Block 1\nduration = 5  # 5 seconds of data\n\n# Calculate sample indices\nstart_idx = int(start_time * lfp.rate)\nend_idx = int((start_time + duration) * lfp.rate)\n\n# Select a few channels for visualization\nselected_channels = [0, 16, 32, 48]  # Selecting a few channels across different shanks\n\n# Create time array for x-axis\ntime_array = np.linspace(start_time, start_time + duration, end_idx - start_idx)\n\n# Create the plot\nplt.figure(figsize=(14, 10))\n\n# Plot LFP data for selected channels\nfor i, channel in enumerate(selected_channels):\n    # Get data for this channel in the time window\n    lfp_data = lfp.data[start_idx:end_idx, channel]\n    \n    # Get channel information\n    channel_info = electrodes_df.iloc[channel]\n    \n    # Plot with offset for visibility\n    offset = i * 0.5  # Offset each channel for better visibility\n    plt.plot(time_array, lfp_data + offset, \n             label=f"Channel {channel_info[\'label\']} ({channel_info[\'group_name\']}, {channel_info[\'location\']})")\n\n# Add markers for odor presentations in this time window\nfor odor, df in odor_dfs.items():\n    odor_in_window = df[(df[\'start_time\'] >= start_time) & \n                       (df[\'start_time\'] <= start_time + duration)]\n    \n    if not odor_in_window.empty:\n        for _, row in odor_in_window.iterrows():\n            plt.axvspan(row[\'start_time\'], min(row[\'stop_time\'], start_time + duration),\n                      alpha=0.2, color=\'green\', label=f"{odor} (first occurrence)" if _ == 0 else "")\n            plt.text(row[\'start_time\'], -0.5, odor.replace(" ON", ""), \n                   fontsize=8, verticalalignment=\'top\')\n\n# Customize plot\nplt.xlabel(\'Time (s)\')\nplt.ylabel(\'LFP Voltage (with offset)\')\nplt.title(f\'LFP Data for Selected Channels (Time: {start_time:.1f}s - {start_time+duration:.1f}s)\')\nplt.legend(loc=\'upper right\')\nplt.grid(True, alpha=0.3)\n\n# Clean up legend (to avoid duplicates)\nhandles, labels = plt.gca().get_legend_handles_labels()\nby_label = dict(zip(labels, handles))\nplt.legend(by_label.values(), by_label.keys(), loc=\'upper right\')\n\nplt.tight_layout()\n\n# %% [markdown]\n# ## Computing and Visualizing LFP Power Spectrum\n\n# %%\n# Function to compute power spectrum\ndef compute_psd(data, fs, nperseg=1024, noverlap=512):\n    from scipy import signal\n    freqs, psd = signal.welch(data, fs=fs, nperseg=nperseg, noverlap=noverlap)\n    return freqs, psd\n\n# Select a longer segment of data (30 seconds) for PSD calculation\nstart_time_psd = block1_start + 100  # 100 seconds into Block 1\nduration_psd = 30  # 30 seconds of data\nstart_idx_psd = int(start_time_psd * lfp.rate)\nend_idx_psd = int((start_time_psd + duration_psd) * lfp.rate)\n\n# Compute PSDs for multiple channels\nplt.figure(figsize=(12, 8))\n\n# Select channels from different electrode groups\nchannel_groups = electrodes_df.groupby(\'group_name\').groups\nselected_channels_psd = []\n\n# Get one representative channel from each electrode group (up to 8 groups)\nfor group_name, indices in list(channel_groups.items())[:8]:\n    selected_channels_psd.append(indices[0])\n\nfor channel in selected_channels_psd:\n    # Get data\n    lfp_segment = lfp.data[start_idx_psd:end_idx_psd, channel]\n    \n    # Compute PSD\n    freqs, psd = compute_psd(lfp_segment, fs=lfp.rate)\n    \n    # Plot\n    channel_info = electrodes_df.iloc[channel]\n    plt.semilogy(freqs, psd, label=f"Channel {channel_info[\'label\']} ({channel_info[\'group_name\']})")\n\n# Customize plot\nplt.xlabel(\'Frequency (Hz)\')\nplt.ylabel(\'Power/Frequency (V^2/Hz)\')\nplt.title(\'Power Spectral Density of LFP Data\')\nplt.xlim(0, 150)  # Focus on 0-150 Hz range\nplt.legend(fontsize=8)\nplt.grid(True, which="both", ls="-", alpha=0.7)\nplt.tight_layout()\n\n# %% [markdown]\n# ## Analyzing Neural Units and Spike Times\n# \n# This dataset includes spike times for 283 neural units. Let\'s explore this data.\n\n# %%\n# Get unit information\nunits_df = nwb.units.to_dataframe()\nprint(f"Number of units: {len(units_df)}")\nprint("\\nSample of unit data (first few columns):")\nprint(units_df[[\'electrode_group\', \'depth\', \'hemisphere\']].head())\n\n# Count units by electrode group\nunit_counts = units_df[\'electrode_group\'].value_counts()\nprint("\\nUnits per electrode group:")\nfor group, count in unit_counts.items():\n    print(f"- {group}: {count} units")\n\n# %% [markdown]\n# Let\'s visualize spike times for a selection of units during an odor presentation.\n\n# %%\n# Define a function to get spike times within a specific time window\ndef get_spikes_in_window(units_df, unit_ids, start_time, end_time):\n    spike_data = []\n    \n    for unit_id in unit_ids:\n        # Get the spike times for this unit\n        spike_times = units_df.loc[unit_id, \'spike_times\'][:]\n        \n        # Filter for spikes within the time window\n        mask = (spike_times >= start_time) & (spike_times <= end_time)\n        unit_spikes = spike_times[mask]\n        \n        # Get electrode group info and convert to string for sorting\n        electrode_group = units_df.loc[unit_id, \'electrode_group\']\n        electrode_group_name = str(electrode_group)  # Use string representation for sorting\n        \n        spike_data.append({\n            \'unit_id\': unit_id,\n            \'spikes\': unit_spikes,\n            \'count\': len(unit_spikes),\n            \'electrode_group\': electrode_group,\n            \'electrode_group_name\': electrode_group_name\n        })\n    \n    # Sort by electrode group name and spike count\n    spike_data = sorted(spike_data, key=lambda x: (x[\'electrode_group_name\'], -x[\'count\']))\n    \n    return spike_data\n\n# Select an odor presentation interval (e.g., the first presentation of Odor A)\nodor_a_first = odor_dfs[\'Odor A ON\'].iloc[0]\nstart_time_odor = odor_a_first[\'start_time\'] - 1  # 1 second before odor onset\nend_time_odor = odor_a_first[\'stop_time\'] + 1     # 1 second after odor offset\n\n# Select 15 random units to visualize (to avoid overcrowding)\nnp.random.seed(42)  # For reproducibility\nrandom_units = np.random.choice(units_df.index, size=15, replace=False)\nselected_units = sorted(random_units)\n\n# Get spike data for selected units during the time window\nspike_data = get_spikes_in_window(units_df, selected_units, start_time_odor, end_time_odor)\n\n# Create a raster plot\nplt.figure(figsize=(14, 8))\n\nfor i, unit_data in enumerate(spike_data):\n    # Plot spike times\n    unit_id = unit_data[\'unit_id\']\n    spikes = unit_data[\'spikes\']\n    \n    if len(spikes) > 0:\n        plt.scatter(spikes, [i] * len(spikes), marker=\'|\', s=40, \n                   color=plt.cm.tab10(hash(str(unit_data[\'electrode_group\'])) % 10))\n\n# Add a colored bar for odor presentation\nplt.axvspan(odor_a_first[\'start_time\'], odor_a_first[\'stop_time\'], \n           alpha=0.2, color=\'green\', label=\'Odor A Presentation\')\n\n# Customize plot\nplt.xlabel(\'Time (s)\')\nplt.ylabel(\'Unit #\')\nplt.title(f\'Spike Raster Plot During Odor A Presentation (Units: {len(selected_units)})\')\nplt.yticks(range(len(spike_data)), \n          [f"Unit {d[\'unit_id\']} ({d[\'electrode_group\']})" for d in spike_data])\nplt.xlim(start_time_odor, end_time_odor)\nplt.grid(True, axis=\'x\', alpha=0.3)\nplt.tight_layout()\n\n# %% [markdown]\n# ## Analyzing Firing Rate Changes During Odor Presentation\n# \n# Let\'s examine how the firing rates of units change before, during, and after odor presentation.\n\n# %%\n# Function to calculate firing rates in bins\ndef calculate_firing_rates(units_df, unit_ids, start_time, end_time, bin_width=0.1):\n    time_bins = np.arange(start_time, end_time + bin_width, bin_width)\n    bin_centers = time_bins[:-1] + bin_width/2\n    \n    unit_firing_rates = {}\n    \n    for unit_id in unit_ids:\n        # Get spike times for this unit\n        spike_times = units_df.loc[unit_id, \'spike_times\'][:]\n        \n        # Count spikes in each bin\n        hist, _ = np.histogram(spike_times, bins=time_bins)\n        \n        # Convert to firing rate (spikes/second)\n        firing_rates = hist / bin_width\n        \n        unit_firing_rates[unit_id] = firing_rates\n    \n    return bin_centers, unit_firing_rates\n\n# Select an odor (we\'ll use Odor A again) and examine multiple presentations\nodor = "Odor A ON"\nnum_presentations_to_analyze = 5\npresentations = odor_dfs[odor].iloc[:num_presentations_to_analyze]\n\n# Select units that have a good number of spikes\nactive_unit_threshold = 100  # Minimum number of spikes to be considered active\nactive_units = []\n\nfor unit_id in units_df.index:\n    if len(units_df.loc[unit_id, \'spike_times\'][:]) > active_unit_threshold:\n        active_units.append(unit_id)\n\nprint(f"Found {len(active_units)} active units with more than {active_unit_threshold} spikes")\n\n# We\'ll select a subset of these active units\nselected_active_units = active_units[:10]  # Use first 10 active units\n\n# Analyze each presentation\nplt.figure(figsize=(15, 10))\n\nfor i, (_, presentation) in enumerate(presentations.iterrows()):\n    # Define time window (3s before to 3s after the presentation)\n    pre_time = 2.0  # seconds before odor onset\n    post_time = 2.0  # seconds after odor offset\n    \n    start_time = presentation[\'start_time\'] - pre_time\n    end_time = presentation[\'stop_time\'] + post_time\n    \n    # Calculate firing rates\n    bin_width = 0.1  # 100ms bins\n    bin_centers, unit_firing_rates = calculate_firing_rates(\n        units_df, selected_active_units, start_time, end_time, bin_width)\n    \n    # Create subplot\n    plt.subplot(num_presentations_to_analyze, 1, i+1)\n    \n    # Plot firing rates for each unit\n    for j, unit_id in enumerate(selected_active_units):\n        color = plt.cm.tab10(j % 10)\n        plt.plot(bin_centers, unit_firing_rates[unit_id], color=color, alpha=0.7,\n                label=f"Unit {unit_id}" if i == 0 else "")  # Only include labels in the first subplot\n    \n    # Mark odor presentation period\n    plt.axvspan(presentation[\'start_time\'], presentation[\'stop_time\'], \n               alpha=0.2, color=\'green\', label=\'Odor Presentation\' if i == 0 else "")\n    \n    # Add titles and labels\n    presentation_num = i + 1\n    plt.title(f"Presentation {presentation_num}: Time {presentation[\'start_time\']:.1f}s - {presentation[\'stop_time\']:.1f}s")\n    \n    if i == num_presentations_to_analyze - 1:  # Only add x-label to the bottom subplot\n        plt.xlabel(\'Time (s)\')\n    \n    plt.ylabel(\'Firing Rate (Hz)\')\n    plt.grid(True, alpha=0.3)\n    \n    # Custom y-axis limits to focus on the data\n    plt.ylim(0, 50)  # Assuming most rates are under 50 Hz\n\n# Add a single legend for all subplots\nplt.subplot(num_presentations_to_analyze, 1, 1)\nhandles, labels = plt.gca().get_legend_handles_labels()\nplt.figlegend(handles, labels, loc=\'upper right\', fontsize=8, bbox_to_anchor=(1, 1))\n\nplt.tight_layout()\nplt.subplots_adjust(top=0.9)  # Make space for the legend\n\n# %% [markdown]\n# ## Comparing Neural Responses to Different Odors\n# \n# Now, let\'s compare how neurons respond to different odors.\n\n# %%\n# Function to calculate average firing rate changes\ndef calculate_avg_firing_rate_change(units_df, unit_ids, odor_df, n_presentations=5, \n                                    pre_window=2.0, post_window=2.0, bin_width=0.5):\n    # We\'ll calculate the average change in firing rate for each unit\n    unit_responses = {}\n    \n    for unit_id in unit_ids:\n        # Initialize arrays for before, during, and after odor\n        before_rates = []\n        during_rates = []\n        after_rates = []\n        \n        # Process each presentation (up to n_presentations)\n        for idx, row in odor_df.iloc[:n_presentations].iterrows():\n            odor_start = row[\'start_time\']\n            odor_end = row[\'stop_time\']\n            \n            # Get spike times for this unit\n            spike_times = units_df.loc[unit_id, \'spike_times\'][:]\n            \n            # Count spikes in the three windows\n            before_spikes = sum((spike_times >= odor_start - pre_window) & \n                               (spike_times < odor_start))\n            during_spikes = sum((spike_times >= odor_start) & \n                               (spike_times < odor_end))\n            after_spikes = sum((spike_times >= odor_end) & \n                              (spike_times < odor_end + post_window))\n            \n            # Convert to rates (spikes/second)\n            before_rate = before_spikes / pre_window\n            during_rate = during_spikes / (odor_end - odor_start)\n            after_rate = after_spikes / post_window\n            \n            # Append to lists\n            before_rates.append(before_rate)\n            during_rates.append(during_rate)\n            after_rates.append(after_rate)\n        \n        # Calculate averages across presentations\n        unit_responses[unit_id] = {\n            \'before\': np.mean(before_rates),\n            \'during\': np.mean(during_rates),\n            \'after\': np.mean(after_rates),\n            \'change_during\': np.mean(during_rates) - np.mean(before_rates),\n            \'electrode_group\': units_df.loc[unit_id, \'electrode_group\']\n        }\n    \n    return unit_responses\n\n# Select odors to compare\nodors_to_compare = ["Odor A ON", "Odor B ON", "Odor C ON"]\n\n# Calculate responses for a larger set of active units\nn_active_units = min(30, len(active_units))  # Use up to 30 active units\nunits_for_comparison = active_units[:n_active_units]\n\n# Calculate responses for each odor\nodor_responses = {}\nfor odor in odors_to_compare:\n    odor_responses[odor] = calculate_avg_firing_rate_change(\n        units_df, units_for_comparison, odor_dfs[odor], n_presentations=5)\n\n# Create a heatmap of responses to different odors\nresponse_matrix = np.zeros((len(units_for_comparison), len(odors_to_compare)))\n\nfor i, unit_id in enumerate(units_for_comparison):\n    for j, odor in enumerate(odors_to_compare):\n        response_matrix[i, j] = odor_responses[odor][unit_id][\'change_during\']\n\n# Create a custom colormap centered at zero\ncolors = [(0, 0, 0.8), (1, 1, 1), (0.8, 0, 0)]  # Blue -> White -> Red\ncmap = LinearSegmentedColormap.from_list(\'custom_diverging\', colors, N=256)\n\n# Plot the heatmap\nplt.figure(figsize=(10, 12))\nvmax = max(5, np.abs(response_matrix).max())  # Cap at 5Hz or actual max\nsns.heatmap(response_matrix, cmap=cmap, center=0, vmin=-vmax, vmax=vmax,\n           yticklabels=[f"Unit {u}" for u in units_for_comparison],\n           xticklabels=[odor.replace(" ON", "") for odor in odors_to_compare],\n           cbar_kws={\'label\': \'Change in Firing Rate (Hz)\'})\n\nplt.title(\'Changes in Firing Rates During Odor Presentation\')\nplt.tight_layout()\n\n# %% [markdown]\n# ## Examining the Relationship Between Electrode Location and Unit Responses\n# \n# Let\'s visualize how the unit responses vary based on their electrode location.\n\n# %%\n# Combine unit info with response data\nunit_data = []\n\nfor unit_id in units_for_comparison:\n    unit_info = {\n        \'unit_id\': unit_id,\n        \'electrode_group\': units_df.loc[unit_id, \'electrode_group\'],\n        \'depth\': units_df.loc[unit_id, \'depth\'],\n        \'hemisphere\': units_df.loc[unit_id, \'hemisphere\']\n    }\n    \n    # Add response data for each odor\n    for odor in odors_to_compare:\n        odor_name = odor.replace(" ON", "")\n        unit_info[f\'{odor_name}_change\'] = odor_responses[odor][unit_id][\'change_during\']\n    \n    unit_data.append(unit_info)\n\n# Convert to DataFrame\nresponse_df = pd.DataFrame(unit_data)\n\n# Create a scatter plot of responses by depth for each electrode group\nplt.figure(figsize=(10, 8))\n\n# Get unique electrode groups\nelectrode_groups = response_df[\'electrode_group\'].unique()\nn_groups = len(electrode_groups)\ncolors = plt.cm.tab10(np.linspace(0, 1, n_groups))\n\n# Create one subplot per odor\nfor i, odor in enumerate(odors_to_compare):\n    odor_name = odor.replace(" ON", "")\n    response_column = f\'{odor_name}_change\'\n    \n    plt.subplot(1, 3, i+1)\n    \n    for j, group in enumerate(electrode_groups):\n        # Filter for this group\n        group_data = response_df[response_df[\'electrode_group\'] == group]\n        \n        # Plot\n        plt.scatter(group_data[response_column], group_data[\'depth\'], \n                   color=colors[j], label=group, alpha=0.7)\n    \n    # Customize plot\n    plt.axvline(0, color=\'gray\', linestyle=\'--\', alpha=0.5)  # Zero line\n    plt.title(f\'Response to {odor_name} by Depth\')\n    plt.xlabel(\'Change in Firing Rate (Hz)\')\n    plt.ylabel(\'Depth (μm)\')\n    plt.grid(True, alpha=0.3)\n    \n    if i == 0:  # Only include legend in first subplot\n        plt.legend(title=\'Electrode Group\', loc=\'upper left\', bbox_to_anchor=(-0.3, 1))\n\nplt.tight_layout()\n\n# %% [markdown]\n# ## Summary\n# \n# In this notebook, we\'ve explored Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation. We\'ve analyzed:\n# \n# 1. The structure and metadata of the NWB file\n# 2. The timing of experimental blocks and odor presentations\n# 3. The Local Field Potential (LFP) data and its spectral properties\n# 4. Spike times and firing rates for individual neural units\n# 5. Neural responses to different odors\n# 6. The relationship between electrode location and neural responses\n# \n# The dataset provides rich information about how hippocampal neurons respond to different odor stimuli. The analysis revealed that some neurons show clear changes in firing rate during odor presentation, while others do not. There also appears to be some specificity in how neurons respond to different odors.\n# \n# ## Future Directions\n# \n# Future analyses could explore:\n# \n# 1. Population-level analysis of neural responses using dimensionality reduction techniques\n# 2. More sophisticated spectral analysis of LFP data, including coherence between channels\n# 3. Analysis of spike-field coupling between unit activity and LFP oscillations\n# 4. Comparison of responses across different experimental blocks to study learning or habituation effects\n# 5. More detailed analysis of the temporal dynamics of neural responses during odor presentation'}
+================================
+Content to be written to notebook.py:
+# %% [markdown]
+# # Exploring Dandiset 001335: Neuropixels Recordings from Hippocampus of Head-Fixed Mice During Odor Presentation
+
+# %% [markdown]
+# > **⚠️ IMPORTANT NOTE**: This notebook was AI-generated using dandi-notebook-gen and has not been fully verified. Please be cautious when interpreting the code or results.
+
+# %% [markdown]
+# ## Overview
+# 
+# This notebook explores Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation. The dataset includes electrophysiology data recorded using Neuropixels probes as mice were presented with various odor sequences.
+# 
+# You can view this dataset on Neurosift at: [https://neurosift.app/dandiset/001335](https://neurosift.app/dandiset/001335)
+# 
+
+# %% [markdown]
+# ## What This Notebook Covers
+# 
+# In this notebook, we will:
+# 1. Load and examine the dataset using the DANDI API
+# 2. Explore the structure and metadata of the NWB file
+# 3. Analyze the LFP (Local Field Potential) data
+# 4. Examine the timing of different odor presentations
+# 5. Visualize neural activity in relation to odor stimuli
+# 6. Explore spike times for single units
+
+# %% [markdown]
+# ## Required Packages
+# 
+# The following packages are required to run this notebook. We assume they are already installed on your system.
+
+# %%
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+from dandi.dandiapi import DandiAPIClient
+import pynwb
+import h5py
+import remfile
+from matplotlib.ticker import MaxNLocator
+import random
+from matplotlib.colors import LinearSegmentedColormap
+
+# Set up plotting style
+sns.set_theme()
+
+# %% [markdown]
+# ## Loading the Dandiset Using the DANDI API
+
+# %%
+# Connect to DANDI archive
+client = DandiAPIClient()
+dandiset = client.get_dandiset("001335")
+assets = list(dandiset.get_assets())
+
+print(f"Found {len(assets)} assets in the dataset")
+print("\nFirst 5 assets:")
+for asset in assets[:5]:
+    print(f"- {asset.path}")
+
+# %% [markdown]
+# ## Loading the NWB File
+# 
+# There is one NWB file in this Dandiset. We'll load it and explore its contents.
+
+# %%
+# Get the URL for the first asset
+asset_id = "aca66db7-4c02-4453-8dcb-a179d44b1c5d"
+url = f"https://api.dandiarchive.org/api/assets/{asset_id}/download/"
+print(f"Loading NWB file: {assets[0].path} from URL: {url}")
+
+# Load the NWB file
+remote_file = remfile.File(url)
+h5_file = h5py.File(remote_file)
+io = pynwb.NWBHDF5IO(file=h5_file)
+nwb = io.read()
+
+# %% [markdown]
+# ## Exploring the NWB File Metadata
+# 
+# Let's explore the basic metadata of this NWB file to understand what it contains.
+
+# %%
+# Print basic metadata
+print(f"Session ID: {nwb.identifier}")
+print(f"Session Description: {nwb.session_description}")
+print(f"Session Start Time: {nwb.session_start_time}")
+print(f"Experimenter: {', '.join(nwb.experimenter)}")
+print(f"Lab: {nwb.lab}")
+print(f"Institution: {nwb.institution}")
+print(f"Experiment Description: {nwb.experiment_description}")
+
+# Get keywords
+print("\nKeywords:")
+keywords = nwb.keywords[:]
+for kw in keywords:
+    print(f"- {kw}")
+
+# Get subject information
+print("\nSubject Information:")
+print(f"Subject ID: {nwb.subject.subject_id}")
+print(f"Species: {nwb.subject.species}")
+print(f"Sex: {nwb.subject.sex}")
+print(f"Age: {nwb.subject.age}")
+print(f"Description: {nwb.subject.description}")
+
+# %% [markdown]
+# ## Exploring the Experimental Blocks
+# 
+# This dataset contains three experimental blocks with different odor sequences. Let's examine the timing of these blocks.
+
+# %%
+# Get the time ranges for each block
+blocks = ["Block 1", "Block 2", "Block 3"]
+block_times = pd.DataFrame()
+
+for block in blocks:
+    if block in nwb.intervals:
+        block_df = nwb.intervals[block].to_dataframe()
+        block_times = pd.concat([block_times, pd.DataFrame({
+            'Block': [block],
+            'Start (s)': [block_df['start_time'].values[0]],
+            'End (s)': [block_df['stop_time'].values[0]],
+            'Duration (s)': [block_df['stop_time'].values[0] - block_df['start_time'].values[0]]
+        })])
+
+print("Experimental Blocks:")
+print(block_times)
+
+# %% [markdown]
+# ## Examining Odor Presentation Intervals
+# 
+# The experiment involves presenting different odors to the mouse. Let's examine when these odors were presented.
+
+# %%
+# Get the odor presentation intervals
+odors = ["Odor A ON", "Odor B ON", "Odor C ON", "Odor D ON", "Odor E ON", "Odor F ON"]
+odor_dfs = {}
+
+for odor in odors:
+    if odor in nwb.intervals:
+        odor_dfs[odor] = nwb.intervals[odor].to_dataframe()
+        print(f"{odor}: {len(odor_dfs[odor])} presentations")
+        
+# Display the first few presentations of each odor
+for odor, df in odor_dfs.items():
+    print(f"\nFirst 5 presentations of {odor}:")
+    print(df.head())
+
+# %% [markdown]
+# Let's visualize the timing of odor presentations and experimental blocks.
+
+# %%
+# Prepare figure
+plt.figure(figsize=(14, 8))
+colors = sns.color_palette("husl", len(odors))
+
+# Plot odor presentations
+for i, (odor, df) in enumerate(odor_dfs.items()):
+    # Plot horizontal lines for each presentation
+    for _, row in df.iterrows():
+        plt.plot([row['start_time'], row['stop_time']], [i, i], 
+                 color=colors[i], linewidth=2)
+    
+    # Place small markers at the start of each presentation for better visibility
+    plt.scatter(df['start_time'], [i] * len(df), 
+                color=colors[i], s=20, marker='|')
+
+# Add block boundaries as vertical lines
+for _, row in block_times.iterrows():
+    plt.axvline(row['Start (s)'], color='black', linestyle='--', alpha=0.5)
+    plt.axvline(row['End (s)'], color='black', linestyle='--', alpha=0.5)
+    plt.text(row['Start (s)'] + (row['End (s)'] - row['Start (s)'])/2, -0.5, 
+             row['Block'], horizontalalignment='center')
+
+# Customize plot
+plt.yticks(range(len(odors)), [odor.replace(" ON", "") for odor in odors])
+plt.xlabel('Time (s)')
+plt.ylabel('Odor')
+plt.title('Odor Presentation Timing')
+plt.grid(True, alpha=0.3)
+
+# Adjust x-axis to focus on experimental time
+plt.xlim(0, block_times['End (s)'].max() + 100)
+plt.tight_layout()
+
+# %% [markdown]
+# ## Examining Electrodes and LFP Data
+# 
+# Now, let's look at the electrodes and the LFP (Local Field Potential) data.
+
+# %%
+# Get electrode information
+electrodes_df = nwb.electrodes.to_dataframe()
+
+# Display electrode information
+print(f"Number of electrodes: {len(electrodes_df)}")
+print("\nSample of electrode data:")
+print(electrodes_df.head())
+
+# Print electrode groups
+print("\nElectrode Groups:")
+for group_name, group in nwb.electrode_groups.items():
+    print(f"- {group_name}: {group.description}, Location: {group.location}")
+
+# %% [markdown]
+# Let's examine the LFP data that's available in the processing module.
+
+# %%
+# Get LFP data information
+lfp = nwb.processing["ecephys"].data_interfaces["LFP"]
+
+print(f"LFP Description: {lfp.description}")
+print(f"LFP Rate: {lfp.rate} Hz")
+print(f"LFP Unit: {lfp.unit}")
+print(f"LFP Data Shape: {lfp.data.shape}")  # (time_points, channels)
+print(f"LFP Starting Time: {lfp.starting_time} {lfp.starting_time_unit}")
+
+# %% [markdown]
+# Let's visualize a small segment of LFP data from a few channels.
+
+# %%
+# Select a time window (5-second segment from the first block)
+block1_start = block_times[block_times['Block'] == 'Block 1']['Start (s)'].values[0]
+start_time = block1_start + 10  # 10 seconds into Block 1
+duration = 5  # 5 seconds of data
+
+# Calculate sample indices
+start_idx = int(start_time * lfp.rate)
+end_idx = int((start_time + duration) * lfp.rate)
+
+# Select a few channels for visualization
+selected_channels = [0, 16, 32, 48]  # Selecting a few channels across different shanks
+
+# Create time array for x-axis
+time_array = np.linspace(start_time, start_time + duration, end_idx - start_idx)
+
+# Create the plot
+plt.figure(figsize=(14, 10))
+
+# Plot LFP data for selected channels
+for i, channel in enumerate(selected_channels):
+    # Get data for this channel in the time window
+    lfp_data = lfp.data[start_idx:end_idx, channel]
+    
+    # Get channel information
+    channel_info = electrodes_df.iloc[channel]
+    
+    # Plot with offset for visibility
+    offset = i * 0.5  # Offset each channel for better visibility
+    plt.plot(time_array, lfp_data + offset, 
+             label=f"Channel {channel_info['label']} ({channel_info['group_name']}, {channel_info['location']})")
+
+# Add markers for odor presentations in this time window
+for odor, df in odor_dfs.items():
+    odor_in_window = df[(df['start_time'] >= start_time) & 
+                       (df['start_time'] <= start_time + duration)]
+    
+    if not odor_in_window.empty:
+        for _, row in odor_in_window.iterrows():
+            plt.axvspan(row['start_time'], min(row['stop_time'], start_time + duration),
+                      alpha=0.2, color='green', label=f"{odor} (first occurrence)" if _ == 0 else "")
+            plt.text(row['start_time'], -0.5, odor.replace(" ON", ""), 
+                   fontsize=8, verticalalignment='top')
+
+# Customize plot
+plt.xlabel('Time (s)')
+plt.ylabel('LFP Voltage (with offset)')
+plt.title(f'LFP Data for Selected Channels (Time: {start_time:.1f}s - {start_time+duration:.1f}s)')
+plt.legend(loc='upper right')
+plt.grid(True, alpha=0.3)
+
+# Clean up legend (to avoid duplicates)
+handles, labels = plt.gca().get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+plt.legend(by_label.values(), by_label.keys(), loc='upper right')
+
+plt.tight_layout()
+
+# %% [markdown]
+# ## Computing and Visualizing LFP Power Spectrum
+
+# %%
+# Function to compute power spectrum
+def compute_psd(data, fs, nperseg=1024, noverlap=512):
+    from scipy import signal
+    freqs, psd = signal.welch(data, fs=fs, nperseg=nperseg, noverlap=noverlap)
+    return freqs, psd
+
+# Select a longer segment of data (30 seconds) for PSD calculation
+start_time_psd = block1_start + 100  # 100 seconds into Block 1
+duration_psd = 30  # 30 seconds of data
+start_idx_psd = int(start_time_psd * lfp.rate)
+end_idx_psd = int((start_time_psd + duration_psd) * lfp.rate)
+
+# Compute PSDs for multiple channels
+plt.figure(figsize=(12, 8))
+
+# Select channels from different electrode groups
+channel_groups = electrodes_df.groupby('group_name').groups
+selected_channels_psd = []
+
+# Get one representative channel from each electrode group (up to 8 groups)
+for group_name, indices in list(channel_groups.items())[:8]:
+    selected_channels_psd.append(indices[0])
+
+for channel in selected_channels_psd:
+    # Get data
+    lfp_segment = lfp.data[start_idx_psd:end_idx_psd, channel]
+    
+    # Compute PSD
+    freqs, psd = compute_psd(lfp_segment, fs=lfp.rate)
+    
+    # Plot
+    channel_info = electrodes_df.iloc[channel]
+    plt.semilogy(freqs, psd, label=f"Channel {channel_info['label']} ({channel_info['group_name']})")
+
+# Customize plot
+plt.xlabel('Frequency (Hz)')
+plt.ylabel('Power/Frequency (V^2/Hz)')
+plt.title('Power Spectral Density of LFP Data')
+plt.xlim(0, 150)  # Focus on 0-150 Hz range
+plt.legend(fontsize=8)
+plt.grid(True, which="both", ls="-", alpha=0.7)
+plt.tight_layout()
+
+# %% [markdown]
+# ## Analyzing Neural Units and Spike Times
+# 
+# This dataset includes spike times for 283 neural units. Let's explore this data.
+
+# %%
+# Get unit information
+units_df = nwb.units.to_dataframe()
+print(f"Number of units: {len(units_df)}")
+print("\nSample of unit data (first few columns):")
+print(units_df[['electrode_group', 'depth', 'hemisphere']].head())
+
+# Count units by electrode group
+unit_counts = units_df['electrode_group'].value_counts()
+print("\nUnits per electrode group:")
+for group, count in unit_counts.items():
+    print(f"- {group}: {count} units")
+
+# %% [markdown]
+# Let's visualize spike times for a selection of units during an odor presentation.
+
+# %%
+# Define a function to get spike times within a specific time window
+def get_spikes_in_window(units_df, unit_ids, start_time, end_time):
+    spike_data = []
+    
+    for unit_id in unit_ids:
+        # Get the spike times for this unit
+        spike_times = units_df.loc[unit_id, 'spike_times'][:]
+        
+        # Filter for spikes within the time window
+        mask = (spike_times >= start_time) & (spike_times <= end_time)
+        unit_spikes = spike_times[mask]
+        
+        # Get electrode group info and convert to string for sorting
+        electrode_group = units_df.loc[unit_id, 'electrode_group']
+        electrode_group_name = str(electrode_group)  # Use string representation for sorting
+        
+        spike_data.append({
+            'unit_id': unit_id,
+            'spikes': unit_spikes,
+            'count': len(unit_spikes),
+            'electrode_group': electrode_group,
+            'electrode_group_name': electrode_group_name
+        })
+    
+    # Sort by electrode group name and spike count
+    spike_data = sorted(spike_data, key=lambda x: (x['electrode_group_name'], -x['count']))
+    
+    return spike_data
+
+# Select an odor presentation interval (e.g., the first presentation of Odor A)
+odor_a_first = odor_dfs['Odor A ON'].iloc[0]
+start_time_odor = odor_a_first['start_time'] - 1  # 1 second before odor onset
+end_time_odor = odor_a_first['stop_time'] + 1     # 1 second after odor offset
+
+# Select 15 random units to visualize (to avoid overcrowding)
+np.random.seed(42)  # For reproducibility
+random_units = np.random.choice(units_df.index, size=15, replace=False)
+selected_units = sorted(random_units)
+
+# Get spike data for selected units during the time window
+spike_data = get_spikes_in_window(units_df, selected_units, start_time_odor, end_time_odor)
+
+# Create a raster plot
+plt.figure(figsize=(14, 8))
+
+for i, unit_data in enumerate(spike_data):
+    # Plot spike times
+    unit_id = unit_data['unit_id']
+    spikes = unit_data['spikes']
+    
+    if len(spikes) > 0:
+        plt.scatter(spikes, [i] * len(spikes), marker='|', s=40, 
+                   color=plt.cm.tab10(hash(str(unit_data['electrode_group'])) % 10))
+
+# Add a colored bar for odor presentation
+plt.axvspan(odor_a_first['start_time'], odor_a_first['stop_time'], 
+           alpha=0.2, color='green', label='Odor A Presentation')
+
+# Customize plot
+plt.xlabel('Time (s)')
+plt.ylabel('Unit #')
+plt.title(f'Spike Raster Plot During Odor A Presentation (Units: {len(selected_units)})')
+plt.yticks(range(len(spike_data)), 
+          [f"Unit {d['unit_id']} ({d['electrode_group']})" for d in spike_data])
+plt.xlim(start_time_odor, end_time_odor)
+plt.grid(True, axis='x', alpha=0.3)
+plt.tight_layout()
+
+# %% [markdown]
+# ## Analyzing Firing Rate Changes During Odor Presentation
+# 
+# Let's examine how the firing rates of units change before, during, and after odor presentation.
+
+# %%
+# Function to calculate firing rates in bins
+def calculate_firing_rates(units_df, unit_ids, start_time, end_time, bin_width=0.1):
+    time_bins = np.arange(start_time, end_time + bin_width, bin_width)
+    bin_centers = time_bins[:-1] + bin_width/2
+    
+    unit_firing_rates = {}
+    
+    for unit_id in unit_ids:
+        # Get spike times for this unit
+        spike_times = units_df.loc[unit_id, 'spike_times'][:]
+        
+        # Count spikes in each bin
+        hist, _ = np.histogram(spike_times, bins=time_bins)
+        
+        # Convert to firing rate (spikes/second)
+        firing_rates = hist / bin_width
+        
+        unit_firing_rates[unit_id] = firing_rates
+    
+    return bin_centers, unit_firing_rates
+
+# Select an odor (we'll use Odor A again) and examine multiple presentations
+odor = "Odor A ON"
+num_presentations_to_analyze = 5
+presentations = odor_dfs[odor].iloc[:num_presentations_to_analyze]
+
+# Select units that have a good number of spikes
+active_unit_threshold = 100  # Minimum number of spikes to be considered active
+active_units = []
+
+for unit_id in units_df.index:
+    if len(units_df.loc[unit_id, 'spike_times'][:]) > active_unit_threshold:
+        active_units.append(unit_id)
+
+print(f"Found {len(active_units)} active units with more than {active_unit_threshold} spikes")
+
+# We'll select a subset of these active units
+selected_active_units = active_units[:10]  # Use first 10 active units
+
+# Analyze each presentation
+plt.figure(figsize=(15, 10))
+
+for i, (_, presentation) in enumerate(presentations.iterrows()):
+    # Define time window (3s before to 3s after the presentation)
+    pre_time = 2.0  # seconds before odor onset
+    post_time = 2.0  # seconds after odor offset
+    
+    start_time = presentation['start_time'] - pre_time
+    end_time = presentation['stop_time'] + post_time
+    
+    # Calculate firing rates
+    bin_width = 0.1  # 100ms bins
+    bin_centers, unit_firing_rates = calculate_firing_rates(
+        units_df, selected_active_units, start_time, end_time, bin_width)
+    
+    # Create subplot
+    plt.subplot(num_presentations_to_analyze, 1, i+1)
+    
+    # Plot firing rates for each unit
+    for j, unit_id in enumerate(selected_active_units):
+        color = plt.cm.tab10(j % 10)
+        plt.plot(bin_centers, unit_firing_rates[unit_id], color=color, alpha=0.7,
+                label=f"Unit {unit_id}" if i == 0 else "")  # Only include labels in the first subplot
+    
+    # Mark odor presentation period
+    plt.axvspan(presentation['start_time'], presentation['stop_time'], 
+               alpha=0.2, color='green', label='Odor Presentation' if i == 0 else "")
+    
+    # Add titles and labels
+    presentation_num = i + 1
+    plt.title(f"Presentation {presentation_num}: Time {presentation['start_time']:.1f}s - {presentation['stop_time']:.1f}s")
+    
+    if i == num_presentations_to_analyze - 1:  # Only add x-label to the bottom subplot
+        plt.xlabel('Time (s)')
+    
+    plt.ylabel('Firing Rate (Hz)')
+    plt.grid(True, alpha=0.3)
+    
+    # Custom y-axis limits to focus on the data
+    plt.ylim(0, 50)  # Assuming most rates are under 50 Hz
+
+# Add a single legend for all subplots
+plt.subplot(num_presentations_to_analyze, 1, 1)
+handles, labels = plt.gca().get_legend_handles_labels()
+plt.figlegend(handles, labels, loc='upper right', fontsize=8, bbox_to_anchor=(1, 1))
+
+plt.tight_layout()
+plt.subplots_adjust(top=0.9)  # Make space for the legend
+
+# %% [markdown]
+# ## Comparing Neural Responses to Different Odors
+# 
+# Now, let's compare how neurons respond to different odors.
+
+# %%
+# Function to calculate average firing rate changes
+def calculate_avg_firing_rate_change(units_df, unit_ids, odor_df, n_presentations=5, 
+                                    pre_window=2.0, post_window=2.0, bin_width=0.5):
+    # We'll calculate the average change in firing rate for each unit
+    unit_responses = {}
+    
+    for unit_id in unit_ids:
+        # Initialize arrays for before, during, and after odor
+        before_rates = []
+        during_rates = []
+        after_rates = []
+        
+        # Process each presentation (up to n_presentations)
+        for idx, row in odor_df.iloc[:n_presentations].iterrows():
+            odor_start = row['start_time']
+            odor_end = row['stop_time']
+            
+            # Get spike times for this unit
+            spike_times = units_df.loc[unit_id, 'spike_times'][:]
+            
+            # Count spikes in the three windows
+            before_spikes = sum((spike_times >= odor_start - pre_window) & 
+                               (spike_times < odor_start))
+            during_spikes = sum((spike_times >= odor_start) & 
+                               (spike_times < odor_end))
+            after_spikes = sum((spike_times >= odor_end) & 
+                              (spike_times < odor_end + post_window))
+            
+            # Convert to rates (spikes/second)
+            before_rate = before_spikes / pre_window
+            during_rate = during_spikes / (odor_end - odor_start)
+            after_rate = after_spikes / post_window
+            
+            # Append to lists
+            before_rates.append(before_rate)
+            during_rates.append(during_rate)
+            after_rates.append(after_rate)
+        
+        # Calculate averages across presentations
+        unit_responses[unit_id] = {
+            'before': np.mean(before_rates),
+            'during': np.mean(during_rates),
+            'after': np.mean(after_rates),
+            'change_during': np.mean(during_rates) - np.mean(before_rates),
+            'electrode_group': units_df.loc[unit_id, 'electrode_group']
+        }
+    
+    return unit_responses
+
+# Select odors to compare
+odors_to_compare = ["Odor A ON", "Odor B ON", "Odor C ON"]
+
+# Calculate responses for a larger set of active units
+n_active_units = min(30, len(active_units))  # Use up to 30 active units
+units_for_comparison = active_units[:n_active_units]
+
+# Calculate responses for each odor
+odor_responses = {}
+for odor in odors_to_compare:
+    odor_responses[odor] = calculate_avg_firing_rate_change(
+        units_df, units_for_comparison, odor_dfs[odor], n_presentations=5)
+
+# Create a heatmap of responses to different odors
+response_matrix = np.zeros((len(units_for_comparison), len(odors_to_compare)))
+
+for i, unit_id in enumerate(units_for_comparison):
+    for j, odor in enumerate(odors_to_compare):
+        response_matrix[i, j] = odor_responses[odor][unit_id]['change_during']
+
+# Create a custom colormap centered at zero
+colors = [(0, 0, 0.8), (1, 1, 1), (0.8, 0, 0)]  # Blue -> White -> Red
+cmap = LinearSegmentedColormap.from_list('custom_diverging', colors, N=256)
+
+# Plot the heatmap
+plt.figure(figsize=(10, 12))
+vmax = max(5, np.abs(response_matrix).max())  # Cap at 5Hz or actual max
+sns.heatmap(response_matrix, cmap=cmap, center=0, vmin=-vmax, vmax=vmax,
+           yticklabels=[f"Unit {u}" for u in units_for_comparison],
+           xticklabels=[odor.replace(" ON", "") for odor in odors_to_compare],
+           cbar_kws={'label': 'Change in Firing Rate (Hz)'})
+
+plt.title('Changes in Firing Rates During Odor Presentation')
+plt.tight_layout()
+
+# %% [markdown]
+# ## Examining the Relationship Between Electrode Location and Unit Responses
+# 
+# Let's visualize how the unit responses vary based on their electrode location.
+
+# %%
+# Combine unit info with response data
+unit_data = []
+
+for unit_id in units_for_comparison:
+    unit_info = {
+        'unit_id': unit_id,
+        'electrode_group': units_df.loc[unit_id, 'electrode_group'],
+        'depth': units_df.loc[unit_id, 'depth'],
+        'hemisphere': units_df.loc[unit_id, 'hemisphere']
+    }
+    
+    # Add response data for each odor
+    for odor in odors_to_compare:
+        odor_name = odor.replace(" ON", "")
+        unit_info[f'{odor_name}_change'] = odor_responses[odor][unit_id]['change_during']
+    
+    unit_data.append(unit_info)
+
+# Convert to DataFrame
+response_df = pd.DataFrame(unit_data)
+
+# Create a scatter plot of responses by depth for each electrode group
+plt.figure(figsize=(10, 8))
+
+# Get unique electrode groups
+electrode_groups = response_df['electrode_group'].unique()
+n_groups = len(electrode_groups)
+colors = plt.cm.tab10(np.linspace(0, 1, n_groups))
+
+# Create one subplot per odor
+for i, odor in enumerate(odors_to_compare):
+    odor_name = odor.replace(" ON", "")
+    response_column = f'{odor_name}_change'
+    
+    plt.subplot(1, 3, i+1)
+    
+    for j, group in enumerate(electrode_groups):
+        # Filter for this group
+        group_data = response_df[response_df['electrode_group'] == group]
+        
+        # Plot
+        plt.scatter(group_data[response_column], group_data['depth'], 
+                   color=colors[j], label=group, alpha=0.7)
+    
+    # Customize plot
+    plt.axvline(0, color='gray', linestyle='--', alpha=0.5)  # Zero line
+    plt.title(f'Response to {odor_name} by Depth')
+    plt.xlabel('Change in Firing Rate (Hz)')
+    plt.ylabel('Depth (μm)')
+    plt.grid(True, alpha=0.3)
+    
+    if i == 0:  # Only include legend in first subplot
+        plt.legend(title='Electrode Group', loc='upper left', bbox_to_anchor=(-0.3, 1))
+
+plt.tight_layout()
+
+# %% [markdown]
+# ## Summary
+# 
+# In this notebook, we've explored Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation. We've analyzed:
+# 
+# 1. The structure and metadata of the NWB file
+# 2. The timing of experimental blocks and odor presentations
+# 3. The Local Field Potential (LFP) data and its spectral properties
+# 4. Spike times and firing rates for individual neural units
+# 5. Neural responses to different odors
+# 6. The relationship between electrode location and neural responses
+# 
+# The dataset provides rich information about how hippocampal neurons respond to different odor stimuli. The analysis revealed that some neurons show clear changes in firing rate during odor presentation, while others do not. There also appears to be some specificity in how neurons respond to different odors.
+# 
+# ## Future Directions
+# 
+# Future analyses could explore:
+# 
+# 1. Population-level analysis of neural responses using dimensionality reduction techniques
+# 2. More sophisticated spectral analysis of LFP data, including coherence between channels
+# 3. Analysis of spike-field coupling between unit activity and LFP oscillations
+# 4. Comparison of responses across different experimental blocks to study learning or habituation effects
+# 5. More detailed analysis of the temporal dynamics of neural responses during odor presentation
+================================
+Total prompt tokens: 159843 + 0
+Total completion tokens: 18018 + 0
+
+=========================================
+
+write_to_file for 'notebook.py':
+Successfully wrote 25194 characters to notebook.py
+=========================================
+
+Using model: anthropic/claude-3.7-sonnet
+Num. messages in conversation: 18
+Submitting completion request...
+Processing response...
+I've fixed the issue in the get_spikes_in_window function by adding a string representation of the electrode_group for sorting purposes. Now I need to convert and execute the notebook again to see if it runs without errors.
+
+Tool: execute_command
+Params: {'command': 'jupytext --to notebook notebook.py && jupyter execute --inplace notebook.ipynb', 'requires_approval': 'false', 'timeout': '600'}
+================================
+Command to be executed
+jupytext --to notebook notebook.py && jupyter execute --inplace notebook.ipynb
+================================
+[jupytext] Reading notebook.py in format py
+[jupytext] Writing notebook.ipynb (destination file replaced [use --update to preserve cell outputs and ids])
+[NbClientApp] Executing notebook.ipynb
+[NbClientApp] Executing notebook with kernel: 
+[NbClientApp] Save executed results to notebook.ipynb
+Total prompt tokens: 204676 + 0
+Total completion tokens: 18153 + 0
+
+=========================================
+
+execute_command 'jupytext --to notebook notebook.py && jupyter execute --inplace notebook.ipynb' (requires approval):
+Command executed successfully
+STDOUT:
+[jupytext] Reading notebook.py in format py
+[jupytext] Writing notebook.ipynb (destination file replaced [use --update to preserve cell outputs and ids])
+
+STDERR:
+[NbClientApp] Executing notebook.ipynb
+[NbClientApp] Executing notebook with kernel: 
+[NbClientApp] Save executed results to notebook.ipynb
+
+=========================================
+
+Using model: anthropic/claude-3.7-sonnet
+Num. messages in conversation: 20
+Submitting completion request...
+Processing response...
+The task has been completed successfully:
+1. I created a Jupytext notebook (notebook.py) that explores Dandiset 001335.
+2. I converted it to a Jupyter notebook (notebook.ipynb) and executed it successfully.
+3. The notebook follows the structure requested in the task:
+   - It includes an appropriate title and warning about being AI-generated
+   - It provides an overview of the Dandiset with a neurosift link
+   - It loads the Dandiset using the DANDI API
+   - It explores the NWB file metadata
+   - It visualizes LFP data and spike data
+   - It analyzes neural responses to different odors
+
+The notebook successfully demonstrates how to work with this specific Dandiset containing Neuropixels recordings from hippocampus during odor presentation. All the required sections are included and the notebook runs without errors.
+
+Tool: attempt_completion
+Params: {'result': "I've successfully created a Jupytext notebook that explores Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation.\n\nThe notebook (notebook.py) includes:\n\n1. An informative title and disclaimer about being AI-generated\n2. A comprehensive overview of the Dandiset with a link to neurosift\n3. Code to load the dataset using the DANDI API\n4. Exploration of the NWB file structure and metadata\n5. Analysis of LFP (Local Field Potential) data with visualizations\n6. Examination of odor presentation intervals across three experimental blocks\n7. Visualization of spike times for selected neural units\n8. Analysis of firing rate changes during odor presentations\n9. Comparison of neural responses to different odors\n10. Examination of the relationship between electrode location and unit responses\n\nThe notebook has been successfully converted to a Jupyter notebook (notebook.ipynb) and executed without errors. The analysis provides researchers with a starting point for exploring this dataset of neural recordings during olfactory stimulation.\n\nThe visualizations include:\n- Timing of odor presentations throughout the experiment\n- LFP data from multiple channels\n- Power spectral density analysis of the LFP data\n- Spike raster plots aligned to odor presentations\n- Firing rate changes during multiple odor presentations\n- Heatmaps showing unit responses to different odors\n\nThis notebook serves as a template for researchers wanting to analyze similar neurophysiology datasets from the DANDI archive.", 'command': 'open notebook.ipynb'}
+I've successfully created a Jupytext notebook that explores Dandiset 001335, which contains Neuropixels recordings from the hippocampus of head-fixed mice during odor presentation.
+
+The notebook (notebook.py) includes:
+
+1. An informative title and disclaimer about being AI-generated
+2. A comprehensive overview of the Dandiset with a link to neurosift
+3. Code to load the dataset using the DANDI API
+4. Exploration of the NWB file structure and metadata
+5. Analysis of LFP (Local Field Potential) data with visualizations
+6. Examination of odor presentation intervals across three experimental blocks
+7. Visualization of spike times for selected neural units
+8. Analysis of firing rate changes during odor presentations
+9. Comparison of neural responses to different odors
+10. Examination of the relationship between electrode location and unit responses
+
+The notebook has been successfully converted to a Jupyter notebook (notebook.ipynb) and executed without errors. The analysis provides researchers with a starting point for exploring this dataset of neural recordings during olfactory stimulation.
+
+The visualizations include:
+- Timing of odor presentations throughout the experiment
+- LFP data from multiple channels
+- Power spectral density analysis of the LFP data
+- Spike raster plots aligned to odor presentations
+- Firing rate changes during multiple odor presentations
+- Heatmaps showing unit responses to different odors
+
+This notebook serves as a template for researchers wanting to analyze similar neurophysiology datasets from the DANDI archive.
+Total prompt tokens: 249821 + 0
+Total completion tokens: 18760 + 0
+
